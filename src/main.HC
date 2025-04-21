@@ -58,8 +58,8 @@ CDC *dc = DCAlias;
 entity_t player;
 entity_t blocks[BLOCK_MAX_SIZE][BLOCK_MAX_SIZE];
 
-RegDft("BlockBreakHC","U32 highScore = 0;\n");
-RegExe("BlockBreakHC");
+RegDft(PROGRAM_NAME,"U32 highScore = 0;\n");
+RegExe(PROGRAM_NAME);
 
 U0 generateLevel(U8 level) {
 	blockCount = 0;
@@ -158,7 +158,7 @@ U0 draw(CTask *task, CDC *dc) {
 	
 	if (!timer) {
 		if (score > highScore) {
-			RegWrite("BlockBreakHC", "U32 highScore = %d;\n", score);
+			RegWrite(PROGRAM_NAME, "U32 highScore = %d;\n", score);
 			highScore = score;
 		}
 		reset();
