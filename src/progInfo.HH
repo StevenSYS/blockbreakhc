@@ -19,7 +19,7 @@
 #define __PROGINFO__
 
 #define PROGRAM_NAME "BlockBreakHC"
-#define PROGRAM_VERSION "0.9"
+#define PROGRAM_VERSION "1.0"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 472
@@ -36,9 +36,6 @@
 
 #define PLAYER_START_X (SCREEN_WIDTH / 2) - (PLAYER_WIDTH / 2)
 #define PLAYER_START_Y (SCREEN_HEIGHT - PLAYER_HEIGHT) - 24
-
-#define BLOCK_WIDTH 32
-#define BLOCK_HEIGHT 16
 
 #define BLOCK_MAX_SIZE 255
 
