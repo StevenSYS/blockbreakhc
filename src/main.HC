@@ -1,0 +1,245 @@
+/*
+	This file is part of BlockBreakHC.
+
+	BlockBreakHC is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	any later version.
+
+	BlockBreakHC is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License along with BlockBreakHC.
+	If not, see <https://www.gnu.org/licenses/>.
+*/
+
+#exe {
+	Cd(__DIR__);
+};
+
+#include "entity.HC"
+#include "progInfo.HH"
+
+U8 randomColors[12] = {
+	BLUE,
+	GREEN,
+	CYAN,
+	RED,
+	PURPLE,
+	BROWN,
+	LTBLUE,
+	LTGREEN,
+	LTCYAN,
+	LTRED,
+	LTPURPLE,
+	YELLOW
+};
+
+Bool timerStart = FALSE;
+
+U8 i;
+U8 j;
+U8 oldRandomColor = BLACK;
+U8 randomColor = BLACK;
+U8 level = 1;
+
+I16 sc;
+
+U16 blockSize[2];
+U16 blockCount = 0;
+U16 timer = 0;
+
+U32 score = 0;
+
+CDC *dc = DCAlias;
+
+entity_t player;
+entity_t blocks[BLOCK_MAX_SIZE][BLOCK_MAX_SIZE];
+
+RegDft("BlockBreakHC","U32 highScore = 0;\n");
+RegExe("BlockBreakHC");
+
+U0 generateLevel(U8 level) {
+	blockCount = 0;
+	blockSize[0] = SCREEN_WIDTH / level;
+	blockSize[1] = SCREEN_HEIGHT / (level * 1.5);
+	
+	for (i = 0; i < level; i++) {
+		oldRandomColor = randomColor;
+		
+		while (randomColor == oldRandomColor) {
+			randomColor = randomColors[RandU16() % 12];
+		}
+		
+		for (j = 0; j < level; j++) {
+			blockCount++;
+			entity_init(
+				&blocks[j][i],
+				randomColor,
+				ENTITY_DIR_NONE,
+				blockSize[0],
+				blockSize[1],
+				j * blockSize[0],
+				i * blockSize[1],
+				0,
+				TRUE
+			);
+		}
+	
+	}
+	return;
+}
+
+U0 init(
+	U8 level,
+	entity_t *player
+) {
+	timer += level * 35;
+	
+	entity_init(
+		player,
+		WHITE,
+		ENTITY_DIR_NONE,
+		PLAYER_WIDTH,
+		PLAYER_HEIGHT,
+		PLAYER_START_X,
+		PLAYER_START_Y,
+		PLAYER_SPEED,
+		TRUE
+	);
+	
+	generateLevel(level);
+}
+
+U0 reset() {
+	timer = 0;
+	level = 1;
+	score = 0;
+	timerStart = FALSE;
+	for (i = 0; i < BLOCK_MAX_SIZE; i++) {
+		for (j = 0; j < BLOCK_MAX_SIZE; j++) {
+			blocks[j][i].visible = FALSE;
+		}
+	}
+	init(level, &player);
+}
+
+U0 draw(CTask *task, CDC *dc) {
+	if (!blockCount) {
+		score += timer / 4;
+		level++;
+		init(level, &player);
+	}
+	
+	entity_draw(dc, &player, TRUE);
+	for (i = 0; i < level; i++) {
+		for (j = 0; j < level; j++) {
+			if (blocks[j][i].visible) {
+				entity_draw(dc, &blocks[j][i], FALSE);	
+				if (entity_collision(&player, &blocks[j][i])) {
+					blocks[j][i].visible = FALSE;
+					blockCount--;
+					score += 10;
+				}
+			}
+		}
+	}
+	
+	dc->color = WHITE;
+	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 4), "Timer: %d", timer);
+	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 2), "Score: %d", score);
+	GrPrint(dc, 0, SCREEN_HEIGHT - FONT_HEIGHT, "High Score: %d", highScore);
+	
+	if (timerStart) {
+		timer--;
+	}
+	
+	if (!timer) {
+		if (score > highScore) {
+			RegWrite("BlockBreakHC", "U32 highScore = %d;\n", score);
+			highScore = score;
+		}
+		reset();
+	}
+	return;
+}
+
+U0 main() {
+	init(level, &player);
+	
+	Seed(Now);
+	
+	SettingsPush();
+	
+	MenuPush(
+		"File {"
+		"	Abort(,CH_SHIFT_ESC);"
+		"	Quit(,CH_ESC);"
+		"}"
+		"Controls {"
+		"	Up(,,SC_CURSOR_UP);"
+		"	Down(,,SC_CURSOR_DOWN);"
+		"	Left(,,SC_CURSOR_LEFT);"
+		"	Right(,,SC_CURSOR_RIGHT);"
+		"	Restart(,,SC_ENTER);"
+		"}"
+	);
+	
+	WinMax();
+	WinBorder();
+	
+	DocCursor();
+	DocClear();
+	
+	Fs->text_attr = BLACK;
+	Fs->draw_it = &draw;
+	
+	dc->color = WHITE;
+	GrPrint(dc, 0, 0, PROGRAM_NAME " v" PROGRAM_VERSION);
+	
+	while (TRUE) {
+		switch (GetKey(&sc)) {
+			default:
+				switch (sc.u8[0]) {
+					case SC_CURSOR_UP:
+						player.direction = ENTITY_DIR_UP;
+						timerStart = TRUE;
+						break;
+					case SC_CURSOR_DOWN:
+						player.direction = ENTITY_DIR_DOWN;
+						timerStart = TRUE;
+						break;
+					case SC_CURSOR_LEFT:
+						player.direction = ENTITY_DIR_LEFT;
+						timerStart = TRUE;
+						break;
+					case SC_CURSOR_RIGHT:
+						player.direction = ENTITY_DIR_RIGHT;
+						timerStart = TRUE;
+						break;
+					case SC_ENTER:
+						reset();
+						break;
+				}
+				break;
+			case CH_ESC:
+			case CH_SHIFT_ESC:
+				goto uninit;
+		}
+	}
+	
+	uninit:
+	DocClear();
+	
+	DCClear();
+	DCFill();
+	DCDel(dc);
+	
+	MenuPop();
+	SettingsPop();
+	return;
+}
+
+main();
