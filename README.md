@@ -1,5 +1,5 @@
-# BlockBreakHC
-A HolyC version of a game I originally made in JavaScript
+# BlockBreakC
+A port of BlockBreakHC from HolyC to C using SDL3
 
 # Screenshots
 
@@ -17,4 +17,3 @@ A HolyC version of a game I originally made in JavaScript
 | Right          | Move Right |
 | Enter          | Restart    |
 | Escape         | Quit       |
-| Shift + Escape | Quit       |
