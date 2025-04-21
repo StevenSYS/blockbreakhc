@@ -144,8 +144,6 @@ int main() {
 	);
 	
 	while (running) {
-		lastTicks = ticks;
-		
 		colorPalette_setColor(renderer, COLOR_BLACK);
 		
 		SDL_PollEvent(&event);
