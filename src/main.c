@@ -58,35 +58,37 @@ entity_t player;
 entity_t blocks[BLOCK_MAX_SIZE][BLOCK_MAX_SIZE];
 
 void generateLevel(unsigned char level) {
-	unsigned short blockSize[2] = {
-		(unsigned short)(RENDER_WIDTH / level),
-		(unsigned short)(RENDER_HEIGHT / (level * 1.5))
-	};
-	
 	blockCount = 0;
 	
-	for (unsigned char i = 0; i < level; i++) {
-		oldRandomColor = randomColor;
+	if (level) {
+		unsigned short blockSize[2] = {
+			(unsigned short)(RENDER_WIDTH / level),
+			(unsigned short)(RENDER_HEIGHT / (level * 1.5))
+		};
 		
-		while (randomColor == oldRandomColor) {
-			randomColor = randomColors[rand() % 12];
-		}
+		for (unsigned char i = 0; i < level; i++) {
+			oldRandomColor = randomColor;
+			
+			while (randomColor == oldRandomColor) {
+				randomColor = randomColors[rand() % 12];
+			}
+			
+			for (unsigned j = 0; j < level; j++) {
+				blockCount++;
+				entity_init(
+					&blocks[j][i],
+					randomColor,
+					ENTITY_DIR_NONE,
+					(float)blockSize[0],
+					(float)blockSize[1],
+					(float)j * blockSize[0],
+					(float)i * blockSize[1],
+					0,
+					1
+				);
+			}
 		
-		for (unsigned j = 0; j < level; j++) {
-			blockCount++;
-			entity_init(
-				&blocks[j][i],
-				randomColor,
-				ENTITY_DIR_NONE,
-				(float)blockSize[0],
-				(float)blockSize[1],
-				(float)j * blockSize[0],
-				(float)i * blockSize[1],
-				0,
-				1
-			);
 		}
-	
 	}
 	return;
 }
@@ -185,7 +187,9 @@ int main() {
 		
 		if (!blockCount) {
 			score += timer / 4;
-			level++;
+			if (level < BLOCK_MAX_SIZE) {
+				level++;
+			}
 			init(level, &player);
 		}
 		
