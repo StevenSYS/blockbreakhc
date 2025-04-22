@@ -42,6 +42,6 @@ void colorPalette_setColor(
 	SDL_Renderer *renderer,
 	enum colorPalette_colors color
 ) {
-	SDL_SetRenderDrawColor(renderer, colorPalette_palette[color][0], colorPalette_palette[color][1], colorPalette_palette[color][2], SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(renderer, palette[color][0], palette[color][1], palette[color][2], SDL_ALPHA_OPAQUE);
 	return;
 }
