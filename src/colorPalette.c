@@ -19,7 +19,7 @@
 
 #include "colorPalette.h"
 
-unsigned char colorPalette_palette[16][3] = {
+static const unsigned char palette[16][3] = {
 	{ 0x00, 0x00, 0x00 },
 	{ 0x00, 0x00, 0xAA },
 	{ 0x00, 0xAA, 0x00 },
