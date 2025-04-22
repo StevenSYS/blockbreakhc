@@ -63,31 +63,34 @@ RegExe(PROGRAM_NAME);
 
 U0 generateLevel(U8 level) {
 	blockCount = 0;
-	blockSize[0] = SCREEN_WIDTH / level;
-	blockSize[1] = SCREEN_HEIGHT / (level * 1.5);
 	
-	for (i = 0; i < level; i++) {
-		oldRandomColor = randomColor;
+	if (level) {
+		blockSize[0] = SCREEN_WIDTH / level;
+		blockSize[1] = SCREEN_HEIGHT / (level * 1.5);
 		
-		while (randomColor == oldRandomColor) {
-			randomColor = randomColors[RandU16() % 12];
-		}
+		for (i = 0; i < level; i++) {
+			oldRandomColor = randomColor;
+			
+			while (randomColor == oldRandomColor) {
+				randomColor = randomColors[RandU16() % 12];
+			}
+			
+			for (j = 0; j < level; j++) {
+				blockCount++;
+				entity_init(
+					&blocks[j][i],
+					randomColor,
+					ENTITY_DIR_NONE,
+					blockSize[0],
+					blockSize[1],
+					j * blockSize[0],
+					i * blockSize[1],
+					0,
+					TRUE
+				);
+			}
 		
-		for (j = 0; j < level; j++) {
-			blockCount++;
-			entity_init(
-				&blocks[j][i],
-				randomColor,
-				ENTITY_DIR_NONE,
-				blockSize[0],
-				blockSize[1],
-				j * blockSize[0],
-				i * blockSize[1],
-				0,
-				TRUE
-			);
 		}
-	
 	}
 	return;
 }
@@ -129,7 +132,9 @@ U0 reset() {
 U0 draw(CTask *task, CDC *dc) {
 	if (!blockCount) {
 		score += timer / 4;
-		level++;
+		if (level < BLOCK_MAX_SIZE) {
+			level++;
+		}
 		init(level, &player);
 	}
 	
