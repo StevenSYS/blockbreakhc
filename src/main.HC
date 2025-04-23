@@ -56,7 +56,7 @@ U32 score = 0;
 CDC *dc = DCAlias;
 
 entity_t player;
-entity_t blocks[MAX_BLOCKSIZE][MAX_BLOCKSIZE];
+entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 RegDft(PROGRAM_NAME,"U32 highScore = 0;\n");
 RegExe(PROGRAM_NAME);
@@ -121,8 +121,8 @@ U0 reset() {
 	level = 1;
 	score = 0;
 	timerStart = FALSE;
-	for (i = 0; i < MAX_BLOCKSIZE; i++) {
-		for (j = 0; j < MAX_BLOCKSIZE; j++) {
+	for (i = 0; i < MAX_BLOCKS; i++) {
+		for (j = 0; j < MAX_BLOCKS; j++) {
 			blocks[j][i].visible = FALSE;
 		}
 	}
@@ -132,7 +132,7 @@ U0 reset() {
 U0 draw(CTask *task, CDC *dc) {
 	if (!blockCount) {
 		score += timer / 4;
-		if (level < MAX_BLOCKSIZE) {
+		if (level < MAX_BLOCKS) {
 			level++;
 		}
 		init(level, &player);
