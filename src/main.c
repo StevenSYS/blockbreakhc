@@ -23,6 +23,9 @@
 #include "colorPalette.h"
 #include "progInfo.h"
 
+unsigned char oldRandomColor = COLOR_BLACK;
+unsigned char randomColor = COLOR_BLACK;
+unsigned char level = 1;
 unsigned char randomColors[12] = {
 	COLOR_BLUE,
 	COLOR_GREEN,
@@ -38,24 +41,17 @@ unsigned char randomColors[12] = {
 	COLOR_YELLOW
 };
 
-char timerStart = 0;
-char running = 1;
-
 unsigned short blockCount = 0;
-
-unsigned char oldRandomColor = COLOR_BLACK;
-unsigned char randomColor = COLOR_BLACK;
-unsigned char level = 1;
-
 unsigned short timer = 0;
 
 unsigned int score = 0;
 unsigned int highScore = 0;
 
-int frameTime = 0;
+char timerStart = 0;
+char running = 1;
 
 entity_t player;
-entity_t blocks[BLOCK_MAX_SIZE][BLOCK_MAX_SIZE];
+entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 void generateLevel(unsigned char level) {
 	blockCount = 0;
@@ -119,8 +115,8 @@ void reset() {
 	level = 1;
 	score = 0;
 	timerStart = 0;
-	for (unsigned char i = 0; i < BLOCK_MAX_SIZE; i++) {
-		for (unsigned char j = 0; j < BLOCK_MAX_SIZE; j++) {
+	for (unsigned char i = 0; i < MAX_BLOCKS; i++) {
+		for (unsigned char j = 0; j < MAX_BLOCKS; j++) {
 			blocks[j][i].visible = 0;
 		}
 	}
@@ -187,7 +183,7 @@ int main() {
 		
 		if (!blockCount) {
 			score += timer / 4;
-			if (level < BLOCK_MAX_SIZE) {
+			if (level < MAX_BLOCKS) {
 				level++;
 			}
 			init(level, &player);
