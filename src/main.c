@@ -70,18 +70,18 @@ void generateLevel(unsigned char level) {
 			}
 			
 			for (unsigned j = 0; j < level; j++) {
-				blockCount++;
-				entity_init(
-					&blocks[j][i],
-					randomColor,
-					ENTITY_DIR_NONE,
-					(float)blockSize[0],
-					(float)blockSize[1],
-					(float)j * blockSize[0],
-					(float)i * blockSize[1],
-					0,
-					1
-				);
+				if ((j * blockSize[0] < RENDER_WIDTH) && (i * blockSize[1] < RENDER_HEIGHT)) {
+					blockCount++;
+					entity_init(
+						&blocks[j][i],
+						randomColor,
+						ENTITY_DIR_NONE,
+						(float)blockSize[0], (float)blockSize[1],
+						(float)j * blockSize[0], (float)i * blockSize[1],
+						0,
+						1
+					);
+				}
 			}
 		
 		}
