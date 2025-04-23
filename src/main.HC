@@ -76,18 +76,18 @@ U0 generateLevel(U8 level) {
 			}
 			
 			for (j = 0; j < level; j++) {
-				blockCount++;
-				entity_init(
-					&blocks[j][i],
-					randomColor,
-					ENTITY_DIR_NONE,
-					blockSize[0],
-					blockSize[1],
-					j * blockSize[0],
-					i * blockSize[1],
-					0,
-					TRUE
-				);
+				if ((j * blockSize[0] < SCREEN_WIDTH) && (i * blockSize[1] < SCREEN_HEIGHT)) {
+					blockCount++;
+					entity_init(
+						&blocks[j][i],
+						randomColor,
+						ENTITY_DIR_NONE,
+						blockSize[0], blockSize[1],
+						j * blockSize[0], i * blockSize[1],
+						0,
+						TRUE
+					);
+				}
 			}
 		
 		}
@@ -114,6 +114,7 @@ U0 init(
 	);
 	
 	generateLevel(level);
+	return;
 }
 
 U0 reset() {
@@ -127,6 +128,7 @@ U0 reset() {
 		}
 	}
 	init(level, &player);
+	return;
 }
 
 U0 draw(CTask *task, CDC *dc) {
