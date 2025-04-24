@@ -217,9 +217,9 @@ int main() {
 		colorPalette_setColor(renderer, COLOR_WHITE);
 		SDL_RenderDebugText(renderer, 0.0f, 0.0f, PROGRAM_NAME " v" PROGRAM_VERSION);
 		
-		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_HEIGHT * 4), "Timer: %i", timer);
-		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_HEIGHT * 2), "Score: %i", score);
-		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - FONT_HEIGHT, "High Score: %i", highScore);
+		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_SIZE * 4), "Timer: %i", timer);
+		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_SIZE * 2), "Score: %i", score);
+		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - FONT_SIZE, "High Score: %i", highScore);
 		
 		SDL_Delay(MAX_MS);
 		
