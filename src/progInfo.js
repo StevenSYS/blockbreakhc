@@ -23,11 +23,11 @@ screen_height = 472;
 
 font_size = 8;
 
-player_speed = 8;
-player_width = 16;
-player_height = 16;
-player_startX = (screen_width / 2) - (player_width / 2);
-player_startY = (screen_height - player_height) - 24;
+player_speed = Math.round(screen_width / 80);
+player_width = Math.round(screen_width / 40);
+player_height = Math.round(screen_width / 40);
+player_startX = Math.round((screen_width / 2) - (player_width / 2));
+player_startY = screen_height - (player_height * 3);
 
 screen_edgeUp = 0;
 screen_edgeDown = screen_height - player_height;
