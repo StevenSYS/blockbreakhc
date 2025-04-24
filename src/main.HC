@@ -155,9 +155,9 @@ U0 draw(CTask *task, CDC *dc) {
 	}
 	
 	dc->color = WHITE;
-	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 4), "Timer: %d", timer);
-	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 2), "Score: %d", score);
-	GrPrint(dc, 0, SCREEN_HEIGHT - FONT_HEIGHT, "High Score: %d", highScore);
+	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_SIZE * 4), "Timer: %d", timer);
+	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_SIZE * 2), "Score: %d", score);
+	GrPrint(dc, 0, SCREEN_HEIGHT - FONT_SIZE, "High Score: %d", highScore);
 	
 	if (timerStart) {
 		timer--;
