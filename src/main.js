@@ -208,5 +208,7 @@ function main() {
 	context.font = font_size + "px ComIO";
 	
 	loop = setInterval(draw, max_ms);
-	return
+	return;
 }
+
+main();
