@@ -23,10 +23,10 @@
 #include "colorPalette.h"
 #include "progInfo.h"
 
-unsigned char oldRandomColor = COLOR_BLACK;
-unsigned char randomColor = COLOR_BLACK;
+enum colorPalette_colors oldRandomColor = COLOR_BLACK;
+enum colorPalette_colors randomColor = COLOR_BLACK;
 unsigned char level = 1;
-unsigned char randomColors[12] = {
+enum colorPalette_colors randomColors[12] = {
 	COLOR_BLUE,
 	COLOR_GREEN,
 	COLOR_CYAN,

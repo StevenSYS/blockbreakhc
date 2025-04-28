@@ -38,7 +38,7 @@ unsigned char entity_collision(
 
 void entity_init(
 	entity_t *entity,
-	unsigned char color,
+	enum colorPalette_colors color,
 	unsigned char direction,
 	float width, float height,
 	float x, float y,

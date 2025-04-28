@@ -20,6 +20,8 @@
 
 #include <SDL3/SDL.h>
 
+#include "colorPalette.h"
+
 enum entity_directions {
 	ENTITY_DIR_NONE,
 	ENTITY_DIR_UP,
@@ -29,7 +31,7 @@ enum entity_directions {
 };
 
 struct entity {
-	unsigned char color;
+	enum colorPalette_colors color;
 	unsigned char direction;
 	SDL_FRect rect;
 	short speed;
@@ -46,7 +48,7 @@ unsigned char entity_collision(
 
 void entity_init(
 	entity_t *entity,
-	unsigned char color,
+	enum colorPalette_colors color,
 	unsigned char direction,
 	float width, float height,
 	float x, float y,
