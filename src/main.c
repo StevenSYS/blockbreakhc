@@ -20,25 +20,24 @@
 #include <time.h>
 
 #include "entity.h"
-#include "colorPalette.h"
 #include "progInfo.h"
 
-enum colorPalette_colors oldRandomColor = COLOR_BLACK;
-enum colorPalette_colors randomColor = COLOR_BLACK;
+unsigned char oldRandomColor = 0;
+unsigned char randomColor = 0;
 unsigned char level = 1;
-enum colorPalette_colors randomColors[12] = {
-	COLOR_BLUE,
-	COLOR_GREEN,
-	COLOR_CYAN,
-	COLOR_RED,
-	COLOR_PURPLE,
-	COLOR_BROWN,
-	COLOR_LTBLUE,
-	COLOR_LTGREEN,
-	COLOR_LTCYAN,
-	COLOR_LTRED,
-	COLOR_LTPURPLE,
-	COLOR_YELLOW
+unsigned char colors[12][3] = {
+	{ 0x00, 0x00, 0xAA },
+	{ 0x00, 0xAA, 0x00 },
+	{ 0x00, 0xAA, 0xAA },
+	{ 0xAA, 0x00, 0x00 },
+	{ 0xAA, 0x00, 0xAA },
+	{ 0xAA, 0x55, 0x00 },
+	{ 0x55, 0x55, 0xFF },
+	{ 0x55, 0xFF, 0x55 },
+	{ 0x55, 0xFF, 0xFF },
+	{ 0xFF, 0x55, 0x55 },
+	{ 0xFF, 0x55, 0xFF },
+	{ 0xFF, 0xFF, 0x55 },
 };
 
 unsigned short blockCount = 0;
@@ -66,7 +65,7 @@ void generateLevel(unsigned char level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = randomColors[rand() % 12];
+				randomColor = rand() % 12;
 			}
 			
 			for (unsigned j = 0; j < level; j++) {
@@ -74,7 +73,7 @@ void generateLevel(unsigned char level) {
 					blockCount++;
 					entity_init(
 						&blocks[j][i],
-						randomColor,
+						colors[randomColor][0], colors[randomColor][1], colors[randomColor][2],
 						ENTITY_DIR_NONE,
 						(float)blockSize[0], (float)blockSize[1],
 						(float)j * blockSize[0], (float)i * blockSize[1],
@@ -97,7 +96,7 @@ void init(
 	
 	entity_init(
 		player,
-		COLOR_WHITE,
+		0xFF, 0xFF, 0xFF,
 		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
 		PLAYER_HEIGHT,
@@ -142,7 +141,7 @@ int main() {
 	);
 	
 	while (running) {
-		colorPalette_setColor(renderer, COLOR_BLACK);
+		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE);
 		
 		SDL_PollEvent(&event);
 		SDL_RenderClear(renderer);
@@ -214,7 +213,7 @@ int main() {
 			reset();
 		}
 		
-		colorPalette_setColor(renderer, COLOR_WHITE);
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE);
 		SDL_RenderDebugText(renderer, 0.0f, 0.0f, PROGRAM_NAME " v" PROGRAM_VERSION);
 		
 		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_SIZE * 4), "Timer: %i", timer);

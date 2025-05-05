@@ -18,7 +18,6 @@
 #include <SDL3/SDL.h>
 
 #include "entity.h"
-#include "colorPalette.h"
 #include "progInfo.h"
 
 unsigned char entity_collision(
@@ -38,14 +37,16 @@ unsigned char entity_collision(
 
 void entity_init(
 	entity_t *entity,
-	enum colorPalette_colors color,
+	unsigned char red, unsigned char green,	unsigned char blue,
 	unsigned char direction,
 	float width, float height,
 	float x, float y,
 	short speed,
 	bool visible
 ) {
-	entity->color = color;
+	entity->color[0] = red;
+	entity->color[1] = green;
+	entity->color[2] = blue;
 	entity->direction = direction;
 	entity->rect.w = width;
 	entity->rect.h = height;
@@ -97,7 +98,7 @@ void entity_draw(
 	}
 	
 	if (entity->visible) {
-		colorPalette_setColor(renderer, entity->color);
+		SDL_SetRenderDrawColor(renderer, entity->color[0], entity->color[1], entity->color[2], SDL_ALPHA_OPAQUE);
 		SDL_RenderFillRect(renderer, &entity->rect);
 	}
 }
