@@ -188,7 +188,22 @@ int main() {
 			init(level, &player);
 		}
 		
+		if (player.rect.y <= SCREEN_EDGE_UP) {
+			player.direction = ENTITY_DIR_DOWN;
+			player.rect.y = (float)SCREEN_EDGE_UP;
+		} else if (player.rect.y >= SCREEN_EDGE_DOWN) {
+			player.direction = ENTITY_DIR_UP;
+			player.rect.y = (float)SCREEN_EDGE_DOWN;
+		} else if (player.rect.x <= SCREEN_EDGE_LEFT) {
+			player.direction = ENTITY_DIR_RIGHT;
+			player.rect.x = (float)SCREEN_EDGE_LEFT;
+		} else if (player.rect.x >= SCREEN_EDGE_RIGHT) {
+			player.direction = ENTITY_DIR_LEFT;
+			player.rect.x = (float)SCREEN_EDGE_RIGHT;
+		}
+		
 		entity_draw(renderer, &player, 1);
+		
 		for (unsigned char i = 0; i < level; i++) {
 			for (unsigned char j = 0; j < level; j++) {
 				if (blocks[j][i].visible) {

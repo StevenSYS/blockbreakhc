@@ -18,7 +18,6 @@
 #include <SDL3/SDL.h>
 
 #include "entity.h"
-#include "progInfo.h"
 
 unsigned char entity_collision(
 	entity_t *entity1,
@@ -66,31 +65,15 @@ void entity_draw(
 		switch (entity->direction) {
 			case ENTITY_DIR_UP:
 				entity->rect.y -= entity->speed;
-				if (entity->rect.y <= SCREEN_EDGE_UP) {
-					entity->direction = ENTITY_DIR_DOWN;
-					entity->rect.y = (float)SCREEN_EDGE_UP;
-				}
 				break;
 			case ENTITY_DIR_DOWN:
 				entity->rect.y += entity->speed;
-				if (entity->rect.y >= SCREEN_EDGE_DOWN) {
-					entity->direction = ENTITY_DIR_UP;
-					entity->rect.y = (float)SCREEN_EDGE_DOWN;
-				}
 				break;
 			case ENTITY_DIR_LEFT:
 				entity->rect.x -= entity->speed;
-				if (entity->rect.x <= SCREEN_EDGE_LEFT) {
-					entity->direction = ENTITY_DIR_RIGHT;
-					entity->rect.x = (float)SCREEN_EDGE_LEFT;
-				}
 				break;
 			case ENTITY_DIR_RIGHT:
 				entity->rect.x += entity->speed;
-				if (entity->rect.x >= SCREEN_EDGE_RIGHT) {
-					entity->direction = ENTITY_DIR_LEFT;
-					entity->rect.x = (float)SCREEN_EDGE_RIGHT;
-				}
 				break;
 			default:
 				break;

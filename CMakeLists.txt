@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.25)
 
 project(BlockBreakC LANGUAGES C VERSION 1.1)
 
+if (WIN32)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-subsystem,windows")
+endif()
+
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
 set(CMAKE_C_FLAGS_RELEASE "-s -O2")
-
-if (WIN32)
-	set(CMAKE_C_FLAGS "-Wl,-subsystem,windows")
-endif()
 
 file(GLOB SOURCE_FILES "src/*.c")
 
