@@ -142,16 +142,16 @@ U0 draw(CTask *task, CDC *dc) {
 	
 	if (player.position[1] <= SCREEN_EDGE_UP) {
 		player.direction = ENTITY_DIR_DOWN;
-		player.position[1] = (float)SCREEN_EDGE_UP;
+		player.position[1] = SCREEN_EDGE_UP;
 	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
 		player.direction = ENTITY_DIR_UP;
-		player.position[1] = (float)SCREEN_EDGE_DOWN;
+		player.position[1] = SCREEN_EDGE_DOWN;
 	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
 		player.direction = ENTITY_DIR_RIGHT;
-		player.position[0] = (float)SCREEN_EDGE_LEFT;
+		player.position[0] = SCREEN_EDGE_LEFT;
 	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
 		player.direction = ENTITY_DIR_LEFT;
-		player.position[0] = (float)SCREEN_EDGE_RIGHT;
+		player.position[0] = SCREEN_EDGE_RIGHT;
 	}
 	
 	entity_draw(dc, &player, TRUE);
