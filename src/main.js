@@ -164,18 +164,18 @@ function draw() {
 		init(level, player);
 	}
 	
-	if (entity.position[1] <= screen_edgeUp) {
-		entity.direction = directions.DOWN;
-		entity.position[1] = screen_edgeUp;
-	} else if (entity.position[1] >= screen_edgeDown) {
-		entity.direction = directions.UP;
-		entity.position[1] = screen_edgeDown;
-	} else if (entity.position[0] <= screen_edgeLeft) {
-		entity.direction = directions.RIGHT;
-		entity.position[0] = screen_edgeLeft;
-	} else if (entity.position[0] >= screen_edgeRight) {
-		entity.direction = directions.LEFT;
-		entity.position[0] = screen_edgeRight;
+	if (player.position[1] <= screen_edgeUp) {
+		player.direction = directions.DOWN;
+		player.position[1] = screen_edgeUp;
+	} else if (player.position[1] >= screen_edgeDown) {
+		player.direction = directions.UP;
+		player.position[1] = screen_edgeDown;
+	} else if (player.position[0] <= screen_edgeLeft) {
+		player.direction = directions.RIGHT;
+		player.position[0] = screen_edgeLeft;
+	} else if (player.position[0] >= screen_edgeRight) {
+		player.direction = directions.LEFT;
+		player.position[0] = screen_edgeRight;
 	}	
 	
 	entity_draw(context, player, true);
