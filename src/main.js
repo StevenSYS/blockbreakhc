@@ -147,9 +147,6 @@ function input(event) {
 		case 13: /* Enter */
 			reset();
 			break;
-		case 27: /* Escape */
-			running = false;
-			break;
 	}
 }
 
@@ -167,7 +164,22 @@ function draw() {
 		init(level, player);
 	}
 	
+	if (entity.position[1] <= screen_edgeUp) {
+		entity.direction = directions.DOWN;
+		entity.position[1] = screen_edgeUp;
+	} else if (entity.position[1] >= screen_edgeDown) {
+		entity.direction = directions.UP;
+		entity.position[1] = screen_edgeDown;
+	} else if (entity.position[0] <= screen_edgeLeft) {
+		entity.direction = directions.RIGHT;
+		entity.position[0] = screen_edgeLeft;
+	} else if (entity.position[0] >= screen_edgeRight) {
+		entity.direction = directions.LEFT;
+		entity.position[0] = screen_edgeRight;
+	}	
+	
 	entity_draw(context, player, true);
+	
 	for (i = 0; i < level; i++) {
 		for (j = 0; j < level; j++) {
 			if (blocks[j][i].visible) {

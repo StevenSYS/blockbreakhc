@@ -76,33 +76,15 @@ function entity_draw(
 		switch (entity.direction) {
 			case directions.UP:
 				entity.position[1] -= entity.speed;
-				if (entity.position[1] <= screen_edgeUp) {
-					entity.direction = directions.DOWN;
-					entity.position[1] = screen_edgeUp;
-				}
 				break;
 			case directions.DOWN:
 				entity.position[1] += entity.speed;
-				if (entity.position[1] >= screen_edgeDown) {
-					entity.direction = directions.UP;
-					entity.position[1] = screen_edgeDown;
-				}
 				break;
 			case directions.LEFT:
 				entity.position[0] -= entity.speed;
-				if (entity.position[0] <= screen_edgeLeft) {
-					entity.direction = directions.RIGHT;
-					entity.position[0] = screen_edgeLeft;
-				}
 				break;
 			case directions.RIGHT:
 				entity.position[0] += entity.speed;
-				if (entity.position[0] >= screen_edgeRight) {
-					entity.direction = directions.LEFT;
-					entity.position[0] = screen_edgeRight;
-				}
-				break;
-			default:
 				break;
 		}
 	}
