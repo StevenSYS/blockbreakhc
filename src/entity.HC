@@ -79,33 +79,15 @@ U0 entity_draw(
 		switch (entity->direction) {
 			case ENTITY_DIR_UP:
 				entity->position[1] -= entity->speed;
-				if (entity->position[1] <= SCREEN_EDGE_UP) {
-					entity->direction = ENTITY_DIR_DOWN;
-					entity->position[1] = SCREEN_EDGE_UP;
-				}
 				break;
 			case ENTITY_DIR_DOWN:
 				entity->position[1] += entity->speed;
-				if (entity->position[1] >= SCREEN_EDGE_DOWN) {
-					entity->direction = ENTITY_DIR_UP;
-					entity->position[1] = SCREEN_EDGE_DOWN;
-				}
 				break;
 			case ENTITY_DIR_LEFT:
 				entity->position[0] -= entity->speed;
-				if (entity->position[0] <= SCREEN_EDGE_LEFT) {
-					entity->direction = ENTITY_DIR_RIGHT;
-					entity->position[0] = SCREEN_EDGE_LEFT;
-				}
 				break;
 			case ENTITY_DIR_RIGHT:
 				entity->position[0] += entity->speed;
-				if (entity->position[0] >= SCREEN_EDGE_RIGHT) {
-					entity->direction = ENTITY_DIR_LEFT;
-					entity->position[0] = SCREEN_EDGE_RIGHT;
-				}
-				break;
-			default:
 				break;
 		}
 	}
