@@ -29,7 +29,7 @@ elseif(BUILD_IMPL_FREEGLUT)
 	include_directories(${OPENGL_INCLUDE_DIRS})
 	set(IMPL_FILES "src/impl/freeGLUT.c")
 else()
-	message(FATAL_ERROR "You must specify what implementation you want to compile (SDL3 or SDL2)")
+	message(FATAL_ERROR "You must specify what implementation you want to compile (SDL3 or FreeGLUT)")
 endif()
 
 file(GLOB SOURCE_FILES "src/*.c" ${IMPL_FILES})
