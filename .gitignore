@@ -14,7 +14,4 @@ src/progInfo.h
 *.dylib
 *.so
 
-# DOSBox-X Config File
-# dosbox-x.conf
-
 .DS_Store
