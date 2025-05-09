@@ -22,22 +22,22 @@ canvas.height = screen_height;
 document.body.appendChild(canvas);
 document.addEventListener("keydown", input);
 
-oldRandomColor = colors.BLACK;
-randomColor = colors.BLACK;
+oldRandomColor = 0;
+randomColor = 0;
 level = 1;
 randomColors = [
-	colors.BLUE,
-	colors.GREEN,
-	colors.CYAN,
-	colors.RED,
-	colors.PURPLE,
-	colors.BROWN,
-	colors.LTBLUE,
-	colors.LTGREEN,
-	colors.LTCYAN,
-	colors.LTRED,
-	colors.LTPURPLE,
-	colors.YELLOW
+	[ "0", "0", "A" ],
+	[ "0", "A", "0" ],
+	[ "0", "A", "A" ],
+	[ "A", "0", "0" ],
+	[ "A", "0", "A" ],
+	[ "A", "5", "0" ],
+	[ "5", "5", "F" ],
+	[ "5", "F", "5" ],
+	[ "5", "F", "F" ],
+	[ "F", "5", "5" ],
+	[ "F", "5", "F" ],
+	[ "F", "F", "5" ]
 ];
 
 blockCount = 0;
@@ -74,7 +74,7 @@ function generateLevel(level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = randomColors[Math.floor(Math.random() * 12)];
+				randomColor = Math.floor(Math.random() * 12);
 			}
 			
 			for (j = 0; j < level; j++) {
@@ -82,7 +82,7 @@ function generateLevel(level) {
 					blockCount++;
 					entity_init(
 						blocks[j][i],
-						randomColor,
+						randomColors[randomColor][0], randomColors[randomColor][1], randomColors[randomColor][2],
 						directions.NONE,
 						blockSize[0], blockSize[1],
 						j * blockSize[0], i * blockSize[1],
@@ -105,7 +105,7 @@ function init(
 	
 	entity_init(
 		player,
-		colors.WHITE,
+		"F", "F", "F",
 		directions.NONE,
 		player_width, player_height,
 		player_startX, player_startY,
@@ -153,7 +153,7 @@ function input(event) {
 function draw() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
-	colorPalette_setColor(context, colors.BLACK);
+	context.fillStyle = "#000";
 	context.fillRect(0, 0, canvas.width, canvas.height);
 	
 	if (!blockCount) {
@@ -193,7 +193,7 @@ function draw() {
 		}
 	}
 	
-	colorPalette_setColor(context, colors.WHITE);
+	context.fillStyle = "#FFF";
 	context.fillText("Timer: " + timer, 0, (screen_height - font_size * 3) - 1);
 	context.fillText("Score: " + score, 0, (screen_height - font_size) - 1);
 	context.fillText("High Score: " + highScore, 0, screen_height - 1);

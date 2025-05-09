@@ -24,7 +24,7 @@ const directions = {
 };
 
 class entity {
-	color;
+	color = [];
 	direction;
 	size = [];
 	position = [];
@@ -50,14 +50,16 @@ function entity_collision(
 
 function entity_init(
 	entity,
-	color,
+	red, green, blue,
 	direction,
 	width, height,
 	x, y,
 	speed,
 	visible
 ) {
-	entity.color = color;
+	entity.color[0] = red;
+	entity.color[1] = green;
+	entity.color[2] = blue;
 	entity.direction = direction;
 	entity.size[0] = width;
 	entity.size[1] = height;
@@ -65,6 +67,7 @@ function entity_init(
 	entity.position[1] = y;
 	entity.speed = speed;
 	entity.visible = visible;
+	return;
 }
 
 function entity_draw(
@@ -91,7 +94,7 @@ function entity_draw(
 	
 	if (entity.visible) {
 		context.beginPath();
-		colorPalette_setColor(context, entity.color);
+		context.fillStyle = "#" + entity.color[0] + entity.color[1] + entity.color[2];
 		context.rect(entity.position[0], entity.position[1], entity.size[0], entity.size[1]);
 		context.fill();
 	}
