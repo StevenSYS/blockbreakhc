@@ -15,8 +15,7 @@
 	If not, see <https://www.gnu.org/licenses/>.
 */
 
-program_name = "BlockBreakJS";
-program_version = "1.0";
+program_name = "BlockBreakJS"
 
 screen_width = 640;
 screen_height = 472;

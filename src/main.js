@@ -194,8 +194,6 @@ function draw() {
 	}
 	
 	colorPalette_setColor(context, colors.WHITE);
-	context.fillText(program_name + " v" + program_version, 0, font_size - 1);
-	
 	context.fillText("Timer: " + timer, 0, (screen_height - font_size * 3) - 1);
 	context.fillText("Score: " + score, 0, (screen_height - font_size) - 1);
 	context.fillText("High Score: " + highScore, 0, screen_height - 1);
