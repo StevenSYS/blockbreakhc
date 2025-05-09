@@ -18,8 +18,6 @@
 #ifndef __ENTITY__
 #define __ENTITY__
 
-#include <SDL3/SDL.h>
-
 enum entity_directions {
 	ENTITY_DIR_NONE,
 	ENTITY_DIR_UP,
@@ -31,7 +29,8 @@ enum entity_directions {
 struct entity {
 	unsigned char color[3];
 	unsigned char direction;
-	SDL_FRect rect;
+	unsigned short size[2];
+	short position[2];
 	short speed;
 	
 	char visible;
@@ -51,11 +50,10 @@ void entity_init(
 	float width, float height,
 	float x, float y,
 	short speed,
-	bool visible
+	char visible
 );
 
 void entity_draw(
-	SDL_Renderer *renderer,
 	entity_t *entity,
 	char useDirection
 );

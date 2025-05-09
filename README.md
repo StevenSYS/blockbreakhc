@@ -3,9 +3,15 @@ A port of BlockBreakHC from HolyC to C using SDL3
 
 # Screenshots
 
-![screenshot1](images/Screenshot1.png "Screenshot 1")
+# SDL3
+![screenshot1](images/SDL3Screenshot1.png "SDL3 Screenshot 1")
 
-![screenshot2](images/Screenshot2.png "Screenshot 2")
+![screenshot2](images/SDL3Screenshot2.png "SDL3 Screenshot 2")
+
+# FreeGLUT
+![screenshot1](images/FreeGLUTScreenshot1.png "FreeGLUT Screenshot 1")
+
+![screenshot2](images/FreeGLUTScreenshot2.png "FreeGLUT Screenshot 2")
 
 # Controls
 

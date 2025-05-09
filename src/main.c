@@ -17,8 +17,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <time.h>
+#endif
 
+#include "impl.h"
 #include "entity.h"
 #include "progInfo.h"
 
@@ -37,7 +42,7 @@ unsigned char colors[12][3] = {
 	{ 0x55, 0xFF, 0xFF },
 	{ 0xFF, 0x55, 0x55 },
 	{ 0xFF, 0x55, 0xFF },
-	{ 0xFF, 0xFF, 0x55 },
+	{ 0xFF, 0xFF, 0x55 }
 };
 
 unsigned short blockCount = 0;
@@ -47,12 +52,20 @@ unsigned int score = 0;
 unsigned int highScore = 0;
 
 char timerStart = 0;
-char running = 1;
+char timerString[255];
+char scoreString[255];
+char highScoreString[255];
 
 entity_t player;
 entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 void generateLevel(unsigned char level) {
+	#ifdef _WIN32
+	srand(GetTickCount());
+	#else
+	srand(time(NULL));
+	#endif
+	
 	blockCount = 0;
 	
 	if (level) {
@@ -96,7 +109,7 @@ void init(
 	
 	entity_init(
 		player,
-		0xFF, 0xFF, 0xFF,
+		0xff, 0xff, 0xff,
 		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
 		PLAYER_HEIGHT,
@@ -122,127 +135,75 @@ void reset() {
 	init(level, &player);
 }
 
-int main() {
-	init(level, &player);
+void draw() {
+	impl_clear();
 	
-	srand(time(NULL));
-	
-	SDL_Event event;
-	
-	SDL_Window *window = SDL_CreateWindow(
-		PROGRAM_NAME " v" PROGRAM_VERSION,
-		RENDER_WIDTH, RENDER_HEIGHT,
-		0
-	);
-	
-	SDL_Renderer *renderer = SDL_CreateRenderer(
-		window,
-		"opengl"
-	);
-	
-	while (running) {
-		SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, SDL_ALPHA_OPAQUE);
-		
-		SDL_PollEvent(&event);
-		SDL_RenderClear(renderer);
-		
-		switch (event.type) {
-			case SDL_EVENT_KEY_DOWN:
-				switch (event.key.scancode) {
-					case SDL_SCANCODE_UP:
-						player.direction = ENTITY_DIR_UP;
-						timerStart = 1;
-						continue;
-					case SDL_SCANCODE_DOWN:
-						player.direction = ENTITY_DIR_DOWN;
-						timerStart = 1;
-						continue;
-					case SDL_SCANCODE_LEFT:
-						player.direction = ENTITY_DIR_LEFT;
-						timerStart = 1;
-						continue;
-					case SDL_SCANCODE_RIGHT:
-						player.direction = ENTITY_DIR_RIGHT;
-						timerStart = 1;
-						continue;
-					case SDL_SCANCODE_RETURN:
-						reset();
-						continue;
-					case SDL_SCANCODE_ESCAPE:
-						running = 0;
-						continue;
-					default:
-						continue;
-				}
-				continue;
-			case SDL_EVENT_QUIT:
-				running = 0;
-				break;
+	if (!blockCount) {
+		score += timer / 4;
+		if (level < MAX_BLOCKS) {
+			level++;
 		}
-		
-		if (!blockCount) {
-			score += timer / 4;
-			if (level < MAX_BLOCKS) {
-				level++;
-			}
-			init(level, &player);
-		}
-		
-		if (player.rect.y <= SCREEN_EDGE_UP) {
-			player.direction = ENTITY_DIR_DOWN;
-			player.rect.y = (float)SCREEN_EDGE_UP;
-		} else if (player.rect.y >= SCREEN_EDGE_DOWN) {
-			player.direction = ENTITY_DIR_UP;
-			player.rect.y = (float)SCREEN_EDGE_DOWN;
-		} else if (player.rect.x <= SCREEN_EDGE_LEFT) {
-			player.direction = ENTITY_DIR_RIGHT;
-			player.rect.x = (float)SCREEN_EDGE_LEFT;
-		} else if (player.rect.x >= SCREEN_EDGE_RIGHT) {
-			player.direction = ENTITY_DIR_LEFT;
-			player.rect.x = (float)SCREEN_EDGE_RIGHT;
-		}
-		
-		entity_draw(renderer, &player, 1);
-		
-		for (unsigned char i = 0; i < level; i++) {
-			for (unsigned char j = 0; j < level; j++) {
-				if (blocks[j][i].visible) {
-					entity_draw(renderer, &blocks[j][i], 0);	
-					if (entity_collision(&player, &blocks[j][i])) {
-						blocks[j][i].visible = 0;
-						blockCount--;
-						score += 10;
-					}
-				}
-			}
-		}
-		
-		if (timerStart) {
-			timer--;
-		}
-		
-		if (!timer) {
-			if (score > highScore) {
-				highScore = score;
-			}
-			reset();
-		}
-		
-		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE);
-		SDL_RenderDebugText(renderer, 0.0f, 0.0f, PROGRAM_NAME " v" PROGRAM_VERSION);
-		
-		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_SIZE * 4), "Timer: %i", timer);
-		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - (FONT_SIZE * 2), "Score: %i", score);
-		SDL_RenderDebugTextFormat(renderer, 0.0f, (float)RENDER_HEIGHT - FONT_SIZE, "High Score: %i", highScore);
-		
-		SDL_Delay(MAX_MS);
-		
-		SDL_RenderPresent(renderer);
+		init(level, &player);
 	}
 	
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+	if (player.position[1] <= SCREEN_EDGE_UP) {
+		player.direction = ENTITY_DIR_DOWN;
+		player.position[1] = (float)SCREEN_EDGE_UP;
+	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
+		player.direction = ENTITY_DIR_UP;
+		player.position[1] = (float)SCREEN_EDGE_DOWN;
+	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
+		player.direction = ENTITY_DIR_RIGHT;
+		player.position[0] = (float)SCREEN_EDGE_LEFT;
+	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
+		player.direction = ENTITY_DIR_LEFT;
+		player.position[0] = (float)SCREEN_EDGE_RIGHT;
+	}
 	
+	entity_draw(&player, 1);
+	for (unsigned char i = 0; i < level; i++) {
+		for (unsigned char j = 0; j < level; j++) {
+			if (blocks[j][i].visible) {
+				entity_draw(&blocks[j][i], 0);	
+				if (entity_collision(&player, &blocks[j][i])) {
+					blocks[j][i].visible = 0;
+					blockCount--;
+					score += 10;
+				}
+			}
+		}
+	}
+	
+	if (timerStart) {
+		timer--;
+	}
+	
+	if (!timer) {
+		if (score > highScore) {
+			highScore = score;
+		}
+		reset();
+	}
+	
+	sprintf(timerString, "Timer: %u", timer);
+	sprintf(scoreString, "Score: %u", score);
+	sprintf(highScoreString, "High Score: %u", highScore);
+	
+	impl_setColor(0xFF, 0xFF, 0xFF);
+	impl_drawText(0, RENDER_HEIGHT - (impl_fontHeight * 4), timerString);
+	
+	impl_drawText(0, RENDER_HEIGHT - (impl_fontHeight * 2), scoreString);
+	impl_drawText(0, RENDER_HEIGHT - impl_fontHeight, highScoreString);
+	
+	impl_render();
+}
+
+int main(
+	int argc,
+	char *argv[]
+) {
+	init(level, &player);
+	
+	impl_init(argc, argv, &draw);
 	return 0;
 }

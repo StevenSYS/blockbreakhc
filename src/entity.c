@@ -15,8 +15,7 @@
 	If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include <SDL3/SDL.h>
-
+#include "impl.h"
 #include "entity.h"
 
 unsigned char entity_collision(
@@ -24,10 +23,10 @@ unsigned char entity_collision(
 	entity_t *entity2
 ) {
 	if (
-		((entity1->rect.x + entity1->rect.w) >= entity2->rect.x) &&
-		(entity1->rect.x <= (entity2->rect.x + entity2->rect.w)) &&
-		(entity1->rect.y <= (entity2->rect.y + entity2->rect.h)) &&
-		((entity1->rect.y + entity1->rect.h) >= entity2->rect.y)
+		((entity1->position[0] + entity1->size[0]) >= entity2->position[0]) &&
+		(entity1->position[0] <= (entity2->position[0] + entity2->size[0])) &&
+		(entity1->position[1] <= (entity2->position[1] + entity2->size[1])) &&
+		((entity1->position[1] + entity1->size[1]) >= entity2->position[1])
 	) {
 		return 1;
 	}
@@ -41,47 +40,49 @@ void entity_init(
 	float width, float height,
 	float x, float y,
 	short speed,
-	bool visible
+	char visible
 ) {
 	entity->color[0] = red;
 	entity->color[1] = green;
 	entity->color[2] = blue;
 	entity->direction = direction;
-	entity->rect.w = width;
-	entity->rect.h = height;
-	entity->rect.x = x;
-	entity->rect.y = y;
+	entity->size[0] = width;
+	entity->size[1] = height;
+	entity->position[0] = x;
+	entity->position[1] = y;
 	entity->speed = speed;
 	entity->visible = visible;
 	return;
 }
 
 void entity_draw(
-	SDL_Renderer *renderer,
 	entity_t *entity,
 	char useDirection
 ) {
 	if (useDirection) {
 		switch (entity->direction) {
 			case ENTITY_DIR_UP:
-				entity->rect.y -= entity->speed;
+				entity->position[1] -= entity->speed;
 				break;
 			case ENTITY_DIR_DOWN:
-				entity->rect.y += entity->speed;
+				entity->position[1] += entity->speed;
 				break;
 			case ENTITY_DIR_LEFT:
-				entity->rect.x -= entity->speed;
+				entity->position[0] -= entity->speed;
 				break;
 			case ENTITY_DIR_RIGHT:
-				entity->rect.x += entity->speed;
-				break;
-			default:
+				entity->position[0] += entity->speed;
 				break;
 		}
 	}
 	
 	if (entity->visible) {
-		SDL_SetRenderDrawColor(renderer, entity->color[0], entity->color[1], entity->color[2], SDL_ALPHA_OPAQUE);
-		SDL_RenderFillRect(renderer, &entity->rect);
+		impl_setColor(entity->color[0], entity->color[1], entity->color[2]);
+		impl_drawFillRect(
+			entity->position[0],
+			entity->position[1],
+			entity->size[0],
+			entity->size[1]
+		);
 	}
 }
