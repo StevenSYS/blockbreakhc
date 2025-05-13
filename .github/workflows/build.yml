@@ -14,8 +14,7 @@ jobs:
             name: "SDL3 - Linux (x64)",
             os: "ubuntu-latest",
             cFlags: "",
-            sdl3: true,
-            freeGLUT: false,
+            impl: "SDL3",
             output: "BlockBreakC-SDL3-Linux64",
             upload: "BlockBreakC"
           }
@@ -23,8 +22,7 @@ jobs:
             name: "FreeGLUT - Linux (x64)",
             os: "ubuntu-latest",
             cFlags: "",
-            sdl3: false,
-            freeGLUT: true,
+            impl: "FreeGLUT",
             output: "BlockBreakC-FreeGLUT-Linux64",
             upload: "BlockBreakC"
           }
@@ -35,7 +33,7 @@ jobs:
         run: sudo apt update
       
       - name: SDL3 - Install Dependencies
-        if: matrix.build-targets.sdl3 == true
+        if: matrix.build-targets.impl == "SDL3"
         run: >
           sudo apt install build-essential git make
           pkg-config cmake ninja-build gnome-desktop-testing libasound2-dev libpulse-dev
@@ -46,11 +44,11 @@ jobs:
           libwayland-dev libdecor-0-dev liburing-dev
       
       - name: SDL3 - Clone
-        if: matrix.build-targets.sdl3 == true
+        if: matrix.build-targets.impl == "SDL3"
         run: git clone https://github.com/libsdl-org/SDL.git
       
       - name: SDL3 - Configure CMake
-        if: matrix.build-targets.sdl3 == true
+        if: matrix.build-targets.impl == "SDL3"
         run: >
           cmake -S SDL
           -B build/SDL
@@ -61,15 +59,15 @@ jobs:
           -G "Unix Makefiles"
       
       - name: SDL3 - Build
-        if: matrix.build-targets.sdl3 == true
+        if: matrix.build-targets.impl == "SDL3"
         run: cmake --build build/SDL
       
       - name: SDL3 - Install
-        if: matrix.build-targets.sdl3 == true
+        if: matrix.build-targets.impl == "SDL3"
         run: sudo cmake --install build/SDL
       
       - name: Install FreeGLUT
-        if: matrix.build-targets.freeGLUT == true
+        if: matrix.build-targets.impl == "FreeGLUT"
         run: |
           sudo apt install freeglut3-dev
       
@@ -78,8 +76,7 @@ jobs:
           cmake -S . -B build
           -DCMAKE_C_COMPILER=gcc
           -DCMAKE_BUILD_TYPE=Release
-          -DBUILD_IMPL_SDL3=${{matrix.build-targets.sdl3}}
-          -DBUILD_IMPL_FREEGLUT=${{matrix.build-targets.freeGLUT}}
+          -DIMPL=${{matrix.build-targets.impl}}
           -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
           -G "Unix Makefiles"
       

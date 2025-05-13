@@ -100,7 +100,7 @@ void impl_init(
 	glutInit(&argc, argv);
 	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
-	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION);
+	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - FreeGLUT");
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);

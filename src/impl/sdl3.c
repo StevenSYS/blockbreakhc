@@ -102,7 +102,7 @@ void impl_init(
 	void (*draw)()
 ) {
 	window = SDL_CreateWindow(
-		PROGRAM_NAME " v" PROGRAM_VERSION,
+		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",
 		RENDER_WIDTH, RENDER_HEIGHT,
 		0
 	);
