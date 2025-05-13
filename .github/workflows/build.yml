@@ -63,7 +63,7 @@ jobs:
         run: cmake --build build/SDL
       
       - name: SDL3 - Install
-        if: matrix.build-targets.impl == "SDL3"
+        if: matrix.build-targets.impl == 'SDL3'
         run: sudo cmake --install build/SDL
       
       - name: Install FreeGLUT
