@@ -1,5 +1,5 @@
 # BlockBreakC
-A port of BlockBreakHC from HolyC to C using SDL3
+A port of BlockBreakHC from HolyC to C
 
 # Screenshots
 
