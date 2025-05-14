@@ -108,7 +108,7 @@ void impl_init(
 	glutKeyboardFunc(input);
 	glutSpecialFunc(inputSpecial);
 	glutDisplayFunc(draw);
-	glutTimerFunc(1000 / 60, drawLoop, 0);
+	glutTimerFunc(MAX_MS, drawLoop, 0);
 	
 	glutMainLoop();
 	return;
@@ -120,13 +120,13 @@ void impl_drawText(
 	char *text
 ) {
 	glRasterPos2s(x, y + 11);
-	glutBitmapString(GLUT_BITMAP_8_BY_13, text);
+	glutBitmapString(GLUT_BITMAP_8_BY_13, (unsigned char *)text);
 	return;
 }
 
 void impl_drawFillRect(
 	short x, short y,
-	unsigned width, unsigned height
+	unsigned short width, unsigned short height
 ) {
 	glRects(x, y, x + width, y + height);
 	return;

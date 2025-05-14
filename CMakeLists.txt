@@ -28,7 +28,7 @@ elseif(IMPL STREQUAL "FreeGLUT")
 	include_directories(${OPENGL_INCLUDE_DIRS})
 	set(IMPL_FILES "src/impl/freeGLUT.c")
 else()
-	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\" or \"FREEGLUT\"")
+	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\" or \"FreeGLUT\"")
 endif()
 
 file(GLOB SOURCE_FILES "src/*.c" ${IMPL_FILES})

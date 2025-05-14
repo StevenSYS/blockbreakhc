@@ -134,7 +134,7 @@ void impl_drawText(
 
 void impl_drawFillRect(
 	short x, short y,
-	unsigned width, unsigned height
+	unsigned short width, unsigned short height
 ) {
 	SDL_FRect rect = { x, y, width, height };
 	SDL_RenderFillRect(renderer, &rect);

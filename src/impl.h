@@ -39,7 +39,7 @@ void impl_drawText(
 
 void impl_drawFillRect(
 	short x, short y,
-	unsigned width, unsigned height
+	unsigned short width, unsigned short height
 );
 
 extern const unsigned char impl_fontHeight;
