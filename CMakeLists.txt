@@ -27,6 +27,7 @@ elseif(IMPL STREQUAL "FreeGLUT")
 	find_package(GLUT REQUIRED)
 	include_directories(${OPENGL_INCLUDE_DIRS})
 	set(IMPL_FILES "src/impl/freeGLUT.c")
+
 else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\" or \"FreeGLUT\"")
 endif()

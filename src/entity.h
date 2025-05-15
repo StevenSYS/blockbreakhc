@@ -47,8 +47,8 @@ void entity_init(
 	entity_t *entity,
 	unsigned char red, unsigned char green,	unsigned char blue,
 	unsigned char direction,
-	float width, float height,
-	float x, float y,
+	unsigned short width, unsigned short height,
+	short x, short y,
 	short speed,
 	char visible
 );

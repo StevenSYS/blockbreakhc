@@ -112,7 +112,7 @@ void impl_init(
 		"opengl"
 	);
 	
-	while(running) {
+	while (running) {
 		input();
 		draw();
 	}

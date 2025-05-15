@@ -88,8 +88,8 @@ void generateLevel(unsigned char level) {
 						&blocks[j][i],
 						colors[randomColor][0], colors[randomColor][1], colors[randomColor][2],
 						ENTITY_DIR_NONE,
-						(float)blockSize[0], (float)blockSize[1],
-						(float)j * blockSize[0], (float)i * blockSize[1],
+						blockSize[0], blockSize[1],
+						j * blockSize[0], i * blockSize[1],
 						0,
 						1
 					);
@@ -110,7 +110,7 @@ void init(
 	entity_init(
 		player,
 		0xff, 0xff, 0xff,
-		ENTITY_DIR_NONE,
+		ENTITY_DIR_UP,
 		PLAYER_WIDTH,
 		PLAYER_HEIGHT,
 		PLAYER_START_X,
@@ -148,16 +148,16 @@ void draw() {
 	
 	if (player.position[1] <= SCREEN_EDGE_UP) {
 		player.direction = ENTITY_DIR_DOWN;
-		player.position[1] = (float)SCREEN_EDGE_UP;
+		player.position[1] = SCREEN_EDGE_UP;
 	} else if (player.position[1] >= SCREEN_EDGE_DOWN) {
 		player.direction = ENTITY_DIR_UP;
-		player.position[1] = (float)SCREEN_EDGE_DOWN;
+		player.position[1] = SCREEN_EDGE_DOWN;
 	} else if (player.position[0] <= SCREEN_EDGE_LEFT) {
 		player.direction = ENTITY_DIR_RIGHT;
-		player.position[0] = (float)SCREEN_EDGE_LEFT;
+		player.position[0] = SCREEN_EDGE_LEFT;
 	} else if (player.position[0] >= SCREEN_EDGE_RIGHT) {
 		player.direction = ENTITY_DIR_LEFT;
-		player.position[0] = (float)SCREEN_EDGE_RIGHT;
+		player.position[0] = SCREEN_EDGE_RIGHT;
 	}
 	
 	entity_draw(&player, 1);
