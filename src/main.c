@@ -110,7 +110,7 @@ void init(
 	entity_init(
 		player,
 		0xff, 0xff, 0xff,
-		ENTITY_DIR_UP,
+		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
 		PLAYER_HEIGHT,
 		PLAYER_START_X,
