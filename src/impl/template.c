@@ -19,8 +19,6 @@
 #include "entity.h"
 #include "progInfo.h"
 
-const unsigned char impl_fontHeight = 0;
-
 void reset();
 
 extern char timerStart;

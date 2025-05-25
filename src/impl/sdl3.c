@@ -28,8 +28,6 @@ static SDL_Event event;
 static SDL_Window *window;
 static SDL_Renderer *renderer;
 
-const unsigned char impl_fontHeight = 8;
-
 void reset();
 
 extern char timerStart;

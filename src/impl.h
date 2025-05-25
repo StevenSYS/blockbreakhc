@@ -15,6 +15,9 @@
 	If not, see <https://www.gnu.org/licenses/>.
 */
 
+#ifndef __IMPL__
+#define __IMPL__
+
 void impl_clear();
 
 void impl_render();
@@ -42,4 +45,4 @@ void impl_drawFillRect(
 	unsigned short width, unsigned short height
 );
 
-extern const unsigned char impl_fontHeight;
+#endif

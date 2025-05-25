@@ -30,7 +30,7 @@
 unsigned char oldRandomColor = 0;
 unsigned char randomColor = 0;
 unsigned char level = 1;
-unsigned char colors[12][3] = {
+const unsigned char colors[12][3] = {
 	{ 0x00, 0x00, 0xAA },
 	{ 0x00, 0xAA, 0x00 },
 	{ 0x00, 0xAA, 0xAA },
@@ -190,10 +190,10 @@ void draw() {
 	sprintf(highScoreString, "High Score: %u", highScore);
 	
 	impl_setColor(0xFF, 0xFF, 0xFF);
-	impl_drawText(0, RENDER_HEIGHT - (impl_fontHeight * 4), timerString);
+	impl_drawText(0, RENDER_HEIGHT - (FONT_HEIGHT * 4), timerString);
 	
-	impl_drawText(0, RENDER_HEIGHT - (impl_fontHeight * 2), scoreString);
-	impl_drawText(0, RENDER_HEIGHT - impl_fontHeight, highScoreString);
+	impl_drawText(0, RENDER_HEIGHT - (FONT_HEIGHT * 2), scoreString);
+	impl_drawText(0, RENDER_HEIGHT - FONT_HEIGHT, highScoreString);
 	
 	impl_render();
 }
