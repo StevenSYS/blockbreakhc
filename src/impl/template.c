@@ -1,20 +1,3 @@
-/*
-	This file is part of BlockBreakC.
-
-	BlockBreakC is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	any later version.
-
-	BlockBreakC is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along with BlockBreakC.
-	If not, see <https://www.gnu.org/licenses/>.
-*/
-
 /* Implementation Template */
 #include "entity.h"
 #include "progInfo.h"
@@ -49,9 +32,9 @@ void impl_init(
 }
 
 /* Draw */
-void impl_drawText(
+void impl_drawNumber(
 	short x, short y,
-	char *text
+	unsigned int number
 ) {
 	return;
 }

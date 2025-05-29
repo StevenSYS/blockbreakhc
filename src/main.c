@@ -1,28 +1,4 @@
-/*
-	This file is part of BlockBreakC.
-
-	BlockBreakC is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	any later version.
-
-	BlockBreakC is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along with BlockBreakC.
-	If not, see <https://www.gnu.org/licenses/>.
-*/
-
-#include <stdio.h>
-#include <stdlib.h>
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <time.h>
-#endif
-
+#include "random.h"
 #include "impl.h"
 #include "entity.h"
 #include "progInfo.h"
@@ -52,20 +28,11 @@ unsigned int score = 0;
 unsigned int highScore = 0;
 
 char timerStart = 0;
-char timerString[255];
-char scoreString[255];
-char highScoreString[255];
 
 entity_t player;
 entity_t blocks[MAX_BLOCKS][MAX_BLOCKS];
 
 void generateLevel(unsigned char level) {
-	#ifdef _WIN32
-	srand(GetTickCount());
-	#else
-	srand(time(NULL));
-	#endif
-	
 	blockCount = 0;
 	
 	if (level) {
@@ -78,7 +45,7 @@ void generateLevel(unsigned char level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = rand() % 12;
+				randomColor = random_get() % 12;
 			}
 			
 			for (unsigned j = 0; j < level; j++) {
@@ -95,7 +62,6 @@ void generateLevel(unsigned char level) {
 					);
 				}
 			}
-		
 		}
 	}
 	return;
@@ -185,15 +151,11 @@ void draw() {
 		reset();
 	}
 	
-	sprintf(timerString, "Timer: %u", timer);
-	sprintf(scoreString, "Score: %u", score);
-	sprintf(highScoreString, "High Score: %u", highScore);
-	
 	impl_setColor(0xFF, 0xFF, 0xFF);
-	impl_drawText(0, RENDER_HEIGHT - (FONT_HEIGHT * 4), timerString);
+	impl_drawNumber(0, RENDER_HEIGHT - (FONT_HEIGHT * 4), timer);
 	
-	impl_drawText(0, RENDER_HEIGHT - (FONT_HEIGHT * 2), scoreString);
-	impl_drawText(0, RENDER_HEIGHT - FONT_HEIGHT, highScoreString);
+	impl_drawNumber(0, RENDER_HEIGHT - (FONT_HEIGHT * 2), score);
+	impl_drawNumber(0, RENDER_HEIGHT - FONT_HEIGHT, highScore);
 	
 	impl_render();
 }

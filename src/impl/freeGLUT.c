@@ -1,24 +1,9 @@
-/*
-	This file is part of BlockBreakC.
-
-	BlockBreakC is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	any later version.
-
-	BlockBreakC is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along with BlockBreakC.
-	If not, see <https://www.gnu.org/licenses/>.
-*/
-
 /* FreeGLUT Implementation */
+#include <stdio.h>
 #include <GL/freeglut.h>
 
 #include "entity.h"
+#include "random.h"
 #include "progInfo.h"
 
 void reset();
@@ -26,10 +11,13 @@ void reset();
 extern char timerStart;
 extern entity_t player;
 
+static unsigned char string[11];
+
 static void input(
 	unsigned char key,
 	int, int
 ) {
+	random_increase();
 	switch (key) {
 		case '\r': /* Enter */
 			reset();
@@ -43,6 +31,7 @@ static void inputSpecial(
 	int key,
 	int, int
 ) {
+	random_increase();
 	switch (key) {
 		case GLUT_KEY_UP:
 			player.direction  = ENTITY_DIR_UP;
@@ -113,12 +102,13 @@ void impl_init(
 }
 
 /* Draw */
-void impl_drawText(
+void impl_drawNumber(
 	short x, short y,
-	char *text
+	unsigned int number
 ) {
 	glRasterPos2s(x, y + 11);
-	glutBitmapString(GLUT_BITMAP_8_BY_13, (unsigned char *)text);
+	sprintf((char *)string, "%u", number);
+	glutBitmapString(GLUT_BITMAP_8_BY_13, string);
 	return;
 }
 
