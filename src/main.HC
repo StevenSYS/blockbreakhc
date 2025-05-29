@@ -56,7 +56,7 @@ U0 generateLevel(U8 level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = randomColors[random_get() % 12];
+				randomColor = randomColors[random_get()];
 			}
 			
 			for (j = 0; j < level; j++) {
