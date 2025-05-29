@@ -1,20 +1,3 @@
-/*
-	This file is part of BlockBreakJS.
-
-	BlockBreakJS is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	any later version.
-
-	BlockBreakJS is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along with BlockBreakJS.
-	If not, see <https://www.gnu.org/licenses/>.
-*/
-
 const canvas = document.createElement("canvas");
 var context = canvas.getContext("2d");
 canvas.width = screen_width;
@@ -74,7 +57,7 @@ function generateLevel(level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = Math.floor(Math.random() * 12);
+				randomColor = random_get() % 12;
 			}
 			
 			for (j = 0; j < level; j++) {
@@ -127,6 +110,7 @@ function reset() {
 }
 
 function input(event) {
+	random_increase();
 	switch (event.keyCode) {
 		case 38: /* Up */
 			player.direction = directions.UP;
@@ -194,9 +178,9 @@ function draw() {
 	}
 	
 	context.fillStyle = "#FFF";
-	context.fillText("Timer: " + timer, 0, (screen_height - font_size * 3) - 1);
-	context.fillText("Score: " + score, 0, (screen_height - font_size) - 1);
-	context.fillText("High Score: " + highScore, 0, screen_height - 1);
+	context.fillText(timer, 0, (screen_height - font_height * 3) - 1);
+	context.fillText(score, 0, (screen_height - font_height) - 1);
+	context.fillText(highScore, 0, screen_height - 1);
 	
 	if (timerStart) {
 		timer--;
@@ -215,7 +199,7 @@ function draw() {
 function main() {
 	init(level, player);
 	
-	context.font = font_size + "px ComIO";
+	context.font = font_height + "px Fixedsys";
 	
 	loop = setInterval(draw, max_ms);
 	return;

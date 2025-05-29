@@ -1,26 +1,9 @@
-/*
-	This file is part of BlockBreakJS.
-
-	BlockBreakJS is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	any later version.
-
-	BlockBreakJS is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along with BlockBreakJS.
-	If not, see <https://www.gnu.org/licenses/>.
-*/
-
 program_name = "BlockBreakJS"
 
 screen_width = 640;
 screen_height = 472;
 
-font_size = 8;
+font_height = 16;
 
 player_speed = Math.round(screen_width / 80);
 player_width = Math.round(screen_width / 40);
