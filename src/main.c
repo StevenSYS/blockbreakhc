@@ -3,8 +3,8 @@
 #include "entity.h"
 #include "progInfo.h"
 
-unsigned char oldRandomColor = 0;
-unsigned char randomColor = 0;
+unsigned char oldRandomColor = 13;
+unsigned char randomColor = 13;
 unsigned char level = 1;
 const unsigned char colors[12][3] = {
 	{ 0x00, 0x00, 0xAA },
@@ -45,7 +45,7 @@ void generateLevel(unsigned char level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = random_get() % 12;
+				randomColor = random_get();
 			}
 			
 			for (unsigned j = 0; j < level; j++) {
