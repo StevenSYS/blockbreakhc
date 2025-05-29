@@ -25,8 +25,8 @@ Bool timerStart = FALSE;
 
 U8 i;
 U8 j;
-U8 oldRandomColor = BLACK;
-U8 randomColor = BLACK;
+U8 oldRandomColor = 13;
+U8 randomColor = 13;
 U8 level = 1;
 
 I16 sc;
