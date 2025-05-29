@@ -1,24 +1,8 @@
-/*
-	This file is part of BlockBreakHC.
-
-	BlockBreakHC is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	any later version.
-
-	BlockBreakHC is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	You should have received a copy of the GNU General Public License along with BlockBreakHC.
-	If not, see <https://www.gnu.org/licenses/>.
-*/
-
 #exe {
 	Cd(__DIR__);
 };
 
+#include "random.HC"
 #include "entity.HC"
 #include "progInfo.HH"
 
@@ -72,7 +56,7 @@ U0 generateLevel(U8 level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = randomColors[RandU16() % 12];
+				randomColor = randomColors[random_get() % 12];
 			}
 			
 			for (j = 0; j < level; j++) {
@@ -170,9 +154,9 @@ U0 draw(CTask *task, CDC *dc) {
 	}
 	
 	dc->color = WHITE;
-	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 4), "Timer: %d", timer);
-	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 2), "Score: %d", score);
-	GrPrint(dc, 0, SCREEN_HEIGHT - FONT_HEIGHT, "High Score: %d", highScore);
+	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 4), "%d", timer);
+	GrPrint(dc, 0, SCREEN_HEIGHT - (FONT_HEIGHT * 2), "%d", score);
+	GrPrint(dc, 0, SCREEN_HEIGHT - FONT_HEIGHT, "%d", highScore);
 	
 	if (timerStart) {
 		timer--;
@@ -190,8 +174,6 @@ U0 draw(CTask *task, CDC *dc) {
 
 U0 main() {
 	init(level, &player);
-	
-	Seed(Now);
 	
 	SettingsPush();
 	
@@ -224,6 +206,7 @@ U0 main() {
 	while (TRUE) {
 		switch (GetKey(&sc)) {
 			default:
+				random_increase();
 				switch (sc.u8[0]) {
 					case SC_CURSOR_UP:
 						player.direction = ENTITY_DIR_UP;
