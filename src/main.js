@@ -5,8 +5,8 @@ canvas.height = screen_height;
 document.body.appendChild(canvas);
 document.addEventListener("keydown", input);
 
-oldRandomColor = 0;
-randomColor = 0;
+oldRandomColor = 13;
+randomColor = 13;
 level = 1;
 randomColors = [
 	[ "0", "0", "A" ],
@@ -57,7 +57,7 @@ function generateLevel(level) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
-				randomColor = random_get() % 12;
+				randomColor = random_get();
 			}
 			
 			for (j = 0; j < level; j++) {
@@ -115,7 +115,7 @@ function input(event) {
 		case 38: /* Up */
 			player.direction = directions.UP;
 			timerStart = true;
-			break
+			break;
 		case 40: /* Down */
 			player.direction = directions.DOWN;
 			timerStart = true;
