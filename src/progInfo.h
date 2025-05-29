@@ -1,8 +1,8 @@
 #ifndef __PROGINFO__
 #define __PROGINFO__
 
-#define PROGRAM_NAME "@PROJECT_NAME@"
-#define PROGRAM_VERSION "@PROJECT_VERSION@"
+#define PROGRAM_NAME "BlockBreakC"
+#define PROGRAM_VERSION "1.2"
 
 #define RENDER_WIDTH 640
 #define RENDER_HEIGHT 472

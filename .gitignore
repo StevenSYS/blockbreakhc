@@ -1,5 +1,4 @@
 build*/
-src/progInfo.h
 
 # Executables
 *.exe

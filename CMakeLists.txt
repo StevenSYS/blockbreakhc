@@ -35,7 +35,6 @@ endif()
 
 file(GLOB SOURCE_FILES "src/*.c" ${IMPL_FILES})
 
-configure_file(src/progInfo.h.in ${CMAKE_CURRENT_SOURCE_DIR}/src/progInfo.h @ONLY)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 if(IMPL STREQUAL "SDL3")
 	target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
