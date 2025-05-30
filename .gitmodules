@@ -1,0 +1,4 @@
+[submodule "src/BlockBreakC"]
+	path = src/BlockBreakC
+	url = https://github.com/StevenSYS/BlockBreak.git
+	branch = c

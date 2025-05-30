@@ -1,16 +1,4 @@
-build*/
-
-# Executables
-*.exe
-*.app
-
-# Static Libraries
-*.lib
-*.a
-
-# Shared Libraries
-*.dll
-*.dylib
-*.so
+# WebAssembly Module
+*.wasm
 
 .DS_Store

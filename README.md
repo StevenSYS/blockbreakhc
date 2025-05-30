@@ -1,17 +1,11 @@
-# BlockBreakC
-A port of BlockBreakHC from HolyC to C
+# BlockBreakC-WASM
+A JavaScript + HTML canvas implementation for BlockBreakC using WebAssembly
 
 # Screenshots
 
-# SDL3
-![screenshot1](images/SDL3Screenshot1.png "SDL3 Screenshot 1")
+![screenshot1](images/Screenshot1.png "Screenshot 1")
 
-![screenshot2](images/SDL3Screenshot2.png "SDL3 Screenshot 2")
-
-# FreeGLUT
-![screenshot1](images/FreeGLUTScreenshot1.png "FreeGLUT Screenshot 1")
-
-![screenshot2](images/FreeGLUTScreenshot2.png "FreeGLUT Screenshot 2")
+![screenshot2](images/Screenshot2.png "Screenshot 2")
 
 # Controls
 
@@ -22,4 +16,3 @@ A port of BlockBreakHC from HolyC to C
 | Left           | Move Left  |
 | Right          | Move Right |
 | Enter          | Restart    |
-| Escape         | Quit       |
