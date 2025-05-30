@@ -26,8 +26,7 @@ void impl_setColor(
 
 void impl_init(
 	int argc,
-	char *argv[],
-	void (*draw)()
+	char *argv[]
 ) {
 	return;
 }
