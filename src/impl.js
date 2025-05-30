@@ -11,7 +11,7 @@ function getMacros(
 	return;
 }
 
-function impl_clear() {
+function implJS_clear() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
 	context.fillStyle = "#000";
@@ -19,12 +19,12 @@ function impl_clear() {
 	return;
 }
 
-function impl_setColor(red, green, blue) {
+function implJS_setColor(red, green, blue) {
 	context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
 	return;
 }
 
-function impl_drawNumber(
+function implJS_drawNumber(
 	x, y,
 	number
 ) {
@@ -32,7 +32,7 @@ function impl_drawNumber(
 	return;
 }
 
-function impl_drawFillRect(
+function implJS_drawFillRect(
 	x, y,
 	width, height
 ) {
