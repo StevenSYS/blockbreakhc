@@ -4,8 +4,12 @@
 #define PROGRAM_NAME "BlockBreakC"
 #define PROGRAM_VERSION "1.2"
 
-#define RENDER_WIDTH 640
-#define RENDER_HEIGHT 472
+#ifndef RENDER_WIDTH
+	#define RENDER_WIDTH 640
+#endif
+#ifndef RENDER_HEIGHT
+	#define RENDER_HEIGHT 472
+#endif
 
 #define PLAYER_SPEED RENDER_WIDTH / 80
 #define PLAYER_WIDTH RENDER_WIDTH / 40

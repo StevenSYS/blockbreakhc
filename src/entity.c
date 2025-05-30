@@ -44,6 +44,8 @@ void entity_draw(
 ) {
 	if (useDirection) {
 		switch (entity->direction) {
+			case ENTITY_DIR_NONE:
+				break;
 			case ENTITY_DIR_UP:
 				entity->position[1] -= entity->speed;
 				break;

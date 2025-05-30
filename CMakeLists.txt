@@ -33,9 +33,10 @@ else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\" or \"FreeGLUT\"")
 endif()
 
-file(GLOB SOURCE_FILES "src/*.c" ${IMPL_FILES})
+file(GLOB SOURCE_FILES ${IMPL_FILES} "src/*.c")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
+
 if(IMPL STREQUAL "SDL3")
 	target_link_libraries(${PROJECT_NAME} SDL3::SDL3)
 elseif(IMPL STREQUAL "FreeGLUT")

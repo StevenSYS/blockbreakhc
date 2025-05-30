@@ -12,6 +12,7 @@ static SDL_Window *window;
 static SDL_Renderer *renderer;
 
 void reset();
+void draw();
 
 extern char timerStart;
 extern entity_t player;
@@ -80,8 +81,7 @@ void impl_render() {
 
 void impl_init(
 	int argc,
-	char *argv[],
-	void (*draw)()
+	char *argv[]
 ) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",

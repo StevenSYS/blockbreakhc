@@ -166,6 +166,6 @@ int main(
 ) {
 	init(level, &player);
 	
-	impl_init(argc, argv, &draw);
+	impl_init(argc, argv);
 	return 0;
 }

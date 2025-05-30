@@ -7,6 +7,7 @@
 #include "progInfo.h"
 
 void reset();
+void draw();
 
 extern char timerStart;
 extern entity_t player;
@@ -58,6 +59,7 @@ static void inputSpecial(
 static void drawLoop(int) {
 	glutPostRedisplay();
 	glutTimerFunc(MAX_MS, drawLoop, 0);
+	return;
 }
 
 void impl_clear() {
@@ -81,8 +83,7 @@ void impl_setColor(
 
 void impl_init(
 	int argc,
-	char *argv[],
-	void *draw
+	char *argv[]
 ) {
 	glutInit(&argc, argv);
 	
