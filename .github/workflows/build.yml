@@ -19,11 +19,19 @@ jobs:
             upload: "BlockBreakC"
           }
           - {
-            name: "FreeGLUT - Linux (x64)",
+            name: "FreeGLUT (GLUT) - Linux (x64)",
             os: "ubuntu-latest",
             cFlags: "",
-            impl: "FreeGLUT",
+            impl: "GLUT",
             output: "BlockBreakC-FreeGLUT-Linux64",
+            upload: "BlockBreakC"
+          }
+          - {
+            name: "GLFW3 - Linux (x64)",
+            os: "ubuntu-latest",
+            cFlags: "",
+            impl: "GLFW3",
+            output: "BlockBreakC-GLFW3-Linux64",
             upload: "BlockBreakC"
           }
     steps:
@@ -66,10 +74,15 @@ jobs:
         if: matrix.build-targets.impl == 'SDL3'
         run: sudo cmake --install build/SDL
       
-      - name: Install FreeGLUT
-        if: matrix.build-targets.impl == 'FreeGLUT'
+      - name: FreeGLUT - Install
+        if: matrix.build-targets.impl == 'GLUT'
         run: |
           sudo apt install freeglut3-dev
+      
+      - name: GLFW3 - Install
+        if: matrix.build-targets.impl == 'GLFW3'
+        run: |
+          sudo apt install glfw3-dev
       
       - name: Configure CMake
         run: >

@@ -1,10 +1,12 @@
-/* FreeGLUT Implementation */
+/* GLUT Implementation */
 #include <stdio.h>
-#include <GL/freeglut.h>
+#include <string.h>
+#include <GL/glut.h>
 
 #include "entity.h"
 #include "random.h"
 #include "progInfo.h"
+#include "numberSheet.h"
 
 void reset();
 void draw();
@@ -12,7 +14,7 @@ void draw();
 extern char timerStart;
 extern entity_t player;
 
-static unsigned char string[11];
+static char string[11];
 
 static void input(
 	unsigned char key,
@@ -88,10 +90,12 @@ void impl_init(
 	glutInit(&argc, argv);
 	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
-	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - FreeGLUT");
+	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - GLUT");
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
+	
+	numberSheet_init();
 	
 	glutKeyboardFunc(input);
 	glutSpecialFunc(inputSpecial);
@@ -107,9 +111,16 @@ void impl_drawNumber(
 	short x, short y,
 	unsigned int number
 ) {
-	glRasterPos2s(x, y + 11);
-	sprintf((char *)string, "%u", number);
-	glutBitmapString(GLUT_BITMAP_8_BY_13, string);
+	sprintf(string, "%u", number);
+	for (unsigned char i = 0; i < strlen(string); i++) {
+		glRasterPos2s(x + (i * FONT_WIDTH), y + FONT_HEIGHT);
+		glBitmap(
+			FONT_WIDTH, FONT_HEIGHT,
+			0, 0,
+			0, 0,
+			numberSheetGL[string[i] - 48]
+		);
+	}
 	return;
 }
 
