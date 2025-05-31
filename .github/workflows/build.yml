@@ -16,7 +16,7 @@ jobs:
             cFlags: "",
             impl: "SDL3",
             output: "BlockBreakC-SDL3-Linux64",
-            upload: "BlockBreakC-SDL3"
+            upload: "BlockBreakC"
           }
           - {
             name: "FreeGLUT (GLUT) - Linux (x64)",
@@ -24,7 +24,7 @@ jobs:
             cFlags: "",
             impl: "GLUT",
             output: "BlockBreakC-FreeGLUT-Linux64",
-            upload: "BlockBreakC-FreeGLUT"
+            upload: "BlockBreakC"
           }
           - {
             name: "GLFW3 - Linux (x64)",
@@ -32,7 +32,7 @@ jobs:
             cFlags: "",
             impl: "GLFW3",
             output: "BlockBreakC-GLFW3-Linux64",
-            upload: "BlockBreakC-GLFW3"
+            upload: "BlockBreakC"
           }
           - {
             name: "SDL3 + GL - Linux (x64)",
@@ -40,7 +40,7 @@ jobs:
             cFlags: "",
             impl: "SDL3GL",
             output: "BlockBreakC-SDL3GL-Linux64",
-            upload: "BlockBreakC-SDL3GL"
+            upload: "BlockBreakC"
           }
     steps:
       - uses: actions/checkout@v4
