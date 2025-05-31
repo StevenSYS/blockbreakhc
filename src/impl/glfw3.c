@@ -64,16 +64,16 @@ void impl_init(int, char) {
 		NULL, NULL
 	);
 	
+	if (window == NULL) {
+		glfwTerminate();
+		return;
+	}
+	
 	glfwSetWindowSizeLimits(
 		window,
 		RENDER_WIDTH, RENDER_HEIGHT,
 		RENDER_WIDTH, RENDER_HEIGHT
 	);
-	
-	if (!window) {
-		glfwTerminate();
-		return;
-	}
 	
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, input);
