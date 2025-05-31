@@ -5,6 +5,7 @@
 #include "entity.h"
 #include "random.h"
 
+void draw();
 void reset();
 
 extern char timerStart;

@@ -4,8 +4,6 @@
 #include "progInfo.h"
 #include "glShared.h"
 
-void draw();
-
 static GLFWwindow *window;
 
 static double lastTime;
