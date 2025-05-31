@@ -89,10 +89,20 @@ void impl_init(
 		0
 	);
 	
+	if (window == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't create window: %s\n", SDL_GetError());
+		return;
+	}
+	
 	renderer = SDL_CreateRenderer(
 		window,
 		"opengl"
 	);
+	
+	if (renderer == NULL) {
+		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't create renderer: %s\n", SDL_GetError());
+		return;
+	}
 	
 	while (running) {
 		input();

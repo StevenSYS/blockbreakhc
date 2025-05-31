@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 
 project(BlockBreakC LANGUAGES C VERSION 1.2)
 
-set(IMPL "FreeGLUT" CACHE STRING "Select which implementation to build")
+set(IMPL "GLFW3" CACHE STRING "Select which implementation to build")
 option(BUILD_FOR_OLDWIN "Build ${PROJECT_NAME} using msvcrt20 (Mingw-w64 Required)" OFF)
 
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
@@ -29,6 +29,12 @@ elseif(IMPL STREQUAL "FreeGLUT")
 	include_directories(${OPENGL_INCLUDE_DIRS})
 	set(IMPL_FILES "src/impl/freeGLUT.c")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_HEIGHT=13")
+elseif(IMPL STREQUAL "GLFW3")
+	find_package(OpenGL REQUIRED)
+	find_package(glfw3 REQUIRED)
+	include_directories(${OPENGL_INCLUDE_DIRS})
+	set(IMPL_FILES "src/impl/glfw3.c")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\" or \"FreeGLUT\"")
 endif()
@@ -45,5 +51,11 @@ elseif(IMPL STREQUAL "FreeGLUT")
 	else()
 		target_link_libraries(${PROJECT_NAME} ${GLUT_glut_LIBRARY})
 	endif()
+elseif(IMPL STREQUAL "GLFW3")
+	target_link_libraries(
+		${PROJECT_NAME}
+		${OPENGL_LIBRARY}
+		glfw
+	)
 endif()
 target_include_directories(${PROJECT_NAME} PRIVATE src)

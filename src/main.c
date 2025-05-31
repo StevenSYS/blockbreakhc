@@ -75,7 +75,7 @@ void init(
 	
 	entity_init(
 		player,
-		0xff, 0xff, 0xff,
+		0xFF, 0xFF, 0xFF,
 		ENTITY_DIR_NONE,
 		PLAYER_WIDTH,
 		PLAYER_HEIGHT,
