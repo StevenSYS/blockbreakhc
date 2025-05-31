@@ -64,9 +64,7 @@ void impl_init(int argc, char *argv[]) {
 	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - GLUT");
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
-	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
-	
-	numberSheet_init();
+	glSharedInit();
 	
 	glutKeyboardFunc(input);
 	glutSpecialFunc(inputSpecial);

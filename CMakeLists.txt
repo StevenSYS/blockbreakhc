@@ -36,8 +36,17 @@ elseif(IMPL STREQUAL "GLFW3")
 	include_directories(${OPENGL_INCLUDE_DIRS})
 	set(IMPL_FILES "src/impl/glfw3.c")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
+elseif(IMPL STREQUAL "SDL3GL")
+	find_package(SDL3 REQUIRED)
+	find_package(OpenGL REQUIRED)
+	include_directories(
+		${SDL3_INCLUDE_DIRS}
+		${OPENGL_INCLUDE_DIRS}
+	)
+	set(IMPL_FILES "src/impl/sdl3GL.c")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 else()
-	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\" or \"GLFW3\"")
+	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\" or \"SDL3GL\"")
 endif()
 
 file(GLOB SOURCE_FILES ${IMPL_FILES} "src/*.c")
@@ -56,6 +65,12 @@ elseif(IMPL STREQUAL "GLFW3")
 		${PROJECT_NAME}
 		${OPENGL_LIBRARY}
 		glfw
+	)
+elseif(IMPL STREQUAL "SDL3GL")
+	target_link_libraries(
+		${PROJECT_NAME}
+		SDL3::SDL3
+		${OPENGL_LIBRARY}
 	)
 endif()
 target_include_directories(${PROJECT_NAME} PRIVATE src)

@@ -78,9 +78,7 @@ void impl_init(int, char) {
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, input);
 	
-	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
-	
-	numberSheet_init();
+	glSharedInit();
 	
 	while (!glfwWindowShouldClose(window)) {
 		lastTime = glfwGetTime();

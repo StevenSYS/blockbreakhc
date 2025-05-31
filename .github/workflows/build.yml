@@ -16,7 +16,7 @@ jobs:
             cFlags: "",
             impl: "SDL3",
             output: "BlockBreakC-SDL3-Linux64",
-            upload: "BlockBreakC"
+            upload: "BlockBreakC-SDL3"
           }
           - {
             name: "FreeGLUT (GLUT) - Linux (x64)",
@@ -24,7 +24,7 @@ jobs:
             cFlags: "",
             impl: "GLUT",
             output: "BlockBreakC-FreeGLUT-Linux64",
-            upload: "BlockBreakC"
+            upload: "BlockBreakC-FreeGLUT"
           }
           - {
             name: "GLFW3 - Linux (x64)",
@@ -32,7 +32,15 @@ jobs:
             cFlags: "",
             impl: "GLFW3",
             output: "BlockBreakC-GLFW3-Linux64",
-            upload: "BlockBreakC"
+            upload: "BlockBreakC-GLFW3"
+          }
+          - {
+            name: "SDL3 + GL - Linux (x64)",
+            os: "ubuntu-latest",
+            cFlags: "",
+            impl: "SDL3GL",
+            output: "BlockBreakC-SDL3GL-Linux64",
+            upload: "BlockBreakC-SDL3GL"
           }
     steps:
       - uses: actions/checkout@v4
@@ -52,11 +60,11 @@ jobs:
           libwayland-dev libdecor-0-dev liburing-dev
       
       - name: SDL3 - Clone
-        if: matrix.build-targets.impl == 'SDL3'
+        if: ${{matrix.build-targets.impl == 'SDL3'}} || ${{matrix.build-targets.impl == 'SDL3GL'}}
         run: git clone https://github.com/libsdl-org/SDL.git
       
       - name: SDL3 - Configure CMake
-        if: matrix.build-targets.impl == 'SDL3'
+        if: ${{matrix.build-targets.impl == 'SDL3'}} || ${{matrix.build-targets.impl == 'SDL3GL'}}
         run: >
           cmake -S SDL
           -B build/SDL
@@ -67,11 +75,11 @@ jobs:
           -G "Unix Makefiles"
       
       - name: SDL3 - Build
-        if: matrix.build-targets.impl == 'SDL3'
+        if: ${{matrix.build-targets.impl == 'SDL3'}} || ${{matrix.build-targets.impl == 'SDL3GL'}}
         run: cmake --build build/SDL
       
       - name: SDL3 - Install
-        if: matrix.build-targets.impl == 'SDL3'
+        if: ${{matrix.build-targets.impl == 'SDL3'}} || ${{matrix.build-targets.impl == 'SDL3GL'}}
         run: sudo cmake --install build/SDL
       
       - name: FreeGLUT - Install

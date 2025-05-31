@@ -27,7 +27,10 @@ static const GLubyte numberSheet[10][FONT_HEIGHT] = {
 };
 static GLubyte numberSheetGL[10][(FONT_HEIGHT * 4) + 1] = { 0 };
 
-void numberSheet_init() {
+static void glSharedInit() {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
+	
 	for (unsigned char j = 0; j < 10; j++) {
 		for (unsigned char i = 0; i <= FONT_HEIGHT * 4; i += 4) {
 			numberSheetGL[j][i] = numberSheet[j][i / 4];
