@@ -1,22 +1,12 @@
 /* GLFW3 Implementation */
-#include <stdio.h>
-#include <string.h>
 #include <GLFW/glfw3.h>
 
-#include "entity.h"
-#include "random.h"
 #include "progInfo.h"
-#include "numberSheet.h"
+#include "glShared.h"
 
-void reset();
 void draw();
 
-extern char timerStart;
-extern entity_t player;
-
 static GLFWwindow *window;
-
-static char string[11];
 
 static double lastTime;
 
@@ -59,30 +49,13 @@ static void input(
 	return;
 }
 
-void impl_clear() {
-	glClear(GL_COLOR_BUFFER_BIT);
-	return;
-}
-
 void impl_render() {
 	glFlush();
 	glfwSwapBuffers(window);
 	return;
 }
 
-void impl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
-) {
-	glColor3ub(red, green, blue);
-	return;
-}
-
-void impl_init(
-	int argc,
-	char *argv[]
-) {
+void impl_init(int, char) {
 	if (!glfwInit()) {
 		return;
 	}
@@ -122,31 +95,5 @@ void impl_init(
 	}
 	
 	glfwTerminate();
-	return;
-}
-
-/* Draw */
-void impl_drawNumber(
-	short x, short y,
-	unsigned int number
-) {
-	sprintf(string, "%u", number);
-	for (unsigned char i = 0; i < strlen(string); i++) {
-		glRasterPos2s(x + (i * FONT_WIDTH), y + FONT_HEIGHT);
-		glBitmap(
-			FONT_WIDTH, FONT_HEIGHT,
-			0, 0,
-			0, 0,
-			numberSheetGL[string[i] - 48]
-		);
-	}
-	return;
-}
-
-void impl_drawFillRect(
-	short x, short y,
-	unsigned short width, unsigned short height
-) {
-	glRects(x, y, x + width, y + height);
 	return;
 }

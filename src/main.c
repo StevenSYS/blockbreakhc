@@ -48,7 +48,7 @@ void generateLevel(unsigned char level) {
 				randomColor = random_get();
 			}
 			
-			for (unsigned j = 0; j < level; j++) {
+			for (unsigned char j = 0; j < level; j++) {
 				if ((j * blockSize[0] < RENDER_WIDTH) && (i * blockSize[1] < RENDER_HEIGHT)) {
 					blockCount++;
 					entity_init(

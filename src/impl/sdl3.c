@@ -79,10 +79,7 @@ void impl_render() {
 	return;
 }
 
-void impl_init(
-	int argc,
-	char *argv[]
-) {
+void impl_init(int, char) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",
 		RENDER_WIDTH, RENDER_HEIGHT,
@@ -115,7 +112,7 @@ void impl_init(
 	return;
 }
 
-/* Draw */
+/* Drawing */
 void impl_drawNumber(
 	short x, short y,
 	unsigned int number
