@@ -78,6 +78,10 @@ jobs:
         if: matrix.build-targets.impl == 'GLUT'
         run: sudo apt install freeglut3-dev
       
+      - name: GLFW3 - Install Dependencies
+        if: matrix.build-targets.impl == 'GLFW3'
+        run: sudo apt install libwayland-dev libxkbcommon-dev xorg-dev
+      
       - name: GLFW3 - Clone
         if: matrix.build-targets.impl == 'GLFW3'
         run: git clone https://github.com/glfw/glfw.git
