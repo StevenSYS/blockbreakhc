@@ -76,13 +76,29 @@ jobs:
       
       - name: FreeGLUT - Install
         if: matrix.build-targets.impl == 'GLUT'
-        run: |
-          sudo apt install freeglut3-dev
+        run: sudo apt install freeglut3-dev
+      
+      - name: GLFW3 - Clone
+        if: matrix.build-targets.impl == 'GLFW3'
+        run: git clone https://github.com/glfw/glfw.git
+      
+      - name: GLFW3 - Configure CMake
+        if: matrix.build-targets.impl == 'GLFW3'
+        run: >
+          cmake -S glfw
+          -B build/GLFW3
+          -DCMAKE_C_COMPILER=gcc
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_SHARED_LIBS=ON
+          -DGLFW_BUILD_EXAMPLES=OFF
+          -DGLFW_BUILD_TESTS=OFF
+          -DGLFW_BUILD_DOCS=OFF
+          -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
+          -G "Unix Makefiles"
       
       - name: GLFW3 - Install
         if: matrix.build-targets.impl == 'GLFW3'
-        run: |
-          sudo apt install glfw3-dev
+        run: sudo cmake --install build/GLFW3
       
       - name: Configure CMake
         run: >
