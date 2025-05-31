@@ -8,7 +8,7 @@ A port of BlockBreakHC from HolyC to C
 
 ![screenshot2](images/SDL3Screenshot2.png "SDL3 Screenshot 2")
 
-# OpenGL (GLUT and GLFW3)
+# OpenGL (GLUT, GLFW3 and SDL3 + GL)
 ![screenshot1](images/OpenGLScreenshot1.png "OpenGL Screenshot 1")
 
 ![screenshot2](images/OpenGLScreenshot2.png "OpenGL Screenshot 2")
