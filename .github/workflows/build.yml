@@ -100,6 +100,10 @@ jobs:
           -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
           -G "Unix Makefiles"
       
+      - name: GLFW3 - Build
+        if: matrix.build-targets.impl == 'GLFW3'
+        run: cmake --build build/GLFW3
+      
       - name: GLFW3 - Install
         if: matrix.build-targets.impl == 'GLFW3'
         run: sudo cmake --install build/GLFW3
