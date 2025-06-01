@@ -57,6 +57,7 @@ jobs:
       - name: Update Package Lists
         run: sudo apt update
       
+      # SDL3
       - name: SDL3 - Install Dependencies
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
         run: >
@@ -94,10 +95,12 @@ jobs:
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
         run: sudo cmake --install build/SDL
       
+      # FreeGLUT
       - name: FreeGLUT - Install
         if: matrix.build-targets.impl == 'GLUT'
         run: sudo apt install freeglut3-dev
       
+      # GLFW3
       - name: GLFW3 - Install Dependencies
         if: matrix.build-targets.impl == 'GLFW3'
         run: sudo apt install libwayland-dev libxkbcommon-dev xorg-dev
@@ -130,6 +133,14 @@ jobs:
       - name: GLFW3 - Install
         if: matrix.build-targets.impl == 'GLFW3'
         run: sudo cmake --install build/GLFW3
+      
+      # raylib
+      - name: raylib - Install Dependencies
+        if: matrix.build-targets.impl == 'raylib'
+        run: >
+          sudo apt install libasound2-dev libx11-dev libxrandr-dev libxi-dev
+          libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev
+          libxkbcommon-dev
       
       - name: raylib - Clone
         if: matrix.build-targets.impl == 'raylib'
