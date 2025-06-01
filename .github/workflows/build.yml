@@ -135,8 +135,8 @@ jobs:
       - name: raylib - Install
         if: matrix.build-targets.impl == 'raylib'
         run: |
-          sudo cp -r ${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}/include/* /usr/include
-          sudo cp -r ${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}/lib/* /usr/lib
+          sudo cp -r raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}/include/* /usr/include
+          sudo cp -r raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}/lib/* /usr/lib
       
       - name: Configure CMake
         run: >
