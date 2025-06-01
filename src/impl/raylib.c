@@ -1,4 +1,4 @@
-/* Implementation Template */
+/* raylib Implementation */
 #include <raylib.h>
 
 #include "entity.h"

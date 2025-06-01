@@ -92,7 +92,7 @@ void impl_init(int, char) {
 	
 	renderer = SDL_CreateRenderer(
 		window,
-		"opengl"
+		NULL
 	);
 	
 	if (renderer == NULL) {
