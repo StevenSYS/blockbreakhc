@@ -49,8 +49,7 @@ jobs:
             impl: "raylib",
             output: "BlockBreakC-raylib-Linux64",
             upload: "BlockBreakC",
-            raylibVersion: "5.5",
-            raylibOS: "linux_amd64"
+            raylibVersion: "5.5"
           }
     steps:
       - uses: actions/checkout@v4
@@ -71,7 +70,10 @@ jobs:
       
       - name: SDL3 - Clone
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
-        run: git clone https://github.com/libsdl-org/SDL.git
+        run: >
+          git clone
+          --depth 1
+          https://github.com/libsdl-org/SDL.git
       
       - name: SDL3 - Configure CMake
         if: ${{matrix.build-targets.impl == 'SDL3' || matrix.build-targets.impl == 'SDL3GL'}}
@@ -102,7 +104,10 @@ jobs:
       
       - name: GLFW3 - Clone
         if: matrix.build-targets.impl == 'GLFW3'
-        run: git clone https://github.com/glfw/glfw.git
+        run: >
+          git clone
+          --depth 1
+          https://github.com/glfw/glfw.git
       
       - name: GLFW3 - Configure CMake
         if: matrix.build-targets.impl == 'GLFW3'
@@ -125,18 +130,34 @@ jobs:
       - name: GLFW3 - Install
         if: matrix.build-targets.impl == 'GLFW3'
         run: sudo cmake --install build/GLFW3
-       
-      - name: raylib - Download and extract
+      
+      - name: raylib - Clone
         if: matrix.build-targets.impl == 'raylib'
         run: |
-          curl -L https://github.com/raysan5/raylib/releases/download/${{matrix.build-targets.raylibVersion}}/raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}.tar.gz -o raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}.tar.gz
-          tar xzvf raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}.tar.gz
+          git clone
+          --branch ${{matrix.build-targets.raylibVersion}}
+          --depth 1
+          https://github.com/raysan5/raylib.git
+      
+      - name: raylib - Configure CMake
+        if: matrix.build-targets.impl == 'raylib'
+        run: >
+          cmake -S raylib
+          -B build/raylib
+          -DCMAKE_C_COMPILER=gcc
+          -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_SHARED_LIBS=ON
+          -DBUILD_EXAMPLES=OFF
+          -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
+          -G "Unix Makefiles"
+      
+      - name: raylib - Build
+        if: matrix.build-targets.impl == 'raylib'
+        run: cmake --build build/raylib
       
       - name: raylib - Install
         if: matrix.build-targets.impl == 'raylib'
-        run: |
-          sudo cp -r raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}/include/* /usr/include
-          sudo cp -r raylib-${{matrix.build-targets.raylibVersion}}_${{matrix.build-targets.raylibOS}}/lib/* /usr/lib
+        run: sudo cmake --install build/raylib
       
       - name: Configure CMake
         run: >
