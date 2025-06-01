@@ -133,7 +133,7 @@ jobs:
       
       - name: raylib - Clone
         if: matrix.build-targets.impl == 'raylib'
-        run: |
+        run: >
           git clone
           --branch ${{matrix.build-targets.raylibVersion}}
           --depth 1
