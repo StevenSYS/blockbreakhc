@@ -53,7 +53,7 @@ static void input() {
 	return;
 }
 
-void impl_render() {
+void impl_loopEnd() {
 	SDL_GL_SwapWindow(window);
 	SDL_Delay(MAX_MS);
 	return;

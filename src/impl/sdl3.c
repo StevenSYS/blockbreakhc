@@ -66,13 +66,13 @@ void impl_setColor(
 	return;
 }
 
-void impl_clear() {
+void impl_loopStart() {
 	impl_setColor(0x00, 0x00, 0x00);
 	SDL_RenderClear(renderer);
 	return;
 }
 
-void impl_render() {
+void impl_loopEnd() {
 	SDL_RenderPresent(renderer);
 	SDL_Delay(MAX_MS);
 	return;

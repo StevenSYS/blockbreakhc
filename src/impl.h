@@ -1,9 +1,9 @@
 #ifndef __IMPL__
 #define __IMPL__
 
-void impl_clear();
+void impl_loopStart();
 
-void impl_render();
+void impl_loopEnd();
 
 void impl_setColor(
 	unsigned char red,

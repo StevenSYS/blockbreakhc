@@ -47,7 +47,7 @@ static void input(
 	return;
 }
 
-void impl_render() {
+void impl_loopEnd() {
 	glFlush();
 	glfwSwapBuffers(window);
 	return;

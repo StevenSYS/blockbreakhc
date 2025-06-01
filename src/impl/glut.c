@@ -52,7 +52,7 @@ static void drawLoop(int) {
 	return;
 }
 
-void impl_render() {
+void impl_loopEnd() {
 	glFlush();
 	return;
 }

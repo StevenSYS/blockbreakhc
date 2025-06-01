@@ -102,7 +102,7 @@ void reset() {
 }
 
 void draw() {
-	impl_clear();
+	impl_loopStart();
 	
 	if (!blockCount) {
 		score += timer / 4;
@@ -157,7 +157,7 @@ void draw() {
 	impl_drawNumber(0, RENDER_HEIGHT - (FONT_HEIGHT * 2), score);
 	impl_drawNumber(0, RENDER_HEIGHT - FONT_HEIGHT, highScore);
 	
-	impl_render();
+	impl_loopEnd();
 }
 
 int main(

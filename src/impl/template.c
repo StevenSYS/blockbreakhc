@@ -1,5 +1,6 @@
 /* Implementation Template */
 #include "entity.h"
+#include "random.h"
 #include "progInfo.h"
 
 void reset();
@@ -8,11 +9,11 @@ void draw();
 extern char timerStart;
 extern entity_t player;
 
-void impl_clear() {
+void impl_loopStart() {
 	return;
 }
 
-void impl_render() {
+void impl_loopEnd() {
 	return;
 }
 

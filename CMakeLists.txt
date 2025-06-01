@@ -45,6 +45,10 @@ elseif(IMPL STREQUAL "SDL3GL")
 	)
 	set(IMPL_FILES "src/impl/sdl3GL.c")
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
+elseif(IMPL STREQUAL "raylib")
+	find_package(raylib 3.0 REQUIRED)
+	set(IMPL_FILES "src/impl/raylib.c")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_HEIGHT=8")
 else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\" or \"SDL3GL\"")
 endif()
@@ -60,17 +64,33 @@ elseif(IMPL STREQUAL "GLUT")
 		${OPENGL_LIBRARY}
 		${GLUT_glut_LIBRARY}
 	)
+	if (APPLE)
+		target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+	endif()
 elseif(IMPL STREQUAL "GLFW3")
 	target_link_libraries(
 		${PROJECT_NAME}
 		${OPENGL_LIBRARY}
 		glfw
 	)
+	if (APPLE)
+		target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+	endif()
 elseif(IMPL STREQUAL "SDL3GL")
 	target_link_libraries(
 		${PROJECT_NAME}
 		SDL3::SDL3
 		${OPENGL_LIBRARY}
 	)
+	if (APPLE)
+		target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+	endif()
+elseif(IMPL STREQUAL "raylib")
+	target_link_libraries(${PROJECT_NAME} raylib)
+	if (APPLE)
+		target_link_libraries(${PROJECT_NAME} "-framework IOKit")
+		target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
+		target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
+	endif()
 endif()
 target_include_directories(${PROJECT_NAME} PRIVATE src)

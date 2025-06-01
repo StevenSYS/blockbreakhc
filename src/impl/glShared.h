@@ -39,7 +39,7 @@ static void glSharedInit() {
 	return;
 }
 
-void impl_clear() {
+void impl_loopStart() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	return;
 }
