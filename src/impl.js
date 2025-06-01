@@ -11,7 +11,7 @@ function getMacros(
 	return;
 }
 
-function implJS_clear() {
+function implJS_loopStart() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	
 	context.fillStyle = "#000";

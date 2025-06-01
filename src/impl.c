@@ -19,7 +19,7 @@ WASM_IMPORT("env", "getMacros") void getMacros(
 	unsigned short max_fps
 );
 
-WASM_IMPORT("impl", "clear") void implJS_clear();
+WASM_IMPORT("impl", "loopStart") void implJS_loopStart();
 
 WASM_IMPORT("impl", "setColor") void implJS_setColor(
 	unsigned char red,
@@ -63,12 +63,12 @@ void input(unsigned char key) {
 	return;
 }
 
-void impl_clear() {
-	implJS_clear();
+void impl_loopStart() {
+	implJS_loopStart();
 	return;
 }
 
-void impl_render() {
+void impl_loopEnd() {
 	return;
 }
 

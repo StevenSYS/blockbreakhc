@@ -5,7 +5,7 @@ const importObject = {
 		getMacros: getMacros
 	},
 	impl: {
-		clear: implJS_clear,
+		loopStart: implJS_loopStart,
 		setColor: implJS_setColor,
 		drawNumber: implJS_drawNumber,
 		drawFillRect: implJS_drawFillRect
