@@ -7,6 +7,8 @@
 
 static char running = 1;
 
+static unsigned int lastTime;
+
 static SDL_Event event;
 static SDL_Window *window;
 static SDL_Renderer *renderer;
@@ -74,7 +76,6 @@ void impl_loopStart() {
 
 void impl_loopEnd() {
 	SDL_RenderPresent(renderer);
-	SDL_Delay(MAX_MS);
 	return;
 }
 
@@ -101,8 +102,14 @@ void impl_init(int, char) {
 	}
 	
 	while (running) {
-		input();
+		lastTime = SDL_GetTicks();
+		
 		draw();
+		
+		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
+			input();
+			SDL_Delay(1);
+		}
 	}
 	
 	SDL_DestroyRenderer(renderer);

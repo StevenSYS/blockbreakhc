@@ -48,7 +48,7 @@ static void inputSpecial(
 
 static void drawLoop(int) {
 	glutPostRedisplay();
-	glutTimerFunc(MAX_MS, drawLoop, 0);
+	glutTimerFunc(1000 / MAX_FPS, drawLoop, 0);
 	return;
 }
 
@@ -69,7 +69,7 @@ void impl_init(int argc, char *argv[]) {
 	glutKeyboardFunc(input);
 	glutSpecialFunc(inputSpecial);
 	glutDisplayFunc(draw);
-	glutTimerFunc(MAX_MS, drawLoop, 0);
+	glutTimerFunc(1000 / MAX_FPS, drawLoop, 0);
 	
 	glutMainLoop();
 	return;

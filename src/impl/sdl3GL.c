@@ -9,6 +9,8 @@
 
 static char running = 1;
 
+static unsigned int lastTime;
+
 static SDL_Event event;
 static SDL_Window *window;
 static SDL_GLContext glContext;
@@ -55,7 +57,6 @@ static void input() {
 
 void impl_loopEnd() {
 	SDL_GL_SwapWindow(window);
-	SDL_Delay(MAX_MS);
 	return;
 }
 
@@ -81,8 +82,15 @@ void impl_init(int, char) {
 	glSharedInit();
 	
 	while (running) {
+		lastTime = SDL_GetTicks();
+		
 		input();
 		draw();
+		
+		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
+			input();
+			SDL_Delay(1);
+		}
 	}
 	
 	SDL_GL_DestroyContext(glContext);

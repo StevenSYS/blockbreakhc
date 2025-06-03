@@ -24,6 +24,5 @@
 
 #define MAX_BLOCKS 255
 #define MAX_FPS 30
-#define MAX_MS (1000 / MAX_FPS)
 
 #endif
