@@ -1,27 +1,40 @@
-var fps;
+const element_title = document.getElementById("title");
 
-const importObject = {
-	env: {
-		getMacros: getMacros
-	},
-	impl: {
-		loopStart: implJS_loopStart,
-		setColor: implJS_setColor,
-		drawNumber: implJS_drawNumber,
-		drawFillRect: implJS_drawFillRect
+function pointerToString(
+	memoryBuffer,
+	memPosition
+) {
+	var ret = [];
+	var currentCharacter;
+	var memoryArray = new Uint8Array(memoryBuffer);
+	
+	for (var i = memPosition; i < memoryArray.length; i++) {
+		currentCharacter = String.fromCharCode(memoryArray[i]);
+		if (currentCharacter == "\0") {
+			break;
+		}
+		ret.push(currentCharacter);
 	}
-};
+	return ret.join("");
+}
 
 WebAssembly.instantiateStreaming(
-	fetch("blockBreak.wasm"),
-	importObject
+	fetch("build/BlockBreakC-WASM.wasm"),
+	{ "env": importList }
 ).then(result => {
-	document.body.appendChild(canvas);
+	document.body.appendChild(element_canvas);
 	function input(event) {
 		result.instance.exports.input(event.keyCode);
 	}
 	document.addEventListener("keydown", input);
 	result.instance.exports._start();
-	context.font = "16px Fixedsys";
+	element_title.innerText = pointerToString(
+		result.instance.exports.memory.buffer,
+		memPos_programName
+	) + "-WASM v" + pointerToString(
+		result.instance.exports.memory.buffer,
+		memPos_programVersion
+	);
+	element_context.font = fontSize + "px Fixedsys";
 	loop = setInterval(result.instance.exports.draw, 1000 / fps);
 });

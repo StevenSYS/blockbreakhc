@@ -2,8 +2,6 @@
 #include "entity.h"
 #include "progInfo.h"
 
-#define WASM_IMPORT(module, name) __attribute__((__import_module__((module)), __import_name__((name))))
-
 void reset();
 
 int main(
@@ -14,27 +12,11 @@ int main(
 extern char timerStart;
 extern entity_t player;
 
-WASM_IMPORT("env", "getMacros") void getMacros(
-	unsigned int render_width, unsigned int render_height,
-	unsigned short max_fps
-);
-
-WASM_IMPORT("impl", "loopStart") void implJS_loopStart();
-
-WASM_IMPORT("impl", "setColor") void implJS_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
-);
-
-WASM_IMPORT("impl", "drawNumber") void implJS_drawNumber(
-	int x, int y,
-	unsigned int number
-);
-
-WASM_IMPORT("impl", "drawFillRect") void implJS_drawFillRect(
-	int x, int y,
-	int width, int height
+void getMacros(
+	char *programName, char *programVersion,
+	int renderWidth, int renderHeight,
+	int maxFPS,
+	int fontHeight
 );
 
 void input(unsigned char key) {
@@ -63,21 +45,7 @@ void input(unsigned char key) {
 	return;
 }
 
-void impl_loopStart() {
-	implJS_loopStart();
-	return;
-}
-
 void impl_loopEnd() {
-	return;
-}
-
-void impl_setColor(
-	unsigned char red,
-	unsigned char green,
-	unsigned char blue
-) {
-	implJS_setColor(red, green, blue);
 	return;
 }
 
@@ -88,27 +56,12 @@ void impl_init(
 	return;
 }
 
-/* Draw */
-void impl_drawNumber(
-	short x, short y,
-	unsigned int number
-) {
-	implJS_drawNumber(x, y, number);
-	return;
-}
-
-void impl_drawFillRect(
-	short x, short y,
-	unsigned short width, unsigned short height
-) {
-	implJS_drawFillRect(x, y, width, height);
-	return;
-}
-
 void _start() {
 	getMacros(
+		PROGRAM_NAME, PROGRAM_VERSION,
 		RENDER_WIDTH, RENDER_HEIGHT,
-		MAX_FPS
+		MAX_FPS,
+		FONT_HEIGHT
 	);
 	main(0, 0);
 	return;

@@ -1,43 +1,62 @@
-const canvas = document.createElement("canvas");
-const context = canvas.getContext("2d");
+const element_canvas = document.createElement("canvas");
+const element_context = element_canvas.getContext("2d");
 
-function getMacros(
-	render_width, render_height,
-	max_fps
+var importList = {};
+var fps;
+var fontSize;
+
+var memPos_programName;
+var memPos_programVersion;
+
+importList["getMacros"] = function(
+	programName, programVersion,
+	renderWidth, renderHeight,
+	maxFPS,
+	fontHeight
 ) {
-	canvas.width = render_width;
-	canvas.height = render_height;
-	fps = max_fps;
+	memPos_programName = programName;
+	memPos_programVersion = programVersion;
+	fps = maxFPS;
+	element_canvas.width = renderWidth;
+	element_canvas.height = renderHeight;
+	fontSize = fontHeight;
 	return;
 }
 
-function implJS_loopStart() {
-	context.clearRect(0, 0, canvas.width, canvas.height);
+importList["impl_loopStart"] = function() {
+	element_context.clearRect(
+		0, 0,
+		element_canvas.width, element_canvas.height
+	);
 	
-	context.fillStyle = "#000";
-	context.fillRect(0, 0, canvas.width, canvas.height);
+	element_context.fillStyle = "#000";
+	element_context.fillRect(
+		0, 0,
+		element_canvas.width, element_canvas.height
+	);
 	return;
 }
 
-function implJS_setColor(red, green, blue) {
-	context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
+importList["impl_setColor"] = function(red, green, blue) {
+	element_context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
 	return;
 }
 
-function implJS_drawNumber(
+/* Drawing */
+importList["impl_drawNumber"] = function(
 	x, y,
 	number
 ) {
-	context.fillText(number, x, y + 15);
+	element_context.fillText(number, x, y + (fontSize - 1));
 	return;
 }
 
-function implJS_drawFillRect(
+importList["impl_drawFillRect"] = function(
 	x, y,
 	width, height
 ) {
-	context.beginPath();
-	context.rect(x, y, width, height);
-	context.fill();
+	element_context.beginPath();
+	element_context.rect(x, y, width, height);
+	element_context.fill();
 	return;
 }
