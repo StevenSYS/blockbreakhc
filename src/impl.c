@@ -15,7 +15,7 @@ extern entity_t player;
 void getMacros(
 	char *memPos_programName, char *memPos_programVersion,
 	int renderWidth, int renderHeight,
-	int maxFPS,
+	int macro_maxFPS,
 	int fontHeight
 );
 
