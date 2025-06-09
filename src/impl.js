@@ -9,7 +9,7 @@ element_canvas.style.maxHeight = "0px";
 document.body.appendChild(element_canvas);
 
 var importList = {};
-var fps;
+var maxFPS;
 var fontSize;
 
 class stringPointer {
@@ -39,12 +39,12 @@ var programVersion = new stringPointer;
 importList["getMacros"] = function(
 	memPos_programName, memPos_programVersion,
 	renderWidth, renderHeight,
-	maxFPS,
+	maxmaxFPS,
 	fontHeight
 ) {
 	programName.memPosition = memPos_programName;
 	programVersion.memPosition = memPos_programVersion;
-	fps = maxFPS;
+	maxFPS = maxmaxFPS;
 	element_canvas.width = renderWidth;
 	element_canvas.height = renderHeight;
 	element_canvas.style.maxWidth = renderWidth + "px";
@@ -142,5 +142,5 @@ WebAssembly.instantiateStreaming(
 	
 	context.font = fontSize + "px Fixedsys";
 	
-	loop = setInterval(result.instance.exports.draw, 1000 / fps);
+	loop = setInterval(result.instance.exports.draw, 1000 / maxFPS);
 });
