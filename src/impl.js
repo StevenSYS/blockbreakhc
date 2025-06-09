@@ -1,6 +1,7 @@
 const element_canvas = document.createElement("canvas");
 const element_title = document.getElementById("title");
 const context = element_canvas.getContext("2d");
+const touchThreshold = 64;
 
 element_canvas.style.maxWidth = "0px";
 element_canvas.style.maxHeight = "0px";
@@ -115,15 +116,15 @@ WebAssembly.instantiateStreaming(
 	function touchEnd(event) {
 		event.preventDefault();
 		for (const touch of event.changedTouches) {
-			if ((touch.pageY - touch_startY) < -64) {
+			if ((touch.pageY - touch_startY) < -touchThreshold) {
 				result.instance.exports.input(38); /* Up */
-			} else if ((touch.pageY - touch_startY) > 64) {
+			} else if ((touch.pageY - touch_startY) > touchThreshold) {
 				result.instance.exports.input(40); /* Down */
 			}
 			
-			if ((touch.pageX - touch_startX) < -64) {
+			if ((touch.pageX - touch_startX) < -touchThreshold) {
 				result.instance.exports.input(37); /* Left */
-			} else if ((touch.pageX - touch_startX) > 64) {
+			} else if ((touch.pageX - touch_startX) > touchThreshold) {
 				result.instance.exports.input(39); /* Right */
 			}
 		}
