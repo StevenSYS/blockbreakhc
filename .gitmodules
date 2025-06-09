@@ -1,0 +1,8 @@
+[submodule "JS"]
+	path = JS
+	url = https://github.com/StevenSYS/BlockBreak.git
+	branch = javascript
+[submodule "C-WASM"]
+	path = C-WASM
+	url = https://github.com/StevenSYS/BlockBreak.git
+	branch = c-wasm

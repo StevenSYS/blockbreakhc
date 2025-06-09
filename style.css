@@ -1,0 +1,47 @@
+@font-face {
+	font-family: Fixedsys;
+	src: url(FSEX302.ttf);
+}
+
+body {
+	background-color: #000;
+	color: #FFF;
+	text-align: center;
+	margin: 0;
+	font-family: Fixedsys;
+	font-size: 32px;
+	user-select: none;
+	/* https://stackoverflow.com/a/14068216 */
+	image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+	image-rendering: -moz-crisp-edges;          /* Firefox                        */
+	image-rendering: -o-crisp-edges;            /* Opera                          */
+	image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+	image-rendering: pixelated;                 /* Universal support since 2021   */
+	image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+	-ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+
+.button {
+	color: #FFF;
+	text-decoration: none;
+	padding: 0 2px 0 2px;
+}
+
+.buttonPurple {
+	background-color: #8040FF;
+	border: 2px solid #402080;
+}
+
+.buttonYellow {
+	color: #000;
+	background-color: #FFFF60;
+	border: 2px solid #808030;
+}
+
+.button:hover {
+	filter: brightness(50%);
+}
+
+.button:active {
+	filter: brightness(25%);
+}
