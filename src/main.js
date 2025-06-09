@@ -65,21 +65,21 @@ function touchStart(event) {
 function touchEnd(event) {
 	event.preventDefault();
 	for (const touch of event.changedTouches) {
-		if ((touch.pageY - touch_startY) < -touch_threshold) {
+		if ((touch.pageY - touch_startY) < -touchDeadZone) {
 			random_increase();
 			player.direction = directions.UP;
 			timerStart = true;
-		} else if ((touch.pageY - touch_startY) > touch_threshold) {
+		} else if ((touch.pageY - touch_startY) > touchDeadZone) {
 			random_increase();
 			player.direction = directions.DOWN;
 			timerStart = true;
 		}
 		
-		if ((touch.pageX - touch_startX) < -touch_threshold) {
+		if ((touch.pageX - touch_startX) < -touchDeadZone) {
 			random_increase();
 			player.direction = directions.LEFT;
 			timerStart = true;
-		} else if ((touch.pageX - touch_startX) > touch_threshold) {
+		} else if ((touch.pageX - touch_startX) > touchDeadZone) {
 			random_increase();
 			player.direction = directions.RIGHT;
 			timerStart = true;
