@@ -16,6 +16,8 @@ const screen_edgeDown = render_height - player_height;
 const screen_edgeLeft = 0;
 const screen_edgeRight = render_width - player_width;
 
+const touch_threshold = 64;
+
 const max_blocks = 255;
 const max_fps = 30;
 const max_ms = 1000 / max_fps;
