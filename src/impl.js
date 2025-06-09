@@ -39,12 +39,12 @@ var programVersion = new stringPointer;
 importList["getMacros"] = function(
 	memPos_programName, memPos_programVersion,
 	renderWidth, renderHeight,
-	maxmaxFPS,
+	macro_maxFPS,
 	fontHeight
 ) {
 	programName.memPosition = memPos_programName;
 	programVersion.memPosition = memPos_programVersion;
-	maxFPS = maxmaxFPS;
+	maxFPS = macro_maxFPS;
 	element_canvas.width = renderWidth;
 	element_canvas.height = renderHeight;
 	element_canvas.style.maxWidth = renderWidth + "px";
