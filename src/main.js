@@ -1,10 +1,10 @@
 const element_canvas = document.createElement("canvas");
 const context = element_canvas.getContext("2d");
 
-element_canvas.width = render_width;
-element_canvas.height = render_height;
-element_canvas.style.maxWidth = render_width + "px";
-element_canvas.style.maxHeight = render_height + "px";
+element_canvas.width = renderWidth;
+element_canvas.height = renderHeight;
+element_canvas.style.maxWidth = renderWidth + "px";
+element_canvas.style.maxHeight = renderHeight + "px";
 
 document.body.appendChild(element_canvas);
 document.addEventListener("keydown", input);
@@ -34,8 +34,8 @@ var timer = 0;
 
 var score = 0;
 var highScore = 0;
-if (localStorage.getItem(program_name + "_highScore") != undefined) {
-	highScore = parseInt(localStorage.getItem(program_name + "_highScore"));
+if (localStorage.getItem(programName + "_highScore") != undefined) {
+	highScore = parseInt(localStorage.getItem(programName + "_highScore"));
 }
 
 var timerStart = false;
@@ -43,9 +43,9 @@ var timerStart = false;
 var player = new entity;
 var blocks = [];
 
-for (var i = 0; i < max_blocks; i++) {
+for (var i = 0; i < maxBlocks; i++) {
 	blocks.push([]);
-	for (j = 0; j < max_blocks; j++) {
+	for (j = 0; j < maxBlocks; j++) {
 		blocks[i].push(new entity);
 	}
 }
@@ -162,9 +162,9 @@ function init(
 		player,
 		"F", "F", "F",
 		directions.NONE,
-		player_width, player_height,
-		player_startX, player_startY,
-		player_speed,
+		playerWidth, playerHeight,
+		playerStartX, playerStartY,
+		playerSpeed,
 		true
 	);
 	
@@ -189,24 +189,24 @@ function draw() {
 	
 	if (!blockCount) {
 		score += Math.round(timer / 4);
-		if (level < max_blocks) {
+		if (level < maxBlocks) {
 			level++;
 		}
 		init(level, player);
 	}
 	
-	if (player.position[1] <= screen_edgeUp) {
+	if (player.position[1] <= screenEdgeUp) {
 		player.direction = directions.DOWN;
-		player.position[1] = screen_edgeUp;
-	} else if (player.position[1] >= screen_edgeDown) {
+		player.position[1] = screenEdgeUp;
+	} else if (player.position[1] >= screenEdgeDown) {
 		player.direction = directions.UP;
-		player.position[1] = screen_edgeDown;
-	} else if (player.position[0] <= screen_edgeLeft) {
+		player.position[1] = screenEdgeDown;
+	} else if (player.position[0] <= screenEdgeLeft) {
 		player.direction = directions.RIGHT;
-		player.position[0] = screen_edgeLeft;
-	} else if (player.position[0] >= screen_edgeRight) {
+		player.position[0] = screenEdgeLeft;
+	} else if (player.position[0] >= screenEdgeRight) {
 		player.direction = directions.LEFT;
-		player.position[0] = screen_edgeRight;
+		player.position[0] = screenEdgeRight;
 	}	
 	
 	entity_draw(context, player, true);
@@ -225,9 +225,9 @@ function draw() {
 	}
 	
 	context.fillStyle = "#FFF";
-	context.fillText(timer, 0, (render_height - font_height * 3) - 1);
-	context.fillText(score, 0, (render_height - font_height) - 1);
-	context.fillText(highScore, 0, render_height - 1);
+	context.fillText(timer, 0, (renderHeight - fontHeight * 3) - 1);
+	context.fillText(score, 0, (renderHeight - fontHeight) - 1);
+	context.fillText(highScore, 0, renderHeight - 1);
 	
 	if (timerStart) {
 		timer--;
@@ -236,7 +236,7 @@ function draw() {
 	if (!timer) {
 		if (score > highScore) {
 			highScore = score;
-			localStorage.setItem(program_name + "_highScore", highScore);
+			localStorage.setItem(programName + "_highScore", highScore);
 		}
 		reset();
 	}
@@ -246,9 +246,9 @@ function draw() {
 function main() {
 	init(level, player);
 	
-	context.font = font_height + "px Fixedsys";
+	context.font = fontHeight + "px Fixedsys";
 	
-	loop = setInterval(draw, max_ms);
+	loop = setInterval(draw, 1000 / maxFPS);
 	return;
 }
 
