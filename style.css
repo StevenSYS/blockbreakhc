@@ -3,6 +3,10 @@
 	src: url(FSEX302.ttf);
 }
 
+html, body {
+	overscroll-behavior: none;
+}
+
 body {
 	background-color: #000;
 	text-align: center;
@@ -19,4 +23,6 @@ body {
 
 canvas {
 	border: 1px solid #fff;
+	width: calc(100% - 2px);
+	height: calc(100% - 2px);
 }

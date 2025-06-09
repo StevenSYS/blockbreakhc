@@ -1,14 +1,20 @@
-const canvas = document.createElement("canvas");
-var context = canvas.getContext("2d");
-canvas.width = screen_width;
-canvas.height = screen_height;
-document.body.appendChild(canvas);
-document.addEventListener("keydown", input);
+const element_canvas = document.createElement("canvas");
+const context = element_canvas.getContext("2d");
 
-oldRandomColor = 13;
-randomColor = 13;
-level = 1;
-randomColors = [
+element_canvas.width = render_width;
+element_canvas.height = render_height;
+element_canvas.style.maxWidth = render_width + "px";
+element_canvas.style.maxHeight = render_height + "px";
+
+document.body.appendChild(element_canvas);
+document.addEventListener("keydown", input);
+document.addEventListener("touchstart", touchStart);
+document.addEventListener("touchend", touchEnd);
+
+var oldRandomColor = 13;
+var randomColor = 13;
+var level = 1;
+var randomColors = [
 	[ "0", "0", "A" ],
 	[ "0", "A", "0" ],
 	[ "0", "A", "A" ],
@@ -23,24 +29,90 @@ randomColors = [
 	[ "F", "F", "5" ]
 ];
 
-blockCount = 0;
-timer = 0;
+var blockCount = 0;
+var timer = 0;
 
-score = 0;
-highScore = 0;
+var score = 0;
+var highScore = 0;
 if (localStorage.getItem(program_name + "_highScore") != undefined) {
 	highScore = parseInt(localStorage.getItem(program_name + "_highScore"));
 }
 
-timerStart = false;
+var timerStart = false;
 
-player = new entity;
-blocks = [];
+var player = new entity;
+var blocks = [];
 
-for (i = 0; i < max_blocks; i++) {
+for (var i = 0; i < max_blocks; i++) {
 	blocks.push([]);
 	for (j = 0; j < max_blocks; j++) {
 		blocks[i].push(new entity);
+	}
+}
+
+/* Touch Input */
+var touch_startX;
+var touch_startY;
+
+function touchStart(event) {
+	for (const touch of event.changedTouches) {
+		touch_startY = touch.pageY;
+		touch_startX = touch.pageX;
+	}
+	return;
+}
+
+function touchEnd(event) {
+	event.preventDefault();
+	for (const touch of event.changedTouches) {
+		if ((touch.pageY - touch_startY) < -64) {
+			random_increase();
+			player.direction = directions.UP;
+			timerStart = true;
+		} else if ((touch.pageY - touch_startY) > 64) {
+			random_increase();
+			player.direction = directions.DOWN;
+			timerStart = true;
+		}
+		
+		if ((touch.pageX - touch_startX) < -64) {
+			random_increase();
+			player.direction = directions.LEFT;
+			timerStart = true;
+		} else if ((touch.pageX - touch_startX) > 64) {
+			random_increase();
+			player.direction = directions.RIGHT;
+			timerStart = true;
+		}
+	}
+	return;
+}
+
+/* Keyboard Input */
+function input(event) {
+	random_increase();
+	switch (event.keyCode) {
+		case 38: /* Up */
+			player.direction = directions.UP;
+			timerStart = true;
+			break;
+		case 40: /* Down */
+			player.direction = directions.DOWN;
+			timerStart = true;
+			break;
+		case 37: /* Left */
+			player.direction = directions.LEFT;
+			timerStart = true;
+			break;
+		case 39: /* Right */
+			player.direction = directions.RIGHT;
+			timerStart = true;
+			break;
+		case 13: /* Enter */
+			reset();
+			break;
+		default:
+			break;
 	}
 }
 
@@ -49,8 +121,8 @@ function generateLevel(level) {
 	
 	if (level) {
 		blockSize = [
-			Math.round(canvas.width / level),
-			Math.round(canvas.height / (level * 1.5))
+			Math.round(element_canvas.width / level),
+			Math.round(element_canvas.height / (level * 1.5))
 		];
 		
 		for (i = 0; i < level; i++) {
@@ -61,7 +133,7 @@ function generateLevel(level) {
 			}
 			
 			for (j = 0; j < level; j++) {
-				if ((j * blockSize[0] < canvas.width) && (i * blockSize[1] < canvas.height)) {
+				if ((j * blockSize[0] < element_canvas.width) && (i * blockSize[1] < element_canvas.height)) {
 					blockCount++;
 					entity_init(
 						blocks[j][i],
@@ -109,36 +181,11 @@ function reset() {
 	return;
 }
 
-function input(event) {
-	random_increase();
-	switch (event.keyCode) {
-		case 38: /* Up */
-			player.direction = directions.UP;
-			timerStart = true;
-			break;
-		case 40: /* Down */
-			player.direction = directions.DOWN;
-			timerStart = true;
-			break;
-		case 37: /* Left */
-			player.direction = directions.LEFT;
-			timerStart = true;
-			break;
-		case 39: /* Right */
-			player.direction = directions.RIGHT;
-			timerStart = true;
-			break;
-		case 13: /* Enter */
-			reset();
-			break;
-	}
-}
-
 function draw() {
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.clearRect(0, 0, element_canvas.width, element_canvas.height);
 	
 	context.fillStyle = "#000";
-	context.fillRect(0, 0, canvas.width, canvas.height);
+	context.fillRect(0, 0, element_canvas.width, element_canvas.height);
 	
 	if (!blockCount) {
 		score += Math.round(timer / 4);
@@ -178,9 +225,9 @@ function draw() {
 	}
 	
 	context.fillStyle = "#FFF";
-	context.fillText(timer, 0, (screen_height - font_height * 3) - 1);
-	context.fillText(score, 0, (screen_height - font_height) - 1);
-	context.fillText(highScore, 0, screen_height - 1);
+	context.fillText(timer, 0, (render_height - font_height * 3) - 1);
+	context.fillText(score, 0, (render_height - font_height) - 1);
+	context.fillText(highScore, 0, render_height - 1);
 	
 	if (timerStart) {
 		timer--;
