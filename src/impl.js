@@ -1,36 +1,65 @@
 const element_canvas = document.createElement("canvas");
-const element_context = element_canvas.getContext("2d");
+const element_title = document.getElementById("title");
+const context = element_canvas.getContext("2d");
+
+element_canvas.style.maxWidth = "0px";
+element_canvas.style.maxHeight = "0px";
+
+document.body.appendChild(element_canvas);
 
 var importList = {};
 var fps;
 var fontSize;
 
-var memPos_programName;
-var memPos_programVersion;
+class stringPointer {
+	string = "";
+	memPosition = 0;
+	
+	init(memoryBuffer) {
+		var stringArray = [];
+		var currentCharacter;
+		var memoryArray = new Uint8Array(memoryBuffer);
+		
+		for (var i = this.memPosition; i < memoryArray.length; i++) {
+			currentCharacter = String.fromCharCode(memoryArray[i]);
+			if (currentCharacter == "\0") {
+				break;
+			}
+			stringArray.push(currentCharacter);
+		}
+		this.string = stringArray.join("");
+		return;
+	}
+};
+
+var programName = new stringPointer;
+var programVersion = new stringPointer;
 
 importList["getMacros"] = function(
-	programName, programVersion,
+	memPos_programName, memPos_programVersion,
 	renderWidth, renderHeight,
 	maxFPS,
 	fontHeight
 ) {
-	memPos_programName = programName;
-	memPos_programVersion = programVersion;
+	programName.memPosition = memPos_programName;
+	programVersion.memPosition = memPos_programVersion;
 	fps = maxFPS;
 	element_canvas.width = renderWidth;
 	element_canvas.height = renderHeight;
+	element_canvas.style.maxWidth = renderWidth + "px";
+	element_canvas.style.maxHeight = renderHeight + "px";
 	fontSize = fontHeight;
 	return;
 }
 
 importList["impl_loopStart"] = function() {
-	element_context.clearRect(
+	context.clearRect(
 		0, 0,
 		element_canvas.width, element_canvas.height
 	);
 	
-	element_context.fillStyle = "#000";
-	element_context.fillRect(
+	context.fillStyle = "#000";
+	context.fillRect(
 		0, 0,
 		element_canvas.width, element_canvas.height
 	);
@@ -38,7 +67,7 @@ importList["impl_loopStart"] = function() {
 }
 
 importList["impl_setColor"] = function(red, green, blue) {
-	element_context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
+	context.fillStyle = "rgb(" + red + ", " + green + ", " + blue + ")";
 	return;
 }
 
@@ -47,7 +76,7 @@ importList["impl_drawNumber"] = function(
 	x, y,
 	number
 ) {
-	element_context.fillText(number, x, y + (fontSize - 1));
+	context.fillText(number, x, y + (fontSize - 1));
 	return;
 }
 
@@ -55,8 +84,62 @@ importList["impl_drawFillRect"] = function(
 	x, y,
 	width, height
 ) {
-	element_context.beginPath();
-	element_context.rect(x, y, width, height);
-	element_context.fill();
+	context.beginPath();
+	context.rect(x, y, width, height);
+	context.fill();
 	return;
 }
+
+/* Start Game */
+WebAssembly.instantiateStreaming(
+	fetch("build/BlockBreakC-WASM.wasm"),
+	{ "env": importList }
+).then(result => {
+	function input(event) {
+		result.instance.exports.input(event.keyCode);
+		return;
+	}
+	document.addEventListener("keydown", input);
+	
+	var touch_startX;
+	var touch_startY;
+	
+	function touchStart(event) {
+		for (const touch of event.changedTouches) {
+			touch_startX = touch.pageX;
+			touch_startY = touch.pageY;
+		}
+		return;
+	}
+	
+	function touchEnd(event) {
+		event.preventDefault();
+		for (const touch of event.changedTouches) {
+			if ((touch.pageY - touch_startY) < -64) {
+				result.instance.exports.input(38); /* Up */
+			} else if ((touch.pageY - touch_startY) > 64) {
+				result.instance.exports.input(40); /* Down */
+			}
+			
+			if ((touch.pageX - touch_startX) < -64) {
+				result.instance.exports.input(37); /* Left */
+			} else if ((touch.pageX - touch_startX) > 64) {
+				result.instance.exports.input(39); /* Right */
+			}
+		}
+		return;
+	}
+	document.addEventListener("touchstart", touchStart);
+	document.addEventListener("touchend", touchEnd);
+	
+	result.instance.exports._start();
+	
+	programName.init(result.instance.exports.memory.buffer);
+	programVersion.init(result.instance.exports.memory.buffer);
+	
+	element_title.innerText = programName.string + "-WASM v" + programVersion.string;
+	
+	context.font = fontSize + "px Fixedsys";
+	
+	loop = setInterval(result.instance.exports.draw, 1000 / fps);
+});

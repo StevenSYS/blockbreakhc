@@ -29,10 +29,10 @@ WebAssembly.instantiateStreaming(
 	document.addEventListener("keydown", input);
 	result.instance.exports._start();
 	element_title.innerText = pointerToString(
-		result.instance.exports.memory.buffer,
+		memory,
 		memPos_programName
 	) + "-WASM v" + pointerToString(
-		result.instance.exports.memory.buffer,
+		memory,
 		memPos_programVersion
 	);
 	element_context.font = fontSize + "px Fixedsys";

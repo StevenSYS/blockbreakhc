@@ -13,7 +13,7 @@ extern char timerStart;
 extern entity_t player;
 
 void getMacros(
-	char *programName, char *programVersion,
+	char *memPos_programName, char *memPos_programVersion,
 	int renderWidth, int renderHeight,
 	int maxFPS,
 	int fontHeight
