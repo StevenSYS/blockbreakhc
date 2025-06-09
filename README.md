@@ -1,2 +1,2 @@
 # BlockBreak Website
-The BlockBreak web version selection website
+The BlockBreak web version hub
