@@ -133,7 +133,7 @@ function generateLevel(level) {
 			}
 			
 			for (var j = 0; j < level; j++) {
-				if ((var j * blockSize[0] < element_canvas.width) && (var i * blockSize[1] < element_canvas.height)) {
+				if ((j * blockSize[0] < element_canvas.width) && (i * blockSize[1] < element_canvas.height)) {
 					blockCount++;
 					entity_init(
 						blocks[j][i],
