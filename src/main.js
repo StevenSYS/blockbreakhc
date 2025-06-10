@@ -45,7 +45,7 @@ var blocks = [];
 
 for (var i = 0; i < maxBlocks; i++) {
 	blocks.push([]);
-	for (j = 0; j < maxBlocks; j++) {
+	for (var j = 0; j < maxBlocks; j++) {
 		blocks[i].push(new entity);
 	}
 }
@@ -125,15 +125,15 @@ function generateLevel(level) {
 			Math.round(element_canvas.height / (level * 1.5))
 		];
 		
-		for (i = 0; i < level; i++) {
+		for (var i = 0; i < level; i++) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
 				randomColor = random_get();
 			}
 			
-			for (j = 0; j < level; j++) {
-				if ((j * blockSize[0] < element_canvas.width) && (i * blockSize[1] < element_canvas.height)) {
+			for (var j = 0; j < level; j++) {
+				if ((var j * blockSize[0] < element_canvas.width) && (var i * blockSize[1] < element_canvas.height)) {
 					blockCount++;
 					entity_init(
 						blocks[j][i],
@@ -211,8 +211,8 @@ function draw() {
 	
 	entity_draw(context, player, true);
 	
-	for (i = 0; i < level; i++) {
-		for (j = 0; j < level; j++) {
+	for (var i = 0; i < level; i++) {
+		for (var j = 0; j < level; j++) {
 			if (blocks[j][i].visible) {
 				entity_draw(context, blocks[j][i], false);
 				if (entity_collision(player, blocks[j][i])) {
