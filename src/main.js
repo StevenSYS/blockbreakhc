@@ -14,7 +14,15 @@ document.addEventListener("touchend", touchEnd);
 var oldRandomColor = 13;
 var randomColor = 13;
 var level = 1;
-var randomColors = [
+var blockCount = 0;
+var timer = 0;
+var score = 0;
+var highScore = 0;
+var timerStart = false;
+var player = new entity;
+var blocks = [];
+
+const randomColors = [
 	[ "0", "0", "A" ],
 	[ "0", "A", "0" ],
 	[ "0", "A", "A" ],
@@ -29,19 +37,10 @@ var randomColors = [
 	[ "F", "F", "5" ]
 ];
 
-var blockCount = 0;
-var timer = 0;
-
-var score = 0;
-var highScore = 0;
+/* Get High Score */
 if (localStorage.getItem(programName + "_highScore") != undefined) {
 	highScore = parseInt(localStorage.getItem(programName + "_highScore"));
 }
-
-var timerStart = false;
-
-var player = new entity;
-var blocks = [];
 
 for (var i = 0; i < maxBlocks; i++) {
 	blocks.push([]);
@@ -80,7 +79,7 @@ function touchEnd(event) {
 		} else if (
 			touch_deltaY > touchDeadZone
 			&&
-			touch_deltaY > touch_deltaX
+			touch_deltaY > -touch_deltaX
 		) {
 			player.direction = directions.DOWN;
 			timerStart = true;
@@ -96,7 +95,7 @@ function touchEnd(event) {
 		} else if (
 			touch_deltaX > touchDeadZone
 			&&
-			touch_deltaX > touch_deltaY
+			touch_deltaX > -touch_deltaY
 		) {
 			player.direction = directions.RIGHT;
 			timerStart = true;
