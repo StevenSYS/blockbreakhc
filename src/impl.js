@@ -119,8 +119,6 @@ WebAssembly.instantiateStreaming(
 			touch_deltaX = touch.pageX - touch_startX;
 			touch_deltaY = touch.pageY - touch_startY;
 			
-			console.log(touch_deltaX, touch_deltaY);
-			
 			if (
 				touch_deltaY < -touchDeadZone
 				&&
