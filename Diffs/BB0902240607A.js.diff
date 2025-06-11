@@ -1,0 +1,46 @@
+3c3
+< 	Last Modified:		08/31/2024 05:04 AM
+---
+> 	Last Modified:		09/02/2024 06:07 AM
+6,7c6,18
+< /* Integers */
+< highScore = 0;
+---
+> /* Booleans */
+> reset = false;
+> timerStart = false;
+> exitDown = false;
+>  
+> /* Intergers */
+> fps = 30;
+> blockWidth = 0;
+> blockHeight = 0;
+> dotX = 156;
+> dotY = 230;
+> direction = 0;
+> level = 1;
+8a20,24
+> score = 0;
+> highScore = 0;
+>  
+> /* Strings */
+> randomColor = "";
+27,44d42
+< 	/* Booleans */
+< 	var reset = false;
+< 	var timerStart = false;
+< 	var exitDown = false;
+< 	 
+< 	/* Intergers */
+< 	var fps = 30;
+< 	var blockWidth = 0;
+< 	var blockHeight = 0;
+< 	var dotX = 156;
+< 	var dotY = 230;
+< 	var direction = 0;
+< 	var level = 1;
+< 	var score = 0;
+< 	 
+< 	/* Strings */
+< 	var randomColor = "";
+< 

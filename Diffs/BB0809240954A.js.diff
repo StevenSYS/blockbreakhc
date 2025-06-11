@@ -1,0 +1,8 @@
+3c3
+< 	Last Modified:		08/07/2024 04:07 PM
+---
+> 	Last Modified:		08/09/2024 09:54 AM
+57c57
+< 			timer += Math.round(level * 50);
+---
+> 			timer += level * 50;

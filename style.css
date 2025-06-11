@@ -1,0 +1,148 @@
+@font-face {
+	font-family: fixedsys;
+	font-weight: 400;
+	src: url(Assets/FSEX302.ttf);
+}
+
+body {
+	background-color: #000;
+	color: #fff;
+	font-family: fixedsys;
+	font-size: 16px;
+	margin: 0;
+	user-select: text;
+	/* https://stackoverflow.com/a/14068216 */
+	image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+	image-rendering: -moz-crisp-edges;          /* Firefox                        */
+	image-rendering: -o-crisp-edges;            /* Opera                          */
+	image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+	image-rendering: pixelated;                 /* Universal support since 2021   */
+	image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+	-ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+}
+
+a {
+	cursor: url("Assets/Images/Cursors/Click.png") 4 1, auto;
+}
+
+/* Global */
+.Global_MenuLayer {
+	cursor: url("Assets/Images/Cursors/Normal.png"), auto;
+	height: 240px;
+	left: 50%;
+	overflow: hidden auto;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 320px;
+	z-index: 100;
+}
+
+.Global_GameLayer, .gameLayer, .frame {
+	height: 240px;
+	left: 50%;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 320px;
+	user-select: none;
+}
+
+.Global_Frame {
+	background-image: url(Assets/Images/Frame.png);
+	height: 246px;
+	left: 50%;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 326px;
+}
+
+/* Menu Loader */
+.Menu_Button {
+	user-select: none;
+	background-color: #e0e0f4;
+	border: none;
+        box-shadow: 0 1px 0 #f0f0ff inset,
+                    1px 0 0 #f0f0ff inset,
+                    -1px 0 0 #b0b0c4 inset,
+                    0 -1px 0 #b0b0c4 inset;
+	color: #000;
+	display: inline-block;
+	font-size: 16px;
+	height: 18px;
+	margin: 1px 0px 9px 0px;
+	outline: 1px solid #000;
+	padding: 0px 4px 1px 4px;
+	line-height: 18px;
+}
+
+.Menu_Button:hover {
+	background-color: #fff;
+	box-shadow: none;
+	color: #000;
+	outline: 1px solid #000;
+}
+
+.Menu_Button:active {
+	background-color: #000;
+	box-shadow: none;
+	color: #fff;
+	outline: 1px solid #fff;
+}
+
+.Menu_Button.disabled {
+	background-color: #808094;
+	color: #000;
+	box-shadow: 0 1px 0 #c0c0d4 inset,
+		    1px 0 0 #c0c0d4 inset,
+		    -1px 0 0 #202034 inset,
+		    0 -1px 0 #202034 inset;
+	outline: 1px solid #000;
+}
+
+/* Block Break */
+.BlockBreak_CRT, .crt {
+	background-image: url(Assets/Images/CRT.png);
+	height: 240px;
+	position: absolute;
+	width: 320px;
+	z-index: 100;
+}
+
+.BlockBreak_Block, .block {
+	position: absolute;
+}
+
+.BlockBreak_Dot, .dot {
+	background-color: #fff;
+	width: 8px;
+	height: 8px;
+	position: absolute;
+}
+
+.BlockBreak_Timer, .timer {
+	user-select: none;
+	bottom: 8px;
+	left: 8px;
+	z-index: 100;
+	position: absolute;
+}
+
+.BlockBreak_Score, .score {
+	user-select: none;
+	bottom: 8px;
+	right: 8px;
+	z-index: 100;
+	position: absolute;
+}
+
+.BlockBreak_HighScore, .highScore {
+	user-select: none;
+	bottom: 24px;
+	right: 8px;
+	z-index: 100;
+	position: absolute;
+}

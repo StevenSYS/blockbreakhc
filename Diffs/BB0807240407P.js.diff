@@ -1,0 +1,51 @@
+3c3
+< 	Last Modified:		07/24/2024 12:47 AM
+---
+> 	Last Modified:		08/07/2024 04:07 PM
+74a75,97
+> 	$(document).keydown(function(event) {
+> 		if (!timerStart)
+> 			timerStart = true;
+> 		switch (event.keyCode) {
+> 			case 13: // Enter (Exit)
+> 				if (!exitDown) 
+> 					window.location.href = "?";
+> 				exitDown = true;
+> 				break;
+> 			case 37: // Left 
+> 				direction = 1;
+> 				break;
+> 			case 38: // Up
+> 				direction = 2;
+> 				break
+> 			case 39: // Right 
+> 				direction = 3;
+> 				break;
+> 			case 40: // Down
+> 				direction = 4;
+> 				break;
+> 	}})
+> 
+92,113d114
+< 		$(document).keydown(function(event) {
+< 			if (!timerStart)
+< 				timerStart = true;
+< 			switch (event.keyCode) {
+< 				case 13: // Enter (Exit)
+< 					if (!exitDown)
+< 						window.location.href = "?";
+< 					exitDown = true;
+< 					break;
+< 				case 37: // Left
+< 					direction = 1;
+< 					break;
+< 				case 38: // Up
+< 					direction = 2;
+< 					break
+< 				case 39: // Right
+< 					direction = 3;
+< 					break;
+< 				case 40: // Down
+< 					direction = 4;
+< 					break;
+< 		}})

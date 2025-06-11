@@ -1,0 +1,36 @@
+3c3
+< 	Last Modified:		07/11/2024 11:04 AM
+---
+> 	Last Modified:		07/11/2024 02:42 PM
+28a29
+> 	$("title").replaceWith("<title> Block Break - Unnamed Game</title>");
+35,37c36,38
+< 	$(".frame").before("<div class=\"timer\">Timer: " + timer + "</div>");
+< 	$(".frame").before("<div class=\"score\">Score: 0</div>");
+< 	$(".frame").before("<div class=\"highScore\">High Score: " + highScore + "</div>");
+---
+> 	$(".frame").before("<div class=\"timer\">" + timer + "</div>");
+> 	$(".frame").before("<div class=\"score\">0</div>");
+> 	$(".frame").before("<div class=\"highScore\">" + highScore + "</div>");
+45c46
+< 	$(".highScore").text("High Score: " + highScore);
+---
+> 	$(".highScore").text(highScore);
+58,59c59,60
+< 		$(".timer").text("Timer: " + timer);
+< 		$(".score").text("Score: " + score);
+---
+> 		$(".timer").text(timer);
+> 		$(".score").text(score);
+77c78
+< 			$(".timer").text("Timer: " + timer);
+---
+> 			$(".timer").text(timer);
+124a126
+> 				playSound("Block Break/BlockHit.wav", "0.25");
+128c130
+< 					$(".score").text("Score: " + score);
+---
+> 					$(".score").text(score);
+129a132
+> 				playSound("Block Break/EdgeHit.wav", "0.25");

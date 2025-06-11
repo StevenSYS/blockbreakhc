@@ -1,0 +1,8 @@
+3c3
+< 	Last Modified:		09/02/2024 06:48 AM
+---
+> 	Last Modified:		09/04/2024 04:44 PM
+81c81
+< 					window.location.href = "?";
+---
+> 					window.location.href = "?menu=MainMenu";

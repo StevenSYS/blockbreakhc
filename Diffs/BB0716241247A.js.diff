@@ -1,0 +1,24 @@
+3c3
+< 	Last Modified:		07/11/2024 02:42 PM
+---
+> 	Last Modified:		07/16/2024 12:47 AM
+10c10
+< 
+---
+>  
+22,24c22,24
+< 
+< /* Others */
+< randomColor = 0;
+---
+>  
+> /* Strings */
+> randomColor = "";
+66a67
+> console.log(jQuery.type(randomColor));
+118,119c119,120
+< 		var touchingEdge = $(".edge").overlaps($(".dot"));	
+< 		var touchingBlock = $(".block").overlaps($(".dot"));
+---
+> 		touchingEdge = $(".edge").overlaps($(".dot"));	
+> 		touchingBlock = $(".block").overlaps($(".dot"));

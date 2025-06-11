@@ -1,0 +1,81 @@
+3c3
+< 	Last Modified:		08/16/2024 11:34 PM
+---
+> 	Last Modified:		08/31/2024 05:04 AM
+6,20c6
+< /* Booleans */
+< reset = false;
+< timerStart = false;
+< exitDown = false;
+<  
+< /* Intergers */
+< fps = 30;
+< blockWidth = 0;
+< blockHeight = 0;
+< dotX = 156;
+< dotY = 230;
+< direction = 0;
+< level = 1;
+< timer = 500;
+< score = 0;
+---
+> /* Integers */
+22,24c8
+<  
+< /* Strings */
+< randomColor = "";
+---
+> timer = 500;
+27,29c11,13
+< 	$(".frame").css("cursor", "none");
+< 	$(".frame").css("user-select", "none");
+< 	$("title").replaceWith("<title> Block Break - YouGee</title>");
+---
+> 	$(".gameLayer").css("cursor", "none");
+> 	$(".gameLayer").css("user-select", "none");
+> 	$("title").text("Block Break - YouGee");
+31,38c15,22
+< 		$(".frame").append("<div class=\"crt\"></div>");
+< 	$(".frame").before("<div class=\"edge\" style=\"width: 320px; height: 16px; left: 3px; top: -15px; position: absolute;\"></div>");
+< 	$(".frame").before("<div class=\"edge\" style=\"width: 320px; height: 16px; left: 3px; bottom: -15px; position: absolute;\"></div>");
+< 	$(".frame").before("<div class=\"edge\" style=\"width: 16px; height: 240px; left: -15px; top: 3px; position: absolute;\"></div>");
+< 	$(".frame").before("<div class=\"edge\" style=\"width: 16px; height: 240px; right: -15px; top: 3px; position: absolute;\"></div>");
+< 	$(".frame").before("<div class=\"timer\">" + timer + "</div>");
+< 	$(".frame").before("<div class=\"score\">0</div>");
+< 	$(".frame").before("<div class=\"highScore\">" + highScore + "</div>");
+---
+> 		$(".gameLayer").append("<div class=\"crt\"></div>");
+> 	$(".gameLayer").before("<div class=\"edge\" style=\"width: 320px; height: 16px; left: 3px; top: -15px; position: absolute;\"></div>");
+> 	$(".gameLayer").before("<div class=\"edge\" style=\"width: 320px; height: 16px; left: 3px; bottom: -15px; position: absolute;\"></div>");
+> 	$(".gameLayer").before("<div class=\"edge\" style=\"width: 16px; height: 240px; left: -15px; top: 3px; position: absolute;\"></div>");
+> 	$(".gameLayer").before("<div class=\"edge\" style=\"width: 16px; height: 240px; right: -15px; top: 3px; position: absolute;\"></div>");
+> 	$(".gameLayer").before("<div class=\"timer\">" + timer + "</div>");
+> 	$(".gameLayer").before("<div class=\"score\">0</div>");
+> 	$(".gameLayer").before("<div class=\"highScore\">" + highScore + "</div>");
+42a27,44
+> 	/* Booleans */
+> 	var reset = false;
+> 	var timerStart = false;
+> 	var exitDown = false;
+> 	 
+> 	/* Intergers */
+> 	var fps = 30;
+> 	var blockWidth = 0;
+> 	var blockHeight = 0;
+> 	var dotX = 156;
+> 	var dotY = 230;
+> 	var direction = 0;
+> 	var level = 1;
+> 	var score = 0;
+> 	 
+> 	/* Strings */
+> 	var randomColor = "";
+> 
+63c65
+< 	$(".frame").append("<div class=\"dot\"></div>");
+---
+> 	$(".gameLayer").append("<div class=\"dot\"></div>");
+70c72
+< 			$(".frame").append("<div class=\"block\" style=\"background-color: #" + randomColor + "; left: " + j * blockWidth + "px; top: " + i * blockHeight + "px; width:" + blockWidth + "px; height: " + blockHeight + "px;\"></div>");
+---
+> 			$(".gameLayer").append("<div class=\"block\" style=\"background-color: #" + randomColor + "; left: " + j * blockWidth + "px; top: " + i * blockHeight + "px; width:" + blockWidth + "px; height: " + blockHeight + "px;\"></div>");
