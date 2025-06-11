@@ -53,6 +53,14 @@ for (var i = 0; i < maxBlocks; i++) {
 var touch_startX, touch_deltaX;
 var touch_startY, touch_deltaY;
 
+function toPositive(number) {
+	if (number < 0) {
+		return -number;
+	} else {
+		return number;
+	}
+}
+
 function touchStart(event) {
 	for (const touch of event.changedTouches) {
 		touch_startY = touch.pageY;
@@ -64,41 +72,37 @@ function touchStart(event) {
 function touchEnd(event) {
 	event.preventDefault();
 	for (const touch of event.changedTouches) {
-		random_increase();
-		
 		touch_deltaX = touch.pageX - touch_startX;
 		touch_deltaY = touch.pageY - touch_startY;
+		touch_positiveX = toPositive(touch_deltaX);
+		touch_positiveY = toPositive(touch_deltaY);
 		
 		if (
 			touch_deltaY < -touchDeadZone
 			&&
-			touch_deltaY < touch_deltaX
+			touch_deltaY < -touch_positiveX
 		) {
-			player.direction = directions.UP;
-			timerStart = true;
+			input({ keyCode: 38 }); /* Up */
 		} else if (
 			touch_deltaY > touchDeadZone
 			&&
-			touch_deltaY > -touch_deltaX
+			touch_deltaY > touch_positiveX
 		) {
-			player.direction = directions.DOWN;
-			timerStart = true;
+			input({ keyCode: 40 }); /* Down */
 		}
 		
 		if (
 			touch_deltaX < -touchDeadZone
 			&&
-			touch_deltaX < touch_deltaY
+			touch_deltaX < -touch_positiveY
 		) {
-			player.direction = directions.LEFT;
-			timerStart = true;
+			input({ keyCode: 37 }); /* Left */
 		} else if (
 			touch_deltaX > touchDeadZone
 			&&
-			touch_deltaX > -touch_deltaY
+			touch_deltaX > touch_positiveY
 		) {
-			player.direction = directions.RIGHT;
-			timerStart = true;
+			input({ keyCode: 39 }); /* Right */
 		}
 	}
 	return;
