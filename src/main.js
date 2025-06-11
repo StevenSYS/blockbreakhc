@@ -51,8 +51,8 @@ for (var i = 0; i < maxBlocks; i++) {
 }
 
 /* Touch Input */
-var touch_startX;
-var touch_startY;
+var touch_startX, touch_deltaX;
+var touch_startY, touch_deltaY;
 
 function touchStart(event) {
 	for (const touch of event.changedTouches) {
@@ -65,22 +65,39 @@ function touchStart(event) {
 function touchEnd(event) {
 	event.preventDefault();
 	for (const touch of event.changedTouches) {
-		if ((touch.pageY - touch_startY) < -touchDeadZone) {
-			random_increase();
+		random_increase();
+		
+		touch_deltaX = touch.pageX - touch_startX;
+		touch_deltaY = touch.pageY - touch_startY;
+		
+		if (
+			touch_deltaY < -touchDeadZone
+			&&
+			touch_deltaY < touch_deltaX
+		) {
 			player.direction = directions.UP;
 			timerStart = true;
-		} else if ((touch.pageY - touch_startY) > touchDeadZone) {
-			random_increase();
+		} else if (
+			touch_deltaY > touchDeadZone
+			&&
+			touch_deltaY > touch_deltaX
+		) {
 			player.direction = directions.DOWN;
 			timerStart = true;
 		}
 		
-		if ((touch.pageX - touch_startX) < -touchDeadZone) {
-			random_increase();
+		if (
+			touch_deltaX < -touchDeadZone
+			&&
+			touch_deltaX < touch_deltaY
+		) {
 			player.direction = directions.LEFT;
 			timerStart = true;
-		} else if ((touch.pageX - touch_startX) > touchDeadZone) {
-			random_increase();
+		} else if (
+			touch_deltaX > touchDeadZone
+			&&
+			touch_deltaX > touch_deltaY
+		) {
 			player.direction = directions.RIGHT;
 			timerStart = true;
 		}
