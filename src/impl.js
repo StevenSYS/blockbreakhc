@@ -36,6 +36,14 @@ class stringPointer {
 var programName = new stringPointer;
 var programVersion = new stringPointer;
 
+function toPositive(number) {
+	if (number < 0) {
+		return -number;
+	} else {
+		return number;
+	}
+}
+
 importList["getMacros"] = function(
 	memPos_programName, memPos_programVersion,
 	renderWidth, renderHeight,
@@ -91,7 +99,6 @@ importList["impl_drawFillRect"] = function(
 	return;
 }
 
-/* Start Game */
 WebAssembly.instantiateStreaming(
 	fetch("build/BlockBreakC-WASM.wasm"),
 	{ "env": importList }
@@ -102,8 +109,9 @@ WebAssembly.instantiateStreaming(
 	}
 	document.addEventListener("keydown", input);
 	
-	var touch_startX;
-	var touch_startY;
+	/* Touch Input */
+	var touch_startX, touch_deltaX, touch_positiveX;
+	var touch_startY, touch_deltaY, touch_positiveY;
 	
 	function touchStart(event) {
 		for (const touch of event.changedTouches) {
@@ -118,17 +126,19 @@ WebAssembly.instantiateStreaming(
 		for (const touch of event.changedTouches) {
 			touch_deltaX = touch.pageX - touch_startX;
 			touch_deltaY = touch.pageY - touch_startY;
+			touch_positiveX = toPositive(touch_deltaX);
+			touch_positiveY = toPositive(touch_deltaY);
 			
 			if (
 				touch_deltaY < -touchDeadZone
 				&&
-				touch_deltaY < touch_deltaX
+				touch_deltaY < -touch_positiveX
 			) {
 				result.instance.exports.input(38); /* Up */
 			} else if (
 				touch_deltaY > touchDeadZone
 				&&
-				touch_deltaY > -touch_deltaX
+				touch_deltaY > touch_positiveX
 			) {
 				result.instance.exports.input(40); /* Down */
 			}
@@ -136,13 +146,13 @@ WebAssembly.instantiateStreaming(
 			if (
 				touch_deltaX < -touchDeadZone
 				&&
-				touch_deltaX < touch_deltaY
+				touch_deltaX < -touch_positiveY
 			) {
 				result.instance.exports.input(37); /* Left */
 			} else if (
 				touch_deltaX > touchDeadZone
 				&&
-				touch_deltaX > -touch_deltaY
+				touch_deltaX > touch_positiveY
 			) {
 				result.instance.exports.input(39); /* Right */
 			}
