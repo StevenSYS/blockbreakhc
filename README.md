@@ -1,5 +1,5 @@
 # BlockBreakHC
-A HolyC version of a game I originally made in JavaScript
+A HolyC version of a game I originally made in JavaScript + jQuery
 
 # Screenshots
 
