@@ -1,7 +1,7 @@
 const element_canvas = document.createElement("canvas");
 const element_title = document.getElementById("title");
 const context = element_canvas.getContext("2d");
-const touchDeadZone = 64;
+const touchDeadZone = 32;
 
 element_canvas.style.maxWidth = "0px";
 element_canvas.style.maxHeight = "0px";
