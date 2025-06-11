@@ -116,15 +116,34 @@ WebAssembly.instantiateStreaming(
 	function touchEnd(event) {
 		event.preventDefault();
 		for (const touch of event.changedTouches) {
-			if ((touch.pageY - touch_startY) < -touchDeadZone) {
+			touch_deltaX = touch.pageX - touch_startX;
+			touch_deltaY = touch.pageY - touch_startY;
+			
+			if (
+				touch_deltaY < -touchDeadZone
+				&&
+				touch_deltaY < touch_deltaX
+			) {
 				result.instance.exports.input(38); /* Up */
-			} else if ((touch.pageY - touch_startY) > touchDeadZone) {
+			} else if (
+				touch_deltaY > touchDeadZone
+				&&
+				touch_deltaY > touch_deltaX
+			) {
 				result.instance.exports.input(40); /* Down */
 			}
 			
-			if ((touch.pageX - touch_startX) < -touchDeadZone) {
+			if (
+				touch_deltaX < -touchDeadZone
+				&&
+				touch_deltaX < touch_deltaY
+			) {
 				result.instance.exports.input(37); /* Left */
-			} else if ((touch.pageX - touch_startX) > touchDeadZone) {
+			} else if (
+				touch_deltaX > touchDeadZone
+				&&
+				touch_deltaX > touch_deltaY
+			) {
 				result.instance.exports.input(39); /* Right */
 			}
 		}
