@@ -9,10 +9,11 @@ A port of BlockBreakC from C to JavaScript
 
 # Controls
 
-| Key            | Action     |
-| -------------- | ---------- |
-| Up             | Move Up    |
-| Down           | Move Down  |
-| Left           | Move Left  |
-| Right          | Move Right |
-| Enter          | Restart    |
+| Key                  | Action     |
+| -------------------- | ---------- |
+| Up                   | Move Up    |
+| Down                 | Move Down  |
+| Left                 | Move Left  |
+| Right                | Move Right |
+| Enter                | Restart    |
+| Swipe (Touch Screen) | Move       |
