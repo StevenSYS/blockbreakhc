@@ -119,6 +119,8 @@ WebAssembly.instantiateStreaming(
 			touch_deltaX = touch.pageX - touch_startX;
 			touch_deltaY = touch.pageY - touch_startY;
 			
+			console.log(touch_deltaX, touch_deltaY);
+			
 			if (
 				touch_deltaY < -touchDeadZone
 				&&
@@ -128,7 +130,7 @@ WebAssembly.instantiateStreaming(
 			} else if (
 				touch_deltaY > touchDeadZone
 				&&
-				touch_deltaY > touch_deltaX
+				touch_deltaY > -touch_deltaX
 			) {
 				result.instance.exports.input(40); /* Down */
 			}
@@ -142,7 +144,7 @@ WebAssembly.instantiateStreaming(
 			} else if (
 				touch_deltaX > touchDeadZone
 				&&
-				touch_deltaX > touch_deltaY
+				touch_deltaX > -touch_deltaY
 			) {
 				result.instance.exports.input(39); /* Right */
 			}
