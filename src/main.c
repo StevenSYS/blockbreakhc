@@ -1,7 +1,7 @@
 #include "random.h"
-#include "impl.h"
 #include "entity.h"
 #include "progInfo.h"
+#include "impl/impl.h"
 
 unsigned char oldRandomColor = 13;
 unsigned char randomColor = 13;
@@ -25,7 +25,7 @@ unsigned short blockCount = 0;
 unsigned short timer = 0;
 
 unsigned int score = 0;
-unsigned int highScore = 0;
+unsigned int highScore;
 
 char timerStart = 0;
 
@@ -147,6 +147,7 @@ void draw() {
 	if (!timer) {
 		if (score > highScore) {
 			highScore = score;
+			impl_setHighScore(highScore);
 		}
 		reset();
 	}
@@ -164,6 +165,8 @@ int main(
 	int argc,
 	char *argv[]
 ) {
+	highScore = impl_getHighScore();
+	
 	init(level, &player);
 	
 	impl_init(argc, argv);

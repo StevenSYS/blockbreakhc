@@ -27,4 +27,9 @@ void impl_drawFillRect(
 	unsigned short width, unsigned short height
 );
 
+/* High Score Saving */
+unsigned int impl_getHighScore();
+
+void impl_setHighScore(unsigned int highScore);
+
 #endif

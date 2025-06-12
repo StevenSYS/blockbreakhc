@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.25)
 
 project(BlockBreakC LANGUAGES C VERSION 1.2)
 
-set(IMPL "GLFW3" CACHE STRING "Select which implementation to build")
+set(IMPL "GLFW3" CACHE STRING "The implementation to build with")
+set(HSSIMPL "Dummy" CACHE STRING "The high score saving implementation to build with")
 option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Mingw-w64 Required)" OFF)
 
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
@@ -54,6 +55,12 @@ else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\" or \"SDL3GL\"")
 endif()
 
+if(HSSIMPL STREQUAL "Dummy")
+	set(IMPL_FILES ${IMPL_FILES} "src/impl/highScore/dummy.c")
+else()
+	message(FATAL_ERROR "Invalid high score saving implementation, the only possible value is \"Dummy\"")
+endif()
+
 file(GLOB SOURCE_FILES ${IMPL_FILES} "src/*.c")
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
@@ -93,5 +100,6 @@ elseif(IMPL STREQUAL "raylib")
 		target_link_libraries(${PROJECT_NAME} "-framework Cocoa")
 		target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
 	endif()
+elseif(IMPL STREQUAL "Test")
 endif()
 target_include_directories(${PROJECT_NAME} PRIVATE src)
