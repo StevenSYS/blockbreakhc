@@ -4,3 +4,5 @@ impl_drawFillRect
 impl_loopStart
 impl_setColor
 impl_drawNumber
+impl_setHighScore
+impl_getHighScore
