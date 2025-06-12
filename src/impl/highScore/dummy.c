@@ -1,4 +1,4 @@
-/* Dummy Implementation */
+/* Dummy/Template Implementation */
 unsigned int impl_getHighScore() {
 	return 0;
 }
