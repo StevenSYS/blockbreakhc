@@ -22,8 +22,6 @@
 #define SCREEN_EDGE_LEFT 0
 #define SCREEN_EDGE_RIGHT RENDER_WIDTH - PLAYER_WIDTH
 
-#define HIGHSCORE_FILE "highScore"
-
 #define MAX_BLOCKS 255
 #define MAX_FPS 30
 
