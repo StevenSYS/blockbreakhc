@@ -175,6 +175,7 @@ jobs:
           cmake -S . -B build
           -DCMAKE_C_COMPILER=gcc
           -DCMAKE_BUILD_TYPE=Release
+          -DBUILD_SHARED_LIBS=OFF
           -DIMPL=${{matrix.build-targets.impl}}
           -DCMAKE_C_FLAGS=${{matrix.build-targets.cFlags}}
           -G "Unix Makefiles"

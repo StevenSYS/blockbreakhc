@@ -1,0 +1,73 @@
+include_directories(../)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+if(IMPL STREQUAL "SDL3")
+	find_package(SDL3 REQUIRED)
+	set(IMPL_FILES "sdl3.c")
+elseif(IMPL STREQUAL "GLUT")
+	find_package(OpenGL REQUIRED)
+	find_package(GLUT REQUIRED)
+	include_directories(${OPENGL_INCLUDE_DIRS})
+	set(IMPL_FILES "glut.c")
+elseif(IMPL STREQUAL "GLFW3")
+	find_package(OpenGL REQUIRED)
+	find_package(glfw3 REQUIRED)
+	include_directories(${OPENGL_INCLUDE_DIRS})
+	set(IMPL_FILES "glfw3.c")
+elseif(IMPL STREQUAL "SDL3GL")
+	find_package(SDL3 REQUIRED)
+	find_package(OpenGL REQUIRED)
+	include_directories(
+		${SDL3_INCLUDE_DIRS}
+		${OPENGL_INCLUDE_DIRS}
+	)
+	set(IMPL_FILES "sdl3GL.c")
+elseif(IMPL STREQUAL "raylib")
+	find_package(raylib 3.0 REQUIRED)
+	include_directories(${raylib_INCLUDE_DIRS})
+	set(IMPL_FILES "raylib.c")
+else()
+	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\" or \"SDL3GL\"")
+endif()
+
+add_library(Impl ${IMPL_FILES})
+
+if(IMPL STREQUAL "SDL3")
+	target_link_libraries(Impl SDL3::SDL3)
+elseif(IMPL STREQUAL "GLUT")
+	target_link_libraries(
+		Impl
+		${OPENGL_LIBRARY}
+		${GLUT_glut_LIBRARY}
+	)
+	if (APPLE)
+		target_link_libraries(Impl "-framework OpenGL")
+	endif()
+elseif(IMPL STREQUAL "GLFW3")
+	target_link_libraries(
+		Impl
+		${OPENGL_LIBRARY}
+		glfw
+	)
+	if (APPLE)
+		target_link_libraries(Impl "-framework OpenGL")
+	endif()
+elseif(IMPL STREQUAL "SDL3GL")
+	target_link_libraries(
+		Impl
+		SDL3::SDL3
+		${OPENGL_LIBRARY}
+	)
+	if (APPLE)
+		target_link_libraries(Impl "-framework OpenGL")
+	endif()
+elseif(IMPL STREQUAL "raylib")
+	target_link_libraries(Impl raylib)
+	if (APPLE)
+		target_link_libraries(Impl "-framework IOKit")
+		target_link_libraries(Impl "-framework Cocoa")
+		target_link_libraries(Impl "-framework OpenGL")
+	endif()
+endif()
