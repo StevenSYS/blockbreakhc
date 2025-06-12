@@ -1,4 +1,4 @@
-/* Implementation Template */
+/* Dummy/Template Implementation */
 #include "entity.h"
 #include "random.h"
 #include "progInfo.h"

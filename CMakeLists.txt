@@ -34,7 +34,7 @@ add_subdirectory(src/impl)
 if(NOT BUILD_ONLY_LIBRARY)
 	file(GLOB SOURCE_FILES "src/*.c")
 	
-	if(BUILD_AS_LIB)
+	if(BUILD_AS_LIBRARY)
 		add_library(${PROJECT_NAME} ${HSSIMPL_FILES} ${SOURCE_FILES})
 		target_link_libraries(${PROJECT_NAME} Impl)
 	else()
