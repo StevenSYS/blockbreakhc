@@ -79,7 +79,7 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(int, char) {
+void impl_init(int argc, char *argv[]) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",
 		RENDER_WIDTH, RENDER_HEIGHT,

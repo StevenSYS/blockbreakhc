@@ -11,9 +11,9 @@ static double lastTime;
 static void input(
 	GLFWwindow *window,
 	int key,
-	int,
+	int scancode,
 	int action,
-	int
+	int mods
 ) {
 	if (action == GLFW_PRESS) {
 		random_increase();
@@ -53,7 +53,7 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(int, char) {
+void impl_init(int argc, char *argv[]) {
 	if (!glfwInit()) {
 		return;
 	}

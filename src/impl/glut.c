@@ -6,7 +6,7 @@
 
 static void input(
 	unsigned char key,
-	int, int
+	int x, int y
 ) {
 	random_increase();
 	switch (key) {
@@ -20,7 +20,7 @@ static void input(
 
 static void inputSpecial(
 	int key,
-	int, int
+	int x, int y
 ) {
 	random_increase();
 	switch (key) {
@@ -46,7 +46,7 @@ static void inputSpecial(
 	return;
 }
 
-static void drawLoop(int) {
+static void drawLoop(int msecs) {
 	glutPostRedisplay();
 	glutTimerFunc(1000 / MAX_FPS, drawLoop, 0);
 	return;
