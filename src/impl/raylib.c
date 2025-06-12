@@ -76,7 +76,7 @@ void impl_init(
 	return;
 }
 
-/* Draw */
+/* Drawing */
 void impl_drawNumber(
 	short x, short y,
 	unsigned int number
