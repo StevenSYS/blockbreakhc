@@ -13,6 +13,8 @@ extern entity_t player;
 
 static char string[11];
 
+static unsigned char i, j;
+
 static const GLubyte numberSheet[10][FONT_HEIGHT] = {
 	{ 0x00, 0x78, 0xCC, 0xCC, 0xCC, 0xCC, 0xCC, 0x78 }, /* 0 */
 	{ 0x00, 0xFC, 0x30, 0x30, 0x30, 0xF0, 0x70, 0x30 }, /* 1 */
@@ -25,14 +27,20 @@ static const GLubyte numberSheet[10][FONT_HEIGHT] = {
 	{ 0x00, 0x78, 0xCC, 0xCC, 0x78, 0xCC, 0xCC, 0x78 }, /* 8 */
 	{ 0x00, 0x78, 0xCC, 0x0C, 0x7C, 0xCC, 0xCC, 0x78 }  /* 9 */
 };
-static GLubyte numberSheetGL[10][(FONT_HEIGHT * 4) + 1] = { 0 };
+static GLubyte numberSheetGL[10][(FONT_HEIGHT * 4) + 1];
 
 static void glSharedInit() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
 	
-	for (unsigned char j = 0; j < 10; j++) {
-		for (unsigned char i = 0; i <= FONT_HEIGHT * 4; i += 4) {
+	for (j = 0; j < 10; j++) {
+		for (i = 0; i <= FONT_HEIGHT * 4; i++) {
+			numberSheetGL[j][i] = 0;
+		}
+	}
+	
+	for (j = 0; j < 10; j++) {
+		for (i = 0; i <= FONT_HEIGHT * 4; i += 4) {
 			numberSheetGL[j][i] = numberSheet[j][i / 4];
 		}
 	}
@@ -59,7 +67,7 @@ void impl_drawNumber(
 	unsigned int number
 ) {
 	sprintf(string, "%u", number);
-	for (unsigned char i = 0; i < strlen(string); i++) {
+	for (i = 0; i < strlen(string); i++) {
 		glRasterPos2s(x + (i * FONT_WIDTH), y + FONT_HEIGHT);
 		glBitmap(
 			FONT_WIDTH, FONT_HEIGHT,

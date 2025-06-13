@@ -1,5 +1,9 @@
 /* GLFW3 Implementation */
-#include <GLFW/glfw3.h>
+#ifdef __APPLE
+	#include <glfw3.h>
+#else
+	#include <GLFW/glfw3.h>
+#endif
 
 #include "progInfo.h"
 #include "glShared.h"

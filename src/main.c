@@ -3,6 +3,8 @@
 #include "progInfo.h"
 #include "impl/impl.h"
 
+static unsigned char i, j;
+
 unsigned char oldRandomColor = 13;
 unsigned char randomColor = 13;
 unsigned char level = 1;
@@ -41,14 +43,14 @@ void generateLevel(unsigned char level) {
 			(unsigned short)(RENDER_HEIGHT / (level * 1.5))
 		};
 		
-		for (unsigned char i = 0; i < level; i++) {
+		for (i = 0; i < level; i++) {
 			oldRandomColor = randomColor;
 			
 			while (randomColor == oldRandomColor) {
 				randomColor = random_get();
 			}
 			
-			for (unsigned char j = 0; j < level; j++) {
+			for (j = 0; j < level; j++) {
 				if ((j * blockSize[0] < RENDER_WIDTH) && (i * blockSize[1] < RENDER_HEIGHT)) {
 					blockCount++;
 					entity_init(
@@ -93,8 +95,8 @@ void reset() {
 	level = 1;
 	score = 0;
 	timerStart = 0;
-	for (unsigned char i = 0; i < MAX_BLOCKS; i++) {
-		for (unsigned char j = 0; j < MAX_BLOCKS; j++) {
+	for (i = 0; i < MAX_BLOCKS; i++) {
+		for (j = 0; j < MAX_BLOCKS; j++) {
 			blocks[j][i].visible = 0;
 		}
 	}
@@ -127,8 +129,8 @@ void draw() {
 	}
 	
 	entity_draw(&player, 1);
-	for (unsigned char i = 0; i < level; i++) {
-		for (unsigned char j = 0; j < level; j++) {
+	for (i = 0; i < level; i++) {
+		for (j = 0; j < level; j++) {
 			if (blocks[j][i].visible) {
 				entity_draw(&blocks[j][i], 0);	
 				if (entity_collision(&player, &blocks[j][i])) {

@@ -1,5 +1,9 @@
 /* SDL3 Implementation */
-#include <SDL3/SDL.h>
+#ifdef __APPLE
+	#include <SDL.h>
+#else
+	#include <SDL3/SDL.h>
+#endif
 
 #include "entity.h"
 #include "random.h"

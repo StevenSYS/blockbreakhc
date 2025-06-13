@@ -9,7 +9,10 @@ if(IMPL STREQUAL "SDL3")
 elseif(IMPL STREQUAL "GLUT")
 	find_package(OpenGL REQUIRED)
 	find_package(GLUT REQUIRED)
-	include_directories(${OPENGL_INCLUDE_DIRS})
+	include_directories(
+		${OPENGL_INCLUDE_DIRS}
+		${GLUT_INCLUDE_DIR}
+	)
 	set(IMPL_FILES "glut.c")
 elseif(IMPL STREQUAL "GLFW3")
 	find_package(OpenGL REQUIRED)

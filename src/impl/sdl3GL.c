@@ -1,6 +1,11 @@
 /* SDL3 + GL Implementation */
-#include <SDL3/SDL.h>
-#include <GL/gl.h>
+#ifdef __APPLE
+	#include <SDL.h>
+	#include <gl.h>
+#else
+	#include <SDL3/SDL.h>
+	#include <GL/gl.h>
+#endif
 
 #include "entity.h"
 #include "random.h"

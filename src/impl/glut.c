@@ -1,5 +1,9 @@
 /* GLUT Implementation */
-#include <GL/glut.h>
+#ifdef __APPLE
+	#include <glut.h>
+#else
+	#include <GL/glut.h>
+#endif
 
 #include "progInfo.h"
 #include "glShared.h"
