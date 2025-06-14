@@ -1,5 +1,5 @@
-#include <random/random.h>
-#include <impl/impl.h>
+#include <random.h>
+#include <impl.h>
 
 #include "entity.h"
 #include "progInfo.h"

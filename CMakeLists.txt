@@ -21,6 +21,11 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
 set(CMAKE_C_FLAGS_RELEASE "-s -O2")
 
+include_directories(
+	"src/random"
+	"src/impl"
+)
+
 if(BUILD_FOR_OLDWIN)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=i586 -fcf-protection=none")
 elseif(NOT WIN32 AND BUILD_FOR_OLDWIN)
@@ -43,10 +48,6 @@ else()
 endif()
 
 add_library(Random "src/random/random.c")
-
-include_directories(
-	"src/random/"
-)
 
 add_subdirectory(src/impl)
 
