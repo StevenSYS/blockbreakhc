@@ -45,7 +45,7 @@ elseif(IMPL STREQUAL "GLUT")
 	target_link_libraries(
 		Impl
 		${OPENGL_LIBRARY}
-		${GLUT_glut_LIBRARY}
+		${pkgcfg_lib_PC_GLUT_glut}
 	)
 	if (APPLE)
 		target_link_libraries(Impl "-framework OpenGL")

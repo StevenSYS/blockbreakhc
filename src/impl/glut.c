@@ -1,12 +1,12 @@
 /* GLUT Implementation */
+#include "glShared.h"
+
 #ifdef __APPLE
 	#include <glut.h>
 #else
+	#define GLUT_DISABLE_ATEXIT_HACK
 	#include <GL/glut.h>
 #endif
-
-#include "progInfo.h"
-#include "glShared.h"
 
 static void input(
 	unsigned char key,

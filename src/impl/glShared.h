@@ -1,7 +1,9 @@
 /* Shared OpenGL Functions */
 #include <stdio.h>
 #include <string.h>
+#include <GL/gl.h>
 
+#include "progInfo.h"
 #include "entity.h"
 #include "random.h"
 

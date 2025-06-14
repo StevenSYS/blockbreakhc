@@ -1,12 +1,11 @@
 /* GLFW3 Implementation */
+#include "glShared.h"
+
 #ifdef __APPLE
 	#include <glfw3.h>
 #else
 	#include <GLFW/glfw3.h>
 #endif
-
-#include "progInfo.h"
-#include "glShared.h"
 
 static GLFWwindow *window;
 

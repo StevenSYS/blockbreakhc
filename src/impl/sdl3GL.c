@@ -1,4 +1,6 @@
 /* SDL3 + GL Implementation */
+#include "glShared.h"
+
 #ifdef __APPLE
 	#include <SDL.h>
 	#include <gl.h>
@@ -6,11 +8,6 @@
 	#include <SDL3/SDL.h>
 	#include <GL/gl.h>
 #endif
-
-#include "entity.h"
-#include "random.h"
-#include "progInfo.h"
-#include "glShared.h"
 
 static char running = 1;
 
