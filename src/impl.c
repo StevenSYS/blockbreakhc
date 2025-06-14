@@ -1,4 +1,5 @@
-#include "random.h"
+#include <random.h>
+
 #include "entity.h"
 #include "progInfo.h"
 
@@ -50,8 +51,9 @@ void impl_loopEnd() {
 }
 
 void impl_init(
-	int argc,
-	char *argv[]
+	int argc, char *argv[],
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
 ) {
 	return;
 }
