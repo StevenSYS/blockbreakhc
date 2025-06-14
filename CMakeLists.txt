@@ -5,6 +5,7 @@ project(BlockBreakC LANGUAGES C VERSION 1.2)
 set(IMPL "GLFW3" CACHE STRING "The implementation to build with")
 set(HSSIMPL "Dummy" CACHE STRING "The high score saving implementation to build with")
 option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Windows Compiler Required)" OFF)
+option(BUILD_FOR_I586 "Build ${PROJECT_NAME} for the i586 (Intel Pentium) or higher" OFF)
 option(BUILD_SHARED_LIBS "Build implementation as a shared library" OFF)
 option(BUILD_ONLY_IMPL "Build only the implementation library" OFF)
 option(BUILD_AS_LIBRARY "Build the game as a library" OFF)
@@ -12,6 +13,10 @@ option(BUILD_AS_LIBRARY "Build the game as a library" OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
 set(CMAKE_C_FLAGS_RELEASE "-s -O2")
+
+if (BUILD_FOR_I586)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=i586 -fcf-protection=none")
+endif
 
 if(WIN32)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wl,-subsystem,windows")
