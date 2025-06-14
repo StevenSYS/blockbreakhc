@@ -23,7 +23,7 @@ void draw();
 extern char timerStart;
 extern entity_t player;
 
-static void input() {
+static void handleEvent() {
 	SDL_PollEvent(&event);
 	
 	switch (event.type) {
@@ -111,7 +111,7 @@ void impl_init(int argc, char *argv[]) {
 		draw();
 		
 		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
-			input();
+			handleEvent();
 			SDL_Delay(1);
 		}
 	}

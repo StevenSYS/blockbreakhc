@@ -20,7 +20,7 @@ static SDL_Event event;
 static SDL_Window *window;
 static SDL_GLContext glContext;
 
-static void input() {
+static void handleEvent() {
 	SDL_PollEvent(&event);
 	
 	switch (event.type) {
@@ -89,11 +89,11 @@ void impl_init(int argc, char *argv[]) {
 	while (running) {
 		lastTime = SDL_GetTicks();
 		
-		input();
+		handleEvent();
 		draw();
 		
 		while (SDL_GetTicks() < lastTime + (1000.0f / MAX_FPS)) {
-			input();
+			handleEvent();
 			SDL_Delay(1);
 		}
 	}
