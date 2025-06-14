@@ -1,6 +1,8 @@
 #ifndef __IMPL__
 #define __IMPL__
 
+#include "entity.h"
+
 void impl_loopStart();
 
 void impl_loopEnd();
@@ -13,7 +15,8 @@ void impl_setColor(
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
 );
 
 /* Draw */

@@ -1,7 +1,8 @@
-#include "random.h"
+#include <random/random.h>
+#include <impl/impl.h>
+
 #include "entity.h"
 #include "progInfo.h"
-#include "impl/impl.h"
 
 static unsigned char i, j;
 
@@ -173,7 +174,8 @@ int main(
 	
 	impl_init(
 		argc, argv,
-		&timerStart, &player
+		&timerStart, &player,
+		&reset, &draw
 	);
 	return 0;
 }

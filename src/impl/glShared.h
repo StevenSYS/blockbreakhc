@@ -1,16 +1,16 @@
 /* Shared OpenGL Functions */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <GL/gl.h>
+#include <random.h>
 
 #include "progInfo.h"
 #include "entity.h"
-#include "random.h"
 
-void draw();
-void reset();
+static void (*main_reset)();
 
-static char string[11];
+static char *string;
 static char *main_timerStart;
 
 static unsigned char i, j;
@@ -33,7 +33,8 @@ static entity_t *main_player;
 
 static void glSharedInit(
 	char *timerStart,
-	entity_t *player
+	entity_t *player,
+	void (*reset)()
 ) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
@@ -50,8 +51,11 @@ static void glSharedInit(
 		}
 	}
 	
+	string = malloc(sizeof(char[11]));
+	
 	main_timerStart = timerStart;
 	main_player = player;
+	main_reset = reset;
 	return;
 }
 

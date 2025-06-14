@@ -20,7 +20,11 @@ static const unsigned char table[256] = {
 static unsigned char index = 0;
 
 void random_increase() {
-	index = (index + 1) % 256;
+	/*
+		Since this is a unsigned char,
+		it will loop back to 0 when it goes over 255
+	*/
+	index++;
 	return;
 }
 

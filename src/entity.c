@@ -1,5 +1,6 @@
+#include <impl/impl.h>
+
 #include "entity.h"
-#include "impl/impl.h"
 
 unsigned char entity_collision(
 	entity_t *entity1,

@@ -15,7 +15,7 @@ static void input(
 	random_increase();
 	switch (key) {
 		case '\r': /* Enter */
-			reset();
+			main_reset();
 			break;
 		default:
 			break;
@@ -63,7 +63,8 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
 ) {
 	glutInit(&argc, argv);
 	
@@ -71,7 +72,10 @@ void impl_init(
 	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - GLUT");
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
-	glSharedInit(timerStart, player);
+	glSharedInit(
+		timerStart, player,
+		reset
+	);
 	
 	glutKeyboardFunc(input);
 	glutSpecialFunc(inputSpecial);

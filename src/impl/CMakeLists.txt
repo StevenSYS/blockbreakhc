@@ -1,7 +1,4 @@
-include_directories(../)
-
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+include_directories("../")
 
 if(IMPL STREQUAL "SDL3")
 	find_package(SDL3 REQUIRED)
@@ -39,6 +36,8 @@ endif()
 
 add_library(Impl ${IMPL_FILES})
 
+target_link_libraries(Impl Random)
+
 if(IMPL STREQUAL "SDL3")
 	target_link_libraries(Impl SDL3::SDL3)
 elseif(IMPL STREQUAL "GLUT")
@@ -47,6 +46,11 @@ elseif(IMPL STREQUAL "GLUT")
 		${OPENGL_LIBRARY}
 		${pkgcfg_lib_PC_GLUT_glut}
 	)
+	if (BUILD_FOR_OLDWIN)
+		target_link_libraries(Impl libglut.a)
+	else()
+		target_link_libraries(Impl ${GLUT_glut_LIBRARY})
+	endif()
 	if (APPLE)
 		target_link_libraries(Impl "-framework OpenGL")
 	endif()

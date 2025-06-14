@@ -9,8 +9,7 @@
 #include "random.h"
 #include "progInfo.h"
 
-void reset();
-void draw();
+static void (*main_reset)();
 
 static char running = 1;
 static char *main_timerStart;
@@ -47,7 +46,7 @@ static void handleEvent() {
 					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_RETURN:
-					reset();
+					main_reset();
 					break;
 				case SDL_SCANCODE_ESCAPE:
 					running = 0;
@@ -85,7 +84,8 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
 ) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",
@@ -110,6 +110,7 @@ void impl_init(
 	
 	main_timerStart = timerStart;
 	main_player = player;
+	main_reset = reset;
 	
 	while (running) {
 		lastTime = SDL_GetTicks();

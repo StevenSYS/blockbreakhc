@@ -3,8 +3,7 @@
 #include "random.h"
 #include "progInfo.h"
 
-void reset();
-void draw();
+static void (*main_reset)();
 
 static char *main_timerStart;
 
@@ -28,10 +27,12 @@ void impl_setColor(
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
 ) {
 	main_timerStart = timerStart;
 	main_player = player;
+	main_reset = reset;
 	return;
 }
 

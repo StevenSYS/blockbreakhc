@@ -5,35 +5,35 @@
 #include "random.h"
 #include "progInfo.h"
 
-void reset();
-void draw();
+static void (*main_reset)();
 
-extern char timerStart;
-extern entity_t player;
+static char *main_timerStart;
 
 static Color currentColor;
+
+static entity_t *main_player;
 
 static void input() {
 	if (GetKeyPressed()) {
 		random_increase();
 		if (IsKeyPressed(KEY_UP)) {
-			player.direction = ENTITY_DIR_UP;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_UP;
+			*main_timerStart = 1;
 		}
 		if (IsKeyPressed(KEY_DOWN)) {
-			player.direction = ENTITY_DIR_DOWN;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_DOWN;
+			*main_timerStart = 1;
 		}
 		if (IsKeyPressed(KEY_LEFT)) {
-			player.direction = ENTITY_DIR_LEFT;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_LEFT;
+			*main_timerStart = 1;
 		}
 		if (IsKeyPressed(KEY_RIGHT)) {
-			player.direction = ENTITY_DIR_RIGHT;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_RIGHT;
+			*main_timerStart = 1;
 		}
 		if (IsKeyPressed(KEY_ENTER)) {
-			reset();
+			main_reset();
 		}
 	}
 	return;
@@ -60,12 +60,17 @@ void impl_setColor(
 }
 
 void impl_init(
-	int argc,
-	char *argv[]
+	int argc, char *argv[],
+	char *timerStart, entity_t *player,
+	void (*reset)(), void (*draw)()
 ) {
 	InitWindow(RENDER_WIDTH, RENDER_HEIGHT, PROGRAM_NAME " v" PROGRAM_VERSION " - raylib");
 	
 	SetTargetFPS(MAX_FPS);
+	
+	main_timerStart = timerStart;
+	main_player = player;
+	main_reset = reset;
 	
 	while (!WindowShouldClose()) {
 		input();

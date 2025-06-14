@@ -38,7 +38,7 @@ static void input(
 				main_player->direction = ENTITY_DIR_RIGHT;
 				break;
 			case GLFW_KEY_ENTER:
-				reset();
+				main_reset();
 				break;
 			case GLFW_KEY_ESCAPE:
 				glfwSetWindowShouldClose(window, GL_TRUE);
@@ -58,8 +58,10 @@ void impl_loopEnd() {
 
 void impl_init(
 	int argc, char *argv[],
-	char *timerStart, entity_t *player
+	char *timerStart, entity_t *player,
+	void (*reset)(), void(*draw)()
 ) {
+
 	if (!glfwInit()) {
 		return;
 	}
@@ -84,7 +86,10 @@ void impl_init(
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, input);
 	
-	glSharedInit(timerStart, player);
+	glSharedInit(
+		timerStart, player,
+		reset
+	);
 	
 	while (!glfwWindowShouldClose(window)) {
 		lastTime = glfwGetTime();
