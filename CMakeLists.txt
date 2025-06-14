@@ -4,7 +4,7 @@ project(BlockBreakC LANGUAGES C VERSION 1.2)
 
 set(IMPL "GLFW3" CACHE STRING "The implementation to build with")
 set(HSSIMPL "Dummy" CACHE STRING "The high score saving implementation to build with")
-option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Mingw-w64 Required)" OFF)
+option(BUILD_USING_MSVCRT20 "Build ${PROJECT_NAME} using msvcrt20 (Windows Compiler Required)" OFF)
 option(BUILD_SHARED_LIBS "Build implementation as a shared library" OFF)
 option(BUILD_ONLY_IMPL "Build only the implementation library" OFF)
 option(BUILD_AS_LIBRARY "Build the game as a library" OFF)
