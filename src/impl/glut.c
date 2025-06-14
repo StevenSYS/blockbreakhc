@@ -29,20 +29,20 @@ static void inputSpecial(
 	random_increase();
 	switch (key) {
 		case GLUT_KEY_UP:
-			player.direction  = ENTITY_DIR_UP;
-			timerStart = 1;
+			main_player->direction  = ENTITY_DIR_UP;
+			*main_timerStart = 1;
 			break;
 		case GLUT_KEY_DOWN:
-			player.direction = ENTITY_DIR_DOWN;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_DOWN;
+			*main_timerStart = 1;
 			break;
 		case GLUT_KEY_LEFT:
-			player.direction = ENTITY_DIR_LEFT;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_LEFT;
+			*main_timerStart = 1;
 			break;
 		case GLUT_KEY_RIGHT:
-			player.direction = ENTITY_DIR_RIGHT;
-			timerStart = 1;
+			main_player->direction = ENTITY_DIR_RIGHT;
+			*main_timerStart = 1;
 			break;
 		default:
 			break;
@@ -61,14 +61,17 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(int argc, char *argv[]) {
+void impl_init(
+	int argc, char *argv[],
+	char *timerStart, entity_t *player
+) {
 	glutInit(&argc, argv);
 	
 	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE);
 	glutCreateWindow(PROGRAM_NAME " v" PROGRAM_VERSION " - GLUT");
 	glutReshapeWindow(RENDER_WIDTH, RENDER_HEIGHT);
 	
-	glSharedInit();
+	glSharedInit(timerStart, player);
 	
 	glutKeyboardFunc(input);
 	glutSpecialFunc(inputSpecial);

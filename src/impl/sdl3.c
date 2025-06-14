@@ -9,7 +9,11 @@
 #include "random.h"
 #include "progInfo.h"
 
+void reset();
+void draw();
+
 static char running = 1;
+static char *main_timerStart;
 
 static unsigned int lastTime;
 
@@ -17,11 +21,7 @@ static SDL_Event event;
 static SDL_Window *window;
 static SDL_Renderer *renderer;
 
-void reset();
-void draw();
-
-extern char timerStart;
-extern entity_t player;
+static entity_t *main_player;
 
 static void handleEvent() {
 	SDL_PollEvent(&event);
@@ -31,20 +31,20 @@ static void handleEvent() {
 			random_increase();
 			switch (event.key.scancode) {
 				case SDL_SCANCODE_UP:
-					player.direction = ENTITY_DIR_UP;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_UP;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_DOWN:
-					player.direction = ENTITY_DIR_DOWN;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_DOWN;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_LEFT:
-					player.direction = ENTITY_DIR_LEFT;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_LEFT;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_RIGHT:
-					player.direction = ENTITY_DIR_RIGHT;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_RIGHT;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_RETURN:
 					reset();
@@ -83,7 +83,10 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(int argc, char *argv[]) {
+void impl_init(
+	int argc, char *argv[],
+	char *timerStart, entity_t *player
+) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3",
 		RENDER_WIDTH, RENDER_HEIGHT,
@@ -104,6 +107,9 @@ void impl_init(int argc, char *argv[]) {
 		SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Couldn't create renderer: %s\n", SDL_GetError());
 		return;
 	}
+	
+	main_timerStart = timerStart;
+	main_player = player;
 	
 	while (running) {
 		lastTime = SDL_GetTicks();

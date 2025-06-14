@@ -6,8 +6,9 @@
 void reset();
 void draw();
 
-extern char timerStart;
-extern entity_t player;
+static char *main_timerStart;
+
+static entity_t *main_player;
 
 void impl_loopStart() {
 	return;
@@ -26,9 +27,11 @@ void impl_setColor(
 }
 
 void impl_init(
-	int argc,
-	char *argv[]
+	int argc, char *argv[],
+	char *timerStart, entity_t *player
 ) {
+	main_timerStart = timerStart;
+	main_player = player;
 	return;
 }
 

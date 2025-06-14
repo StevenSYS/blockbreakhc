@@ -22,20 +22,20 @@ static void input(
 		random_increase();
 		switch (key) {
 			case GLFW_KEY_UP:
-				timerStart = 1;
-				player.direction = ENTITY_DIR_UP;
+				*main_timerStart = 1;
+				main_player->direction = ENTITY_DIR_UP;
 				break;
 			case GLFW_KEY_DOWN:
-				timerStart = 1;
-				player.direction = ENTITY_DIR_DOWN;
+				*main_timerStart = 1;
+				main_player->direction = ENTITY_DIR_DOWN;
 				break;
 			case GLFW_KEY_LEFT:
-				timerStart = 1;
-				player.direction = ENTITY_DIR_LEFT;
+				*main_timerStart = 1;
+				main_player->direction = ENTITY_DIR_LEFT;
 				break;
 			case GLFW_KEY_RIGHT:
-				timerStart = 1;
-				player.direction = ENTITY_DIR_RIGHT;
+				*main_timerStart = 1;
+				main_player->direction = ENTITY_DIR_RIGHT;
 				break;
 			case GLFW_KEY_ENTER:
 				reset();
@@ -56,7 +56,10 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(int argc, char *argv[]) {
+void impl_init(
+	int argc, char *argv[],
+	char *timerStart, entity_t *player
+) {
 	if (!glfwInit()) {
 		return;
 	}
@@ -81,7 +84,7 @@ void impl_init(int argc, char *argv[]) {
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, input);
 	
-	glSharedInit();
+	glSharedInit(timerStart, player);
 	
 	while (!glfwWindowShouldClose(window)) {
 		lastTime = glfwGetTime();

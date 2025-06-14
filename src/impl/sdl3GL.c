@@ -25,20 +25,20 @@ static void handleEvent() {
 			random_increase();
 			switch (event.key.scancode) {
 				case SDL_SCANCODE_UP:
-					player.direction = ENTITY_DIR_UP;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_UP;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_DOWN:
-					player.direction = ENTITY_DIR_DOWN;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_DOWN;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_LEFT:
-					player.direction = ENTITY_DIR_LEFT;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_LEFT;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_RIGHT:
-					player.direction = ENTITY_DIR_RIGHT;
-					timerStart = 1;
+					main_player->direction = ENTITY_DIR_RIGHT;
+					*main_timerStart = 1;
 					break;
 				case SDL_SCANCODE_RETURN:
 					reset();
@@ -62,7 +62,10 @@ void impl_loopEnd() {
 	return;
 }
 
-void impl_init(int argc, char *argv[]) {
+void impl_init(
+	int argc, char *argv[],
+	char *timerStart, entity_t *player
+) {
 	window = SDL_CreateWindow(
 		PROGRAM_NAME " v" PROGRAM_VERSION " - SDL3 + GL",
 		RENDER_WIDTH, RENDER_HEIGHT,
@@ -81,7 +84,7 @@ void impl_init(int argc, char *argv[]) {
 		return;
 	}
 	
-	glSharedInit();
+	glSharedInit(timerStart, player);
 	
 	while (running) {
 		lastTime = SDL_GetTicks();

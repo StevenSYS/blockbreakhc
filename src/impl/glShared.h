@@ -10,10 +10,8 @@
 void draw();
 void reset();
 
-extern char timerStart;
-extern entity_t player;
-
 static char string[11];
+static char *main_timerStart;
 
 static unsigned char i, j;
 
@@ -31,7 +29,12 @@ static const GLubyte numberSheet[10][FONT_HEIGHT] = {
 };
 static GLubyte numberSheetGL[10][(FONT_HEIGHT * 4) + 1];
 
-static void glSharedInit() {
+static entity_t *main_player;
+
+static void glSharedInit(
+	char *timerStart,
+	entity_t *player
+) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glOrtho(0, RENDER_WIDTH, RENDER_HEIGHT, 0, -1, 1);
 	
@@ -46,6 +49,9 @@ static void glSharedInit() {
 			numberSheetGL[j][i] = numberSheet[j][i / 4];
 		}
 	}
+	
+	main_timerStart = timerStart;
+	main_player = player;
 	return;
 }
 

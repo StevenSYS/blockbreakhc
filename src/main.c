@@ -171,6 +171,9 @@ int main(
 	
 	init(level, &player);
 	
-	impl_init(argc, argv);
+	impl_init(
+		argc, argv,
+		&timerStart, &player
+	);
 	return 0;
 }

@@ -12,8 +12,8 @@ void impl_setColor(
 );
 
 void impl_init(
-	int argc,
-	char *argv[]
+	int argc, char *argv[],
+	char *timerStart, entity_t *player
 );
 
 /* Draw */
