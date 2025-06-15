@@ -44,9 +44,8 @@ elseif(IMPL STREQUAL "GLUT")
 	target_link_libraries(
 		Impl
 		${OPENGL_LIBRARY}
-		${pkgcfg_lib_PC_GLUT_glut}
 	)
-	if (BUILD_FOR_OLDWIN)
+	if (BUILD_USING_MSVCRT20)
 		target_link_libraries(Impl libglut.a)
 	else()
 		target_link_libraries(Impl ${GLUT_glut_LIBRARY})
