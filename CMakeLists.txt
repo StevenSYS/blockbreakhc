@@ -21,11 +21,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DFONT_WIDTH=8 -DFONT_HEIGHT=8")
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall")
 set(CMAKE_C_FLAGS_RELEASE "-s -O2")
 
-include_directories(
-	"src/random"
-	"src/impl"
-)
-
 if(BUILD_FOR_OLDWIN)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=i586 -fcf-protection=none")
 elseif(NOT WIN32 AND BUILD_FOR_OLDWIN)
@@ -41,24 +36,35 @@ elseif(NOT WIN32 AND BUILD_USING_MSVCRT20)
 	message(FATAL_ERROR "To build using msvcrt20 you must be compiling for Windows")
 endif()
 
+include_directories(
+	"src/random"
+	"src/impl"
+)
+
+add_subdirectory(src/impl)
+
 if(HSSIMPL STREQUAL "Dummy")
 	set(HSSIMPL_FILES "src/impl/highScore/dummy.c")
 else()
 	message(FATAL_ERROR "Invalid high score saving implementation, the only possible value is \"Dummy\"")
 endif()
 
-add_library(Random "src/random/random.c")
-
-add_subdirectory(src/impl)
+add_library(HSSImpl STATIC ${HSSIMPL_FILES})
+add_library(Random STATIC "src/random/random.c")
 
 if(NOT BUILD_ONLY_LIBRARY)
 	file(GLOB SOURCE_FILES "src/*.c")
 	
 	if(BUILD_AS_LIBRARY)
-		add_library(${PROJECT_NAME} ${HSSIMPL_FILES} ${SOURCE_FILES})
+		add_library(${PROJECT_NAME} ${SOURCE_FILES})
 	else()
-		add_executable(${PROJECT_NAME} ${HSSIMPL_FILES} ${SOURCE_FILES})
+		add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 		target_include_directories(${PROJECT_NAME} PRIVATE src)
 	endif()
-	target_link_libraries(${PROJECT_NAME} Impl Random)
+	target_link_libraries(
+		${PROJECT_NAME}
+		Impl
+		HSSImpl
+		Random
+	)
 endif()

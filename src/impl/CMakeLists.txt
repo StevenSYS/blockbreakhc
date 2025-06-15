@@ -34,7 +34,7 @@ else()
 	message(FATAL_ERROR "Invalid implementation, the possible values are \"SDL3\", \"GLUT\", \"GLFW3\", \"SDL3GL\" or \"Dummy\"")
 endif()
 
-add_library(Impl ${IMPL_FILES})
+add_library(Impl ${HSSIMPL_FILES} ${IMPL_FILES})
 
 target_link_libraries(Impl Random)
 
