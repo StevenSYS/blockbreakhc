@@ -41,14 +41,8 @@ include_directories(
 )
 
 add_subdirectory(src/impl)
+add_subdirectory(src/impl/highScore)
 
-if(HSSIMPL STREQUAL "Dummy")
-	set(HSSIMPL_FILES "src/impl/highScore/dummy.c")
-else()
-	message(FATAL_ERROR "Invalid high score saving implementation, the only possible value is \"Dummy\"")
-endif()
-
-add_library(HSSImpl STATIC ${HSSIMPL_FILES})
 add_library(Random STATIC "src/random/random.c")
 
 if(NOT BUILD_ONLY_LIBRARY)
